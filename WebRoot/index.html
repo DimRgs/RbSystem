@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+	<script src="js/jquery.min.js"></script>
+  	<script src="js/jquery.uniform.js"></script>
+  	<script type="text/javascript" language="javascript">
+  		$(document).ready(function()
+  		{
+  			$.ajax({
+  				type:"POST",
+  				url:"/RbSystem/test.do",
+  				dataType:"json",
+  				data:{"name":"Íõ´óÃ÷", "password":"123456"},
+  				success: function(data){
+					dataStr = JSON.stringify(data);
+	               	data = $.parseJSON(dataStr);
+	               	alert(data.count);
+  				}
+  			});
+  		});
+  	</script>
+  </head>
+  
+  <body>
+    Test for . <br>
+  </body>
+</html>
