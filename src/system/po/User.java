@@ -2,6 +2,7 @@ package system.po;
 
 public class User {
 	private String name;
+	private String password;
 	private String id;
 	private String idCard;
 	private int gender;
@@ -29,6 +30,12 @@ public class User {
 	}
 	public void setGender(int gender) {
 		this.gender = gender;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

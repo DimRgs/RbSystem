@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import system.po.UserInfo;
 import system.service.UserService;
 
 @Controller
@@ -34,7 +35,11 @@ public class UserHandler {
 	public Map<String, Object> Login(String id, String password) throws Exception 
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
-		
+		UserInfo userInfo = us.getUserInfo(id);
+		if(userInfo.getUser().getPassword().equalsIgnoreCase(password))
+		{
+			
+		}
 		return map;
 	}
 }
