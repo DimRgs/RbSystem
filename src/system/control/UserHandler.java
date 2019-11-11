@@ -28,4 +28,13 @@ public class UserHandler {
 		map.put("count", us.getDepartmentCount());
 		return map;
 	}
+	
+	@RequestMapping("login.do")
+	@ResponseBody
+	public Map<String, Object> Login(String id, String password) throws Exception 
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		
+		return map;
+	}
 }
