@@ -3,24 +3,15 @@ package system.control;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import system.po.UserInfo;
-import system.service.UserService;
 
 @Controller
-public class UserHandler {
-	
-	@Autowired
-	private UserService us;
-	@Autowired
-	private HttpServletRequest request;
-	
+public class UserHandler extends RootHandler {
+
 	@RequestMapping("/remove.do")
 	@ResponseBody
 	public String removeSession() throws Exception
@@ -49,6 +40,7 @@ public class UserHandler {
 			map.put("count", request.getSession().getAttribute("count"));
 			
 		}
+		map.put("root", request.getSession().getAttribute("root"));
 		
 		return map;
 	}

@@ -8,13 +8,13 @@
   		{
   			$.ajax({
   				type:"POST",
-  				url:"/RbSystem/test.do",
+  				url:"/RbSystem/api/test.do",
   				dataType:"json",
   				data:{"name":"Íõ´óÃ÷", "password":"123456"},
   				success: function(data){
 					dataStr = JSON.stringify(data);
 	               	data = $.parseJSON(dataStr);
-	               	alert(data.count);
+	               	alert(data.root);
   				}
   			});
   		});
