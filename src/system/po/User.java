@@ -7,8 +7,9 @@ public class User {
 	private String password;
 	private String id;
 	private String idCard;
-	private String telphone;
+	private String telephone;
 	private Date register_date;
+	private String type;
 	private int gender;
 	
 	public String getName() {
@@ -42,16 +43,22 @@ public class User {
 		this.password = password;
 	}
 	public String getTelphone() {
-		return telphone;
+		return telephone;
 	}
 	public void setTelphone(String telphone) {
-		this.telphone = telphone;
+		this.telephone = telphone;
 	}
 	public Date getRegister_date() {
 		return register_date;
 	}
 	public void setRegister_date(Date register_date) {
 		this.register_date = register_date;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }
