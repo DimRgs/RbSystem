@@ -57,6 +57,11 @@ public class UserHandler extends RootHandler {
 		{
 			setF(map);
 		}
+		else 
+		{
+			setS(map);
+			map.put("rb_state", us.getLastRbId(user.getId())) ;
+		}
 		return map;
 	}
 	
