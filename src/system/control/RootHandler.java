@@ -2,6 +2,7 @@ package system.control;
 
 import static system.util.SystemUtil.setF;
 import static system.util.SystemUtil.setS;
+import static system.util.FileUploadUtil.uploadFiles;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import system.po.User;
 import system.po.UserInfo;
@@ -58,11 +60,35 @@ public class RootHandler {
 		return map;
 	}
 	
+	@RequestMapping("/upload.do")
+	@ResponseBody
+	public Map<String, Object> upload(MultipartFile[] file) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		String path;
+		for(MultipartFile f : file)
+		{
+			if((path = uploadFiles(f, "../../photo")) != null)
+			{
+				setS(map);
+				dataMap.put("path", path);
+				map.put("Data", dataMap);
+			}
+			else 
+			{
+				setF(map);
+			}
+		}
+		return map;
+	}
+	
 	@RequestMapping("/homepage.do")
 	@ResponseBody
 	public Map<String, Object> homepage() throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		User user = (User)request.getSession().getAttribute("User");
 		if(user == null)
 		{
@@ -71,7 +97,11 @@ public class RootHandler {
 		else 
 		{
 			setS(map);
-			map.put("rb_state", us.getLastRbId(user.getId())) ;
+			//需要判断是否是管理人员
+			
+			//如果是报销人员，先查询最近报销单申请表状态，如果不是1或6，直接返回id和状态
+			dataMap.put("rb_state", us.getLastRbId(user.getId())) ;
+			map.put("Data", dataMap);
 		}
 		return map;
 	}
@@ -81,6 +111,7 @@ public class RootHandler {
 	public Map<String, Object> login(String id, String password) throws Exception 
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		UserInfo userInfo = us.getUserInfo(id, password);
 		if(userInfo == null)
 		{
@@ -90,9 +121,10 @@ public class RootHandler {
 		else if(userInfo.getUser().getPassword().equalsIgnoreCase(password))
 		{
 			setS(map);
-			map.put("level", 1);
-			map.put("User", userInfo.getUser());
-			map.put("Department", userInfo.getDepartment());
+			dataMap.put("level", 1);
+			dataMap.put("User", userInfo.getUser());
+			dataMap.put("Department", userInfo.getDepartment());
+			map.put("Data", dataMap);
 			request.getSession().setAttribute("User", userInfo.getUser());
 		}
 		return map;

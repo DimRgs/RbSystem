@@ -12,12 +12,21 @@
 		<result property="register_date" column="register_time" />
 		<result property="gender" column="gender" />
 	</resultMap>
+	<resultMap type="RbDetail" id="rb_map">
+		<id property="id" column="id" />
+		<result property="state" column="rb_state_id" />
+		<result property="hospital" column="hospital" />
+		<result property="date" column="s_time" />
+		<association property="user" javaType="User">
+			<id property="id" column="id" />
+		</association>
+	</resultMap>
 	<resultMap type="UserInfo" id="userInfo_map">
 		<association property="user" javaType="User">
 			<id property="id" column="id" />
 			<result property="password" column="password" />
 			<result property="name" column="name" />
-			<result property="idcard" column="id_card" />
+			<result property="idCard" column="id_card" />
 			<result property="telephone" column="telephone" />
 			<result property="register_date" column="register_time" />
 			<result property="gender" column="gender" />
@@ -38,7 +47,7 @@
 	</select>
 	<select id="getUserById" resultMap="user_map">
 		select * from department 
-		where id = '${id}' and password = '${password}' 
+		where id = '${param1}' and password = '${param2}' 
 	</select>
 	<select id="getUserInfo" resultMap="userInfo_map">
 		select 
@@ -49,18 +58,18 @@
 			user, department, user_type
 		where 
 			user.department_id = department.id and
-			user.id = '${id}' and 
-			user.password = '${password}' and 
+			user.id = '${param1}' and 
+			user.password = '${param2}' and 
 			user.user_type_id = user_type.id
 	</select>
 	<!-- update -->
 	<update id="updateUserTel">
-		update user set telephone = '${telephone}'
-		where id ='${user_id}'
+		update user set telephone = '${param2}'
+		where id ='${param1}'
 	</update>
 	<update id="updateUserPsd">
-		update user set password = '${newPsd}'
-		where id = '${user_id}'
-		and password = '${psd}'
+		update user set password = '${param3}'
+		where id = '${param1}'
+		and password = '${param2}'
 	</update>
 </mapper>

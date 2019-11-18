@@ -1,6 +1,6 @@
 登录
 
-url: /login.do
+url: /RbSystem/login.do
 
 输入 String:id, String:password
 返回 Json{
@@ -24,23 +24,24 @@ url: /login.do
 
 首页获取首页信息
 
-url: /homepage.do
+url: /RbSystem/homepage.do
 输入 无
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
 	Data:{
 		int:rb_state(1:未提交；2:待审核; 3:审核中; 4:待确认; 5:等待报销; 6:已完成)
+		String:rb_id(用于新增报销单申请表页面加载时输入，这样后台不用重新查找报销单id)
 	}
 }
 
-url: /user/changTel.do
+url: /RbSystem/user/changTel.do
 
 输入 String:id, String:telephone
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
 }
 
-url: /user/changPsd.do
+url: /RbSystem/user/changPsd.do
 
 输入 String:id, String:psd, String:newpsd,
 返回 Json{
@@ -48,15 +49,30 @@ url: /user/changPsd.do
 }
 
 报销单填写界面获取报销单内容
-url: /user/getRbForm.do
-输入 无
 
-
-用户点击提交报销单
-
-url: /user/subRbForm.do
-输入 Json{
-	
+url: /RbSystem/user/getRbForm.do
+输入 String:rb_id
+返回 Json{
+	String:success("success": 成功； "failure": 失败),
+	Data:{
+		String:rb_id,
+		String:hospital,
+		Referral:{
+			(这是转诊单)
+			String:id,
+			Date:date,
+			String:pic
+		},
+		Guahaofei[]:{
+			(这是挂号费列表)
+			String:id,
+			String:department(科室),
+			Date:date(日期),
+			
+		}
+	}
 }
+
+
 
 

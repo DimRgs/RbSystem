@@ -20,7 +20,7 @@ public class UserHandler extends RootHandler {
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		User user = (User)request.getSession().getAttribute("User");
-		if(us.updateUserTel(user.getId(), telephone) == 1)
+		if(user != null && us.updateUserTel(user.getId(), telephone) == 1)
 		{
 			setS(map);
 		}
@@ -37,7 +37,7 @@ public class UserHandler extends RootHandler {
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		User user = (User)request.getSession().getAttribute("User");
-		if(us.updateUserPsd(user.getId(), psd, newpsd) == 1)
+		if(user != null && us.updateUserPsd(user.getId(), psd, newpsd) == 1)
 		{
 			setS(map);
 		}
@@ -53,8 +53,14 @@ public class UserHandler extends RootHandler {
 	public Map<String, Object> subRbForm() throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		User user = (User)request.getSession().getAttribute("User");
+		if(user == null)
+		{
+			setF(map);
+		}
 		
+		map.put("Data", dataMap);
 		return map;
 	}
 }

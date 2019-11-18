@@ -3,11 +3,10 @@ package system.po;
 public class UserInfo {
 	private User user;
 	private Department department;
-
-	public UserInfo(User user, Department department)
+	
+	public UserInfo()
 	{
-		this.user = user;
-		this.department = department;
+		
 	}
 	
 	public User getUser() {

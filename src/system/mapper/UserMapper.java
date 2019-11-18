@@ -10,4 +10,5 @@ public interface UserMapper {
 	public int updateUserTel(String user_id, String telephone) throws Exception;
 	public int updateUserPsd(String user_id, String psd, String newPsd) throws Exception;
 	public int getLastRbId(String user_id) throws Exception;
+//	public int 
 }

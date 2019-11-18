@@ -12,6 +12,24 @@ public class User {
 	private String type;
 	private int gender;
 	
+	public User()
+	{
+		
+	}
+	
+	public User(String name, String password, String id, String idCard, String telephone, Date register_date,
+			String type, int gender) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.id = id;
+		this.idCard = idCard;
+		this.telephone = telephone;
+		this.register_date = register_date;
+		this.type = type;
+		this.gender = gender;
+	}
+	
 	public String getName() {
 		return name;
 	}

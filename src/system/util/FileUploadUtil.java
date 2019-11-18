@@ -23,6 +23,48 @@ public class FileUploadUtil {
 	 * @return
 	 * 		长传后的文件名
 	 */
+	public static String uploadFiles(MultipartFile file, String path) 
+	{
+		if (file != null) {
+			// 取得当前上传文件的原始名称
+			String oldName = file.getOriginalFilename();
+			// 如果名称不为"",说明该文件存在，否则说明该文件不存在
+			if (oldName.trim() != "") {
+				// 取得当前上传文件的扩展名(带.)
+				String extName = oldName.substring(oldName
+						.lastIndexOf("."));
+				
+				// 重命名上传后的文件名,以时间毫秒数命名则不会重名
+				//(1)以时间方式命名
+				//(2)以某个实体的主键命名  比如用员工编号来命名员工的头像
+				String newName = System.currentTimeMillis() + extName;
+
+				// 将图片上传至部署在tomcat中
+//				String pa = request.getRealPath(path);
+				// 定义上传路径
+				File p = new File(path);
+				if(!p.exists()){
+					p.mkdirs();
+				}
+				File localFile = new File(p,newName);
+				try {
+					file.transferTo(localFile);
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				list.add(newName);
+				return newName;
+			}
+			
+		}
+		
+		return null;
+	}
+	
 	public static List<String> uploadFiles(HttpServletRequest request, String path){
 		List<String> list = new ArrayList<String>();
 		
