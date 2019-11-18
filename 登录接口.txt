@@ -1,6 +1,6 @@
 登录
 
-url: /api/login.do
+url: /login.do
 
 输入 String:id, String:password
 返回 Json{
@@ -24,7 +24,7 @@ url: /api/login.do
 
 首页获取首页信息
 
-url: /api/homepage.do
+url: /homepage.do
 输入 无
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
@@ -33,14 +33,14 @@ url: /api/homepage.do
 	}
 }
 
-url: /api/user/changTel.do
+url: /user/changTel.do
 
 输入 String:id, String:telephone
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
 }
 
-url: /api/user/changPsd.do
+url: /user/changPsd.do
 
 输入 String:id, String:psd, String:newpsd,
 返回 Json{
@@ -48,13 +48,13 @@ url: /api/user/changPsd.do
 }
 
 报销单填写界面获取报销单内容
-url: /api/user/getRbForm.do
+url: /user/getRbForm.do
 输入 无
 
 
 用户点击提交报销单
 
-url: /api/user/subRbForm.do
+url: /user/subRbForm.do
 输入 Json{
 	
 }
