@@ -86,4 +86,24 @@ public class UserHandler extends RootHandler {
 		}
 		return map;
 	}
+	
+	@RequestMapping("user/changTel.do")
+	@ResponseBody
+	public Map<String, Object> changTel(String id, String telephone) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		String result = us.updateUserTel(id, telephone) == 1 ? "success" : "failure";
+		map.put("success", result);
+		return map;
+	}
+	
+	@RequestMapping("user/changPsd.do")
+	@ResponseBody
+	public Map<String, Object> changPsd(String id, String psd, String newpsd) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		String result = us.updateUserPsd(id, psd, newpsd) == 1 ? "success" : "failure";
+		map.put("success", result);
+		return map;
+	}
 }

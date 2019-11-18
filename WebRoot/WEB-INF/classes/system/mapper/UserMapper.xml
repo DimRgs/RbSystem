@@ -27,7 +27,6 @@
 			<id property="id" column="d_id" />
 			<result property="name" column="d_name" />
 		</association>
-		<id property="user.id" column="id" />
 	</resultMap>
 	<!-- insert -->
 	<select id="getDepartmentCount" resultType="int">
@@ -50,4 +49,14 @@
 			user.password = '${password}' and 
 			user.user_type_id = user_type.id
 	</select>
+	<!-- update -->
+	<update id="updateUserTel">
+		update user set telephone = '${telephone}'
+		where id ='${user_id}'
+	</update>
+	<update id="updateUserPsd">
+		update user set password = '${newPsd}'
+		where id = '${user_id}'
+		and password = '${psd}'
+	</update>
 </mapper>
