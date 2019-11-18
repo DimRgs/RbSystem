@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import system.po.User;
-import system.po.UserInfo;
 import static system.util.SystemUtil.*;		//导入静态方法
 
 @RequestMapping("/user")
@@ -20,8 +19,15 @@ public class UserHandler extends RootHandler {
 	public Map<String, Object> changTel(String id, String telephone) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
-		String result = us.updateUserTel(id, telephone) == 1 ? "success" : "failure";
-		map.put("success", result);
+		User user = (User)request.getSession().getAttribute("User");
+		if(us.updateUserTel(user.getId(), telephone) == 1)
+		{
+			setS(map);
+		}
+		else 
+		{
+			setF(map);
+		}
 		return map;
 	}
 	
@@ -30,8 +36,15 @@ public class UserHandler extends RootHandler {
 	public Map<String, Object> changPsd(String id, String psd, String newpsd) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
-		String result = us.updateUserPsd(id, psd, newpsd) == 1 ? "success" : "failure";
-		map.put("success", result);
+		User user = (User)request.getSession().getAttribute("User");
+		if(us.updateUserPsd(user.getId(), psd, newpsd) == 1)
+		{
+			setS(map);
+		}
+		else 
+		{
+			setF(map);
+		}
 		return map;
 	}
 }

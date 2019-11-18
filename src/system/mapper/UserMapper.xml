@@ -28,7 +28,11 @@
 			<result property="name" column="d_name" />
 		</association>
 	</resultMap>
-	<!-- insert -->
+	<!-- select -->
+	<select id="getLastRbId">
+		select user_id
+		from user, rb_detail
+	</select>
 	<select id="getDepartmentCount" resultType="int">
 		select count(*) from department
 	</select>

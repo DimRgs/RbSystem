@@ -18,7 +18,6 @@ import system.po.UserInfo;
 import system.service.UserService;
 
 @Controller
-@RequestMapping("/api")
 public class RootHandler {
 	
 	@Autowired

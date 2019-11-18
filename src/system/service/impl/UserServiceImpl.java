@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int getLastRbId(String user_id) throws Exception {
 		// TODO 自动生成的方法存根
-		return 6;
+		return mapper.getLastRbId(user_id);
 	}
 
 	@Override
