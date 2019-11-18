@@ -1,0 +1,62 @@
+登录
+
+url: /api/login.do
+
+输入 String:id, String:password
+返回 Json{
+	String:success("success": 成功； "failure": 失败),
+	Data:{
+		int:level(1:报销人员；2：审核人员；3：审核负责人；4：收单员；5：系统管理员),
+		User:{
+			String:name(用户姓名), 
+			String:id(工号), 
+			int:gender(1：男；2：女)，
+			String:idCard(身份证号),
+			String:register_time(注册时间),
+			String:telphone(手机号码),
+		}，
+		Department：{
+			String:id(部门编号),
+			String:name(部门名称)
+		}
+	}
+}
+
+首页获取首页信息
+
+url: /api/homepage.do
+输入 无
+返回 Json{
+	String:success("success": 成功； "failure": 失败),
+	Data:{
+		int:rb_state(1:未提交；2:待审核; 3:审核中; 4:待确认; 5:等待报销; 6:已完成)
+	}
+}
+
+url: /api/user/changTel.do
+
+输入 String:id, String:telephone
+返回 Json{
+	String:success("success": 成功； "failure": 失败),
+}
+
+url: /api/user/changPsd.do
+
+输入 String:id, String:psd, String:newpsd,
+返回 Json{
+	String:success("success": 成功； "failure": 失败),
+}
+
+报销单填写界面获取报销单内容
+url: /api/user/getRbForm.do
+输入 无
+
+
+用户点击提交报销单
+
+url: /api/user/subRbForm.do
+输入 Json{
+	
+}
+
+
