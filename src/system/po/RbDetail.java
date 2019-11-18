@@ -8,6 +8,7 @@ public class RbDetail {
 	private int state;
 	private String hospital;
 	private Date date;
+	private Referral referral;
 	
 	public String getId() {
 		return id;
@@ -38,6 +39,12 @@ public class RbDetail {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Referral getReferral() {
+		return referral;
+	}
+	public void setReferral(Referral referral) {
+		this.referral = referral;
 	}
 
 }

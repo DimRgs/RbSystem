@@ -49,31 +49,56 @@ url: /RbSystem/user/changPsd.do
 }
 
 报销单填写界面获取报销单内容
-
 url: /RbSystem/user/getRbForm.do
 输入 String:rb_id
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
 	Data:{
 		String:rb_id,
-		String:hospital,
+		int:rb_state(1:未提交；2:待审核; 3:审核中; 4:待确认; 5:等待报销; 6:已完成)
+		String:hospital,(可能为空)
+		Datetime:s_time(上次编辑时间),
 		Referral:{
-			(这是转诊单)
+			(这是转诊单，可能为空)
 			String:id,
 			Date:date,
 			String:pic
 		},
-		Guahaofei[]:{
-			(这是挂号费列表)
+		Ghf[]:{
+			(这是挂号费列表，可能为空)
 			String:id,
 			String:department(科室),
 			Date:date(日期),
 			int:cost(总金额),
-			self_paid
-		}
+			int:self_paid(自付金额),
+			String:note(审核说明),
+			String:pic
+		},
+		Yymx[]:{
+			(这是用药明细列表，可能为空)
+			String:id,
+			Date:date,
+			int:cost,
+			int:special_paid,
+			int:part_paid,
+			int:self_paid,
+			String:note,
+			String:detailed_pic,
+			String:pspt_pic
+		},
+		Wssm:{
+			(这是外伤说明，可能为空)
+			String:id,
+			String:note,(这是报销人员自己添加的说明)
+			String:stamp_pic,
+			String:special_pic
+		},
 	}
 }
 
+暂存报销单
+url: /RbSystem/user/saveRbForm.do
+输入: {}
 
 
 
