@@ -1,74 +1,75 @@
-µÇÂ¼
+ç™»å½•
 
 url: /RbSystem/login.do
 
-ÊäÈë String:id, String:password
-·µ»Ø Json{
-	String:success("success": ³É¹¦£» "failure": Ê§°Ü),
+è¾“å…¥ String:id, String:password
+è¿”å› Json{
+	String:success("success": æˆåŠŸï¼› "failure": å¤±è´¥),
 	Data:{
-		int:level(1:±¨ÏúÈËÔ±£»2£ºÉóºËÈËÔ±£»3£ºÉóºË¸ºÔğÈË£»4£ºÊÕµ¥Ô±£»5£ºÏµÍ³¹ÜÀíÔ±),
+		int:level(1:æŠ¥é”€äººå‘˜ï¼›2ï¼šå®¡æ ¸äººå‘˜ï¼›3ï¼šå®¡æ ¸è´Ÿè´£äººï¼›4ï¼šæ”¶å•å‘˜ï¼›5ï¼šç³»ç»Ÿç®¡ç†å‘˜),
 		User:{
-			String:name(ÓÃ»§ĞÕÃû), 
-			String:id(¹¤ºÅ), 
-			int:gender(1£ºÄĞ£»2£ºÅ®)£¬
-			String:idCard(Éí·İÖ¤ºÅ),
-			String:register_time(×¢²áÊ±¼ä),
-			String:telphone(ÊÖ»úºÅÂë),
-		}£¬
-		Department£º{
-			String:id(²¿ÃÅ±àºÅ),
-			String:name(²¿ÃÅÃû³Æ)
+			String:name(ç”¨æˆ·å§“å), 
+			String:id(å·¥å·), 
+			int:gender(1ï¼šç”·ï¼›2ï¼šå¥³)ï¼Œ
+			String:idCard(èº«ä»½è¯å·),
+			String:register_time(æ³¨å†Œæ—¶é—´),
+			String:telphone(æ‰‹æœºå·ç ),
+		}ï¼Œ
+		Departmentï¼š{
+			String:id(éƒ¨é—¨ç¼–å·),
+			String:name(éƒ¨é—¨åç§°)
 		}
 	}
 }
 
-Ê×Ò³»ñÈ¡Ê×Ò³ĞÅÏ¢
+é¦–é¡µè·å–é¦–é¡µä¿¡æ¯
 
 url: /RbSystem/homepage.do
-ÊäÈë ÎŞ
-·µ»Ø Json{
-	String:success("success": ³É¹¦£» "failure": Ê§°Ü),
+è¾“å…¥ æ— 
+è¿”å› Json{
+	String:success("success": æˆåŠŸï¼› "failure": å¤±è´¥),
 	Data:{
-		int:rb_state(1:Î´Ìá½»£»2:´ıÉóºË; 3:ÉóºËÖĞ; 4:´ıÈ·ÈÏ; 5:µÈ´ı±¨Ïú; 6:ÒÑÍê³É)
-		String:rb_id(ÓÃÓÚĞÂÔö±¨Ïúµ¥ÉêÇë±íÒ³Ãæ¼ÓÔØÊ±ÊäÈë£¬ÕâÑùºóÌ¨²»ÓÃÖØĞÂ²éÕÒ±¨Ïúµ¥id)
+		int:rb_state(1:æœªæäº¤ï¼›2:å¾…å®¡æ ¸; 3:å®¡æ ¸ä¸­; 4:å¾…ç¡®è®¤; 5:ç­‰å¾…æŠ¥é”€; 6:å·²å®Œæˆ)
+		String:rb_id(ç”¨äºæ–°å¢æŠ¥é”€å•ç”³è¯·è¡¨é¡µé¢åŠ è½½æ—¶è¾“å…¥ï¼Œè¿™æ ·åå°ä¸ç”¨é‡æ–°æŸ¥æ‰¾æŠ¥é”€å•id)
 	}
 }
 
 url: /RbSystem/user/changTel.do
 
-ÊäÈë String:id, String:telephone
-·µ»Ø Json{
-	String:success("success": ³É¹¦£» "failure": Ê§°Ü),
+è¾“å…¥ String:id, String:telephone
+è¿”å› Json{
+	String:success("success": æˆåŠŸï¼› "failure": å¤±è´¥),
 }
 
 url: /RbSystem/user/changPsd.do
 
-ÊäÈë String:id, String:psd, String:newpsd,
-·µ»Ø Json{
-	String:success("success": ³É¹¦£» "failure": Ê§°Ü),
+è¾“å…¥ String:id, String:psd, String:newpsd,
+è¿”å› Json{
+	String:success("success": æˆåŠŸï¼› "failure": å¤±è´¥),
 }
 
-±¨Ïúµ¥ÌîĞ´½çÃæ»ñÈ¡±¨Ïúµ¥ÄÚÈİ
+æŠ¥é”€å•å¡«å†™ç•Œé¢è·å–æŠ¥é”€å•å†…å®¹
 
 url: /RbSystem/user/getRbForm.do
-ÊäÈë String:rb_id
-·µ»Ø Json{
-	String:success("success": ³É¹¦£» "failure": Ê§°Ü),
+è¾“å…¥ String:rb_id
+è¿”å› Json{
+	String:success("success": æˆåŠŸï¼› "failure": å¤±è´¥),
 	Data:{
 		String:rb_id,
 		String:hospital,
 		Referral:{
-			(ÕâÊÇ×ªÕïµ¥)
+			(è¿™æ˜¯è½¬è¯Šå•)
 			String:id,
 			Date:date,
 			String:pic
 		},
 		Guahaofei[]:{
-			(ÕâÊÇ¹ÒºÅ·ÑÁĞ±í)
+			(è¿™æ˜¯æŒ‚å·è´¹åˆ—è¡¨)
 			String:id,
-			String:department(¿ÆÊÒ),
-			Date:date(ÈÕÆÚ),
-			
+			String:department(ç§‘å®¤),
+			Date:date(æ—¥æœŸ),
+			int:cost(æ€»é‡‘é¢),
+			self_paid
 		}
 	}
 }
