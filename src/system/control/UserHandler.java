@@ -47,4 +47,14 @@ public class UserHandler extends RootHandler {
 		}
 		return map;
 	}
+	
+	@RequestMapping("/subRbForm.do")
+	@ResponseBody
+	public Map<String, Object> subRbForm() throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		User user = (User)request.getSession().getAttribute("User");
+		
+		return map;
+	}
 }
