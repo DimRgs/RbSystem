@@ -18,8 +18,39 @@
 		<result property="hospital" column="hospital" />
 		<result property="date" column="s_time" />
 		<association property="user" javaType="User">
-			<id property="id" column="id" />
+			<id property="id" column="user_id" />
 		</association>
+		<association property="referral" javaType="Referral">
+			<id property="id" column="r_id" />
+			<result property="date" column="r_date" />
+			<result property="pic" column="r_pic" />
+		</association>
+		<association property="wssm" javaType="Wssm">
+			<id property="id" column="r_id" />
+			<result property="note" column="w_note" />
+			<result property="stamp_pic" column="stamp_pic" />
+			<result property="special_pic" column="special_pic" />
+		</association>
+		<collection property="ghf" ofType="Ghf">
+			<id property="id" column="g_id" />
+			<result property="date" column="g_date" />
+			<result property="pic" column="g_pic" />
+			<result property="department" column="g_department" />
+			<result property="note" column="g_note" />
+			<result property="cost" column="g_cost" />
+			<result property="self_paid" column="g_self_paid" />
+		</collection>
+		<collection property="yymx" ofType="Yymx">
+			<id property="id" column="y_id" />
+			<result property="date" column="y_date" />
+			<result property="note" column="y_note" />
+			<result property="cost" column="y_cost" />
+			<result property="self_paid" column="y_self_paid" />
+			<result property="part_paid" column="g_part_paid" />
+			<result property="special_paid" column="g_special_paid" />
+			<result property="detailed_pic" column="detailed_pic" />
+			<result property="pspt_pic" column="pspt_pic" />
+		</collection>
 	</resultMap>
 	<resultMap type="UserInfo" id="userInfo_map">
 		<association property="user" javaType="User">
@@ -44,7 +75,21 @@
 		values ('${param1}', '${param2}', 1)
 	</insert>
 	<!-- select -->
-	<select id="getLastRb" resultType="rb_map">
+	<select id="getRbById" resultMap="rb_map">
+		select rb_detail.id, rb_state.rb_state_id,
+			ghf.id as g_id, 
+			yymx.id as y_id, 
+			referral.id as r_id, 
+			wssm.id as w_id
+		from (rb_detail, rb_state)
+		join ghf on (ghf.rb_id = rb_detail.id)
+		join yymx on (yymx.rb_id = rb_detail.id)
+		join referral on (referral.rb_id = rb_detail.id)
+		join wssm on (wssm.rb_id = rb_detail.id)
+		where rb_detail.id = '${param1}'
+		and rb_detail.rb_state_id = rb_state.id
+	</select>
+	<select id="getLastRb" resultMap="rb_map">
 		select rb_detail.id, rb_detail.rb_state_id
 		from rb_detail, user 
 		where `user`.id = rb_detail.user_id 

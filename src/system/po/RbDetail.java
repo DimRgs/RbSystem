@@ -5,13 +5,14 @@ import java.util.List;
 
 public class RbDetail {
 	private String id;
-	private User user;
 	private int state;
 	private String hospital;
 	private Date date;
+	private User user;
 	private Referral referral;
 	private List<Ghf> ghf;
 	private List<Yymx> yymx;
+	private Wssm wssm;
 	
 	public List<Ghf> getGhf() {
 		return ghf;
@@ -60,6 +61,12 @@ public class RbDetail {
 	}
 	public void setReferral(Referral referral) {
 		this.referral = referral;
+	}
+	public Wssm getWssm() {
+		return wssm;
+	}
+	public void setWssm(Wssm wssm) {
+		this.wssm = wssm;
 	}
 
 }

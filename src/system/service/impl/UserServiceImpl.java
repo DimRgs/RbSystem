@@ -1,15 +1,11 @@
 package system.service.impl;
 
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import oracle.sql.DATE;
 import system.mapper.UserMapper;
 import system.po.RbDetail;
-import system.po.User;
 import system.po.UserInfo;
 import system.service.UserService;
 
@@ -44,8 +40,9 @@ public class UserServiceImpl implements UserService {
 			String rb_id = "Rb" + user_id + System.nanoTime();
 			if(mapper.insertNewRb(rb_id, user_id) == 1)
 			{
+				rb = new RbDetail();
 				rb.setId(rb_id);
-				rb.setState(1);
+				rb.setState(0);
 			}
 			else 
 				rb = null;

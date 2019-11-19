@@ -96,6 +96,16 @@ url: /RbSystem/user/getRbForm.do
 	}
 }
 
+用户点击选择图片完成后就将图片上传到服务器，服务器会返回该图片存储路径 
+url: /RbSystem/upload.do
+输入: file
+返回: Json {
+	String:success("success": 成功； "failure": 失败),
+	Data:{
+		String:path(该图片路径)
+	}
+}
+
 暂存报销单
 url: /RbSystem/user/saveRbForm.do
 输入: {}

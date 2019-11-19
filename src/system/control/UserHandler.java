@@ -70,7 +70,16 @@ public class UserHandler extends RootHandler {
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
-		
+		User user = (User)request.getSession().getAttribute("User");
+		if(user == null)
+		{
+			setF(map);
+			return map;
+		}
+		else 
+		{
+			
+		}
 		//先判断当前rb_id的状态，如果是已完成则创建个新的rb
 		
 		map.put("Data", dataMap);

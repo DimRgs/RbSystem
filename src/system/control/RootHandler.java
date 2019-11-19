@@ -64,33 +64,27 @@ public class RootHandler {
 	
 	@RequestMapping("/upload.do")
 	@ResponseBody
-	public Map<String, Object> upload(MultipartFile[] files) throws Exception
+	public Map<String, Object> upload(MultipartFile file) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		String path;
 		ArrayList<String> pathes = new ArrayList<String>();
-		if(files == null)
+		if(file == null)
 		{
 			setF(map);
 		}
 		else 
 		{
-			
-//			dataMap.put("path", uploadFiles(request, "../../photo"));
-//			map.put("Data", dataMap);
 			setS(map);
-			for(MultipartFile f : files)
+			if((path = uploadFiles(file, request.getSession().getServletContext().getRealPath(pic_root_path))) != null)
 			{
-				if((path = uploadFiles(f, request.getSession().getServletContext().getRealPath(pic_root_path))) != null)
-				{
-					
-					pathes.add(path);
-				}
-				else 
-				{
-					setF(map);
-				}
+				
+				pathes.add(path);
+			}
+			else 
+			{
+				setF(map);
 			}
 		}
 		dataMap.put("path", pathes);
