@@ -1,6 +1,7 @@
 package system.po;
 
 import java.sql.Date;
+import java.util.List;
 
 public class RbDetail {
 	private String id;
@@ -9,7 +10,21 @@ public class RbDetail {
 	private String hospital;
 	private Date date;
 	private Referral referral;
+	private List<Ghf> ghf;
+	private List<Yymx> yymx;
 	
+	public List<Ghf> getGhf() {
+		return ghf;
+	}
+	public void setGhf(List<Ghf> ghf) {
+		this.ghf = ghf;
+	}
+	public List<Yymx> getYymx() {
+		return yymx;
+	}
+	public void setYymx(List<Yymx> yymx) {
+		this.yymx = yymx;
+	}
 	public String getId() {
 		return id;
 	}

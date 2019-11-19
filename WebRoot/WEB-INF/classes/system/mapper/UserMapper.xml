@@ -37,10 +37,19 @@
 			<result property="name" column="d_name" />
 		</association>
 	</resultMap>
+	<!-- insert -->
+	<insert id="insertNewRb">
+		insert into rb_detail
+		(id, user_id, rb_state_id)
+		values ('${param1}', '${param2}', 1)
+	</insert>
 	<!-- select -->
-	<select id="getLastRbId">
-		select user_id
-		from user, rb_detail
+	<select id="getLastRb" resultType="rb_map">
+		select rb_detail.id, rb_detail.rb_state_id
+		from rb_detail, user 
+		where `user`.id = rb_detail.user_id 
+		order by rb_detail.s_time desc 
+		limit 1
 	</select>
 	<select id="getDepartmentCount" resultType="int">
 		select count(*) from department

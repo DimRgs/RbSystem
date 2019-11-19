@@ -2,8 +2,9 @@ package system.control;
 
 import static system.util.SystemUtil.setF;
 import static system.util.SystemUtil.setS;
-import static system.util.FileUploadUtil.uploadFiles;
+import static system.util.FileUploadUtil.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import system.po.RbDetail;
 import system.po.User;
 import system.po.UserInfo;
 import system.service.UserService;
@@ -62,24 +64,37 @@ public class RootHandler {
 	
 	@RequestMapping("/upload.do")
 	@ResponseBody
-	public Map<String, Object> upload(MultipartFile[] file) throws Exception
+	public Map<String, Object> upload(MultipartFile[] files) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		String path;
-		for(MultipartFile f : file)
+		ArrayList<String> pathes = new ArrayList<String>();
+		if(files == null)
 		{
-			if((path = uploadFiles(f, "../../photo")) != null)
+			setF(map);
+		}
+		else 
+		{
+			
+//			dataMap.put("path", uploadFiles(request, "../../photo"));
+//			map.put("Data", dataMap);
+			setS(map);
+			for(MultipartFile f : files)
 			{
-				setS(map);
-				dataMap.put("path", path);
-				map.put("Data", dataMap);
-			}
-			else 
-			{
-				setF(map);
+				if((path = uploadFiles(f, request.getSession().getServletContext().getRealPath(pic_root_path))) != null)
+				{
+					
+					pathes.add(path);
+				}
+				else 
+				{
+					setF(map);
+				}
 			}
 		}
+		dataMap.put("path", pathes);
+		map.put("Data", dataMap);
 		return map;
 	}
 	
@@ -100,7 +115,9 @@ public class RootHandler {
 			//需要判断是否是管理人员
 			
 			//如果是报销人员，先查询最近报销单申请表状态，如果不是1或6，直接返回id和状态
-			dataMap.put("rb_state", us.getLastRbId(user.getId())) ;
+			RbDetail rb = us.getLastRb(user.getId());
+			dataMap.put("rb_state", rb.getState()) ;
+			dataMap.put("rb_id", rb.getId());
 			map.put("Data", dataMap);
 		}
 		return map;

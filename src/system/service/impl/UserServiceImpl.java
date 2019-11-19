@@ -1,9 +1,14 @@
 package system.service.impl;
 
+
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import oracle.sql.DATE;
 import system.mapper.UserMapper;
+import system.po.RbDetail;
 import system.po.User;
 import system.po.UserInfo;
 import system.service.UserService;
@@ -31,13 +36,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int getLastRbId(String user_id) throws Exception {
+	public RbDetail getLastRb(String user_id) throws Exception {
 		// TODO 自动生成的方法存根
-		if(mapper.getLastRbId(user_id) == 0)
+		RbDetail rb = mapper.getLastRb(user_id);
+		if(rb == null || rb.getId() == null)
 		{
-			
+			String rb_id = "Rb" + user_id + System.nanoTime();
+			if(mapper.insertNewRb(rb_id, user_id) == 1)
+			{
+				rb.setId(rb_id);
+				rb.setState(1);
+			}
+			else 
+				rb = null;
 		}
-		return mapper.getLastRbId(user_id);
+		return rb;
 	}
 
 	@Override

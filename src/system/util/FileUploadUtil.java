@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 public class FileUploadUtil {
-	
+	public static final String pic_root_path = "/photo";
 	/**
 	 * 
 	 * @param request
@@ -40,7 +40,6 @@ public class FileUploadUtil {
 				String newName = System.currentTimeMillis() + extName;
 
 				// 将图片上传至部署在tomcat中
-//				String pa = request.getRealPath(path);
 				// 定义上传路径
 				File p = new File(path);
 				if(!p.exists()){
@@ -57,7 +56,7 @@ public class FileUploadUtil {
 					e.printStackTrace();
 				}
 //				list.add(newName);
-				return newName;
+				return "/RbSystem"+ pic_root_path + "/" + newName;
 			}
 			
 		}

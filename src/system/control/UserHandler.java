@@ -63,4 +63,17 @@ public class UserHandler extends RootHandler {
 		map.put("Data", dataMap);
 		return map;
 	}
+	
+	@RequestMapping("/getRbForm.do")
+	@ResponseBody
+	public Map<String, Object> getRbForm(String rb_id) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		//先判断当前rb_id的状态，如果是已完成则创建个新的rb
+		
+		map.put("Data", dataMap);
+		return map;
+	}
 }
