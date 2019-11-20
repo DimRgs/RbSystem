@@ -11,6 +11,7 @@ url: /RbSystem/login.do
 			String:name(用户姓名), 
 			String:id(工号), 
 			int:gender(1：男；2：女)，
+			String:type,
 			String:idCard(身份证号),
 			String:register_time(注册时间),
 			String:telphone(手机号码),
@@ -29,7 +30,7 @@ url: /RbSystem/homepage.do
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
 	Data:{
-		int:rb_state(1:未提交；2:待审核; 3:审核中; 4:待确认; 5:等待报销; 6:已完成)
+		int:rb_state(0:没有报销单申请记录; 1:未提交；2:待审核; 3:审核中; 4:审核通过; 5:审核未通过; 6:待报销; 7:已完成)
 		String:rb_id(用于新增报销单申请表页面加载时输入，这样后台不用重新查找报销单id)
 	}
 }
@@ -50,7 +51,7 @@ url: /RbSystem/user/changPsd.do
 
 报销单申请表填写界面获取报销单内容
 url: /RbSystem/user/getRbForm.do
-输入 String:rb_id
+输入 String:rb_id, rb_state
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
 	Data:{

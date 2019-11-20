@@ -35,14 +35,14 @@ public class UserServiceImpl implements UserService {
 	public RbDetail getLastRb(String user_id) throws Exception {
 		// TODO 自动生成的方法存根
 		RbDetail rb = mapper.getLastRb(user_id);
-		if(rb == null || rb.getId() == null)
+		if(rb == null || rb.getRb_id() == null)
 		{
 			String rb_id = "Rb" + user_id + System.nanoTime();
 			if(mapper.insertNewRb(rb_id, user_id) == 1)
 			{
 				rb = new RbDetail();
-				rb.setId(rb_id);
-				rb.setState(0);
+				rb.setRb_id(rb_id);
+				rb.setRb_state(0);
 			}
 			else 
 				rb = null;
@@ -60,6 +60,12 @@ public class UserServiceImpl implements UserService {
 	public int updateUserPsd(String user_id, String psd, String newPsd) throws Exception {
 		// TODO 自动生成的方法存根
 		return mapper.updateUserPsd(user_id, psd, newPsd);
+	}
+
+	@Override
+	public RbDetail getRbById(String rb_id) throws Exception {
+		// TODO 自动生成的方法存根
+		return mapper.getRbById(rb_id);
 	}
 
 }

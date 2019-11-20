@@ -110,8 +110,8 @@ public class RootHandler {
 			
 			//如果是报销人员，先查询最近报销单申请表状态，如果不是1或6，直接返回id和状态
 			RbDetail rb = us.getLastRb(user.getId());
-			dataMap.put("rb_state", rb.getState()) ;
-			dataMap.put("rb_id", rb.getId());
+			dataMap.put("rb_state", rb.getRb_state()) ;
+			dataMap.put("rb_id", rb.getRb_id());
 			map.put("Data", dataMap);
 		}
 		return map;

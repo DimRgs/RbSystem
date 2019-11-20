@@ -13,8 +13,8 @@
 		<result property="gender" column="gender" />
 	</resultMap>
 	<resultMap type="RbDetail" id="rb_map">
-		<id property="id" column="id" />
-		<result property="state" column="rb_state_id" />
+		<id property="rb_id" column="id" />
+		<result property="rb_state" column="rb_state_id" />
 		<result property="hospital" column="hospital" />
 		<result property="date" column="s_time" />
 		<association property="user" javaType="User">
@@ -76,7 +76,7 @@
 	</insert>
 	<!-- select -->
 	<select id="getRbById" resultMap="rb_map">
-		select rb_detail.id, rb_state.rb_state_id,
+		select rb_detail.id, rb_detail.rb_state_id,
 			ghf.id as g_id, 
 			yymx.id as y_id, 
 			referral.id as r_id, 
@@ -86,8 +86,7 @@
 		join yymx on (yymx.rb_id = rb_detail.id)
 		join referral on (referral.rb_id = rb_detail.id)
 		join wssm on (wssm.rb_id = rb_detail.id)
-		where rb_detail.id = '${param1}'
-		and rb_detail.rb_state_id = rb_state.id
+		where rb_detail.id = '${_parameter}'
 	</select>
 	<select id="getLastRb" resultMap="rb_map">
 		select rb_detail.id, rb_detail.rb_state_id

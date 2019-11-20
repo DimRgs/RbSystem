@@ -8,16 +8,38 @@
   		{
   			$.ajax({
   				type:"POST",
-  				url:"/RbSystem/test.do",
+  				url:"/RbSystem/login.do",
   				dataType:"json",
-  				data:{"name":"Íõ´óÃ÷", "password":"123456"},
+  				data:{"id":"S01", "password":"123456"},
   				success: function(data){
-					dataStr = JSON.stringify(data);
-	               	data = $.parseJSON(dataStr);
-	               	alert(data.name);
+					$.ajax({
+		  				type:"POST",
+		  				url:"/RbSystem/homepage.do",
+		  				dataType:"json",
+		  				success: function(data){
+							dataStr = JSON.stringify(data);
+			               	data = $.parseJSON(dataStr);
+			               	getrb(data)
+		  				}
+		  			});
   				}
   			});
+  			
   		});
+  		function getrb(d)
+  		{
+  			$.ajax({
+  				type:"POST",
+  				url:"/RbSystem/user/getRbForm.do",
+  				dataType:"json",
+  				data:{"rb_id":d.Data.rb_id},
+  				success: function(data){
+					dataStr = JSON.stringify(data);
+			        data = $.parseJSON(dataStr);
+			        alert(data.yymx);
+  				}
+  			});
+  		}
   	</script>
   </head>
   

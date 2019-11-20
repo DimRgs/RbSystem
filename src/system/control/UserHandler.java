@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import system.po.RbDetail;
 import system.po.User;
 import static system.util.SystemUtil.*;		//导入静态方法
 
@@ -66,10 +67,10 @@ public class UserHandler extends RootHandler {
 	
 	@RequestMapping("/getRbForm.do")
 	@ResponseBody
-	public Map<String, Object> getRbForm(String rb_id) throws Exception
+	public Map<String, Object> getRbForm(String rb_id, Integer rb_state) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
-		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = null;
 		User user = (User)request.getSession().getAttribute("User");
 		if(user == null)
 		{
@@ -78,7 +79,9 @@ public class UserHandler extends RootHandler {
 		}
 		else 
 		{
-			
+			setS(map);
+			RbDetail rb = us.getRbById(rb_id);
+			dataMap = rb.getHashMap();
 		}
 		//先判断当前rb_id的状态，如果是已完成则创建个新的rb
 		

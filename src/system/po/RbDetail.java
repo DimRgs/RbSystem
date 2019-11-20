@@ -1,13 +1,16 @@
 package system.po;
 
+import java.lang.reflect.Field;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class RbDetail {
-	private String id;
-	private int state;
+public class RbDetail implements Hashable {
+	private String rb_id;
+	private int rb_state;
 	private String hospital;
-	private Date date;
+	private Date s_time;
 	private User user;
 	private Referral referral;
 	private List<Ghf> ghf;
@@ -26,23 +29,11 @@ public class RbDetail {
 	public void setYymx(List<Yymx> yymx) {
 		this.yymx = yymx;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public User getUser() {
 		return user;
 	}
 	public void setUser(User user) {
 		this.user = user;
-	}
-	public int getState() {
-		return state;
-	}
-	public void setState(int state) {
-		this.state = state;
 	}
 	public String getHospital() {
 		return hospital;
@@ -51,10 +42,10 @@ public class RbDetail {
 		this.hospital = hospital;
 	}
 	public Date getDate() {
-		return date;
+		return s_time;
 	}
 	public void setDate(Date date) {
-		this.date = date;
+		this.s_time = date;
 	}
 	public Referral getReferral() {
 		return referral;
@@ -68,5 +59,32 @@ public class RbDetail {
 	public void setWssm(Wssm wssm) {
 		this.wssm = wssm;
 	}
-
+	
+	@Override
+	public Map<String, Object> getHashMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			Field[] declaredFields = this.getClass().getDeclaredFields();
+			for (Field field : declaredFields) {
+				field.setAccessible(true);
+				map.put(field.getName(), field.get(this));
+			}
+		} catch (Exception e) {
+			
+		}
+		return map;
+	}
+	public String getRb_id() {
+		return rb_id;
+	}
+	public void setRb_id(String rb_id) {
+		this.rb_id = rb_id;
+	}
+	public int getRb_state() {
+		return rb_state;
+	}
+	public void setRb_state(int rb_state) {
+		this.rb_state = rb_state;
+	}
+	
 }
