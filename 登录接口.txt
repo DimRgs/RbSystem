@@ -49,9 +49,9 @@ url: /RbSystem/user/changPsd.do
 	String:success("success": 成功； "failure": 失败),
 }
 
-报销单申请表填写界面获取报销单内容
+报销单申请界面获取报销单内容
 url: /RbSystem/user/getRbForm.do
-输入 String:rb_id, rb_state
+输入 String:rb_id, rb_state		//按表单传送
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
 	Data:{
@@ -93,7 +93,7 @@ url: /RbSystem/user/getRbForm.do
 			String:note,(这是报销人员自己添加的说明)
 			String:stamp_pic,
 			String:special_pic
-		},
+		}
 	}
 }
 
@@ -103,13 +103,60 @@ url: /RbSystem/upload.do
 返回: Json {
 	String:success("success": 成功； "failure": 失败),
 	Data:{
-		String:path(该图片路径)
+		String:path(该图片访问路径)
 	}
 }
 
 暂存报销单
-url: /RbSystem/user/saveRbForm.do
-输入: {}
-
+url: /RbSystem/user/postRbForm.do
+输入: Json{
+	active:(0:暂存; 1:提交),
+	rb:{
+		String:rb_id,
+		String:hospital,
+		referral:{
+			(这是转诊单，可能为空)
+			String:id,
+			Date:date,
+			String:pic
+		},
+		ghf[]:{
+			(这是挂号费列表，可能为空)
+			String:id,
+			String:department(科室),
+			Date:date(日期),
+			int:cost(总金额),
+			int:self_paid(自付金额),
+			String:note(审核说明),
+			String:pic
+		},
+		yymx[]:{
+			(这是用药明细列表，可能为空)
+			String:id,
+			Date:date,
+			int:cost,
+			int:special_paid,
+			int:part_paid,
+			int:self_paid,
+			String:note,
+			String:detailed_pic,
+			String:pspt_pic
+		},
+		wssm:{
+			(这是外伤说明，可能为空)
+			String:id,
+			String:note,(这是报销人员自己添加的说明)
+			String:stamp_pic,
+			String:special_pic
+		}
+	}
+}
+返回 Json{
+	String:success("success": 成功； "failure": 失败),
+	Data:{
+		int:rb_state(0:没有报销单申请记录; 1:未提交；2:待审核; 3:审核中; 4:审核通过; 5:审核未通过; 6:待报销; 7:已完成)
+		String:rb_id(用于报销单申请页面加载时输入，这样后台不用重新查找报销单id)
+	}
+}
 
 

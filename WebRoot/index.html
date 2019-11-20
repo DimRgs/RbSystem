@@ -36,7 +36,7 @@
   				success: function(data){
 					dataStr = JSON.stringify(data);
 			        data = $.parseJSON(dataStr);
-			        alert(data.yymx);
+			        alert(data.Data.yymx[1].id);
   				}
   			});
   		}

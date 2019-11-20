@@ -88,4 +88,26 @@ public class UserHandler extends RootHandler {
 		map.put("Data", dataMap);
 		return map;
 	}
+	
+	@RequestMapping("/postRbForm.do")
+	@ResponseBody
+	public Map<String, Object> postRbForm(RbDetail rb, Integer active) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		User user = (User)request.getSession().getAttribute("User");
+		if(user == null)
+		{
+			setF(map);
+			return map;
+		}
+		else 
+		{
+			setS(map);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
 }
