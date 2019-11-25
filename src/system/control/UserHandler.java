@@ -85,9 +85,17 @@ public class UserHandler extends RootHandler {
 		}
 		else
 		{
-			setS(map);
+			
 			RbDetail rb = us.getRbById(rb_id);
-			dataMap = rb.getHashMap();
+			if(rb == null)
+			{
+				setF(map);
+			}
+			else 
+			{
+				dataMap = rb.getHashMap();
+			}
+			setS(map);
 		}
 		//先判断当前rb_id的状态，如果是已完成则创建个新的rb
 		
@@ -113,6 +121,8 @@ public class UserHandler extends RootHandler {
 			setS(map);
 			rb.setRb_state(active);
 			us.updateRbDetail(rb);
+			dataMap.put("rb_state", rb.getRb_state());
+			dataMap.put("rb_id", rb.getRb_id());
 		}
 		
 		map.put("Data", dataMap);

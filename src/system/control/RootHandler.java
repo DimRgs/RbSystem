@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import system.po.Admin;
 import system.po.RbDetail;
 import system.po.User;
 import system.po.UserInfo;
@@ -102,12 +103,12 @@ public class RootHandler {
 		if(user == null)
 		{
 			setF(map);
+			//需要判断是否是管理人员
 		}
 		else 
 		{
 			setS(map);
-			//需要判断是否是管理人员
-			
+
 			//如果是报销人员，先查询最近报销单申请表状态，如果不是1或6，直接返回id和状态
 			RbDetail rb = us.getLastRb(user.getId());
 			if(rb == null)
@@ -135,7 +136,18 @@ public class RootHandler {
 		if(userInfo == null)
 		{
 			//还需要判断是否是管理人员
-			setF(map);
+			Admin admin = us.getAdminInfo(id, password);
+			if(admin == null)
+			{
+				setF(map);
+			}
+			else 
+			{
+				setS(map);
+				dataMap.put("level", admin.getLevel());
+				dataMap.put("Admin", admin);
+				request.getSession().setAttribute("admin", admin);
+			}
 		}
 		else if(userInfo.getUser().getPassword().equalsIgnoreCase(password))
 		{

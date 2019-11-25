@@ -12,6 +12,11 @@
 		<result property="register_date" column="register_time" />
 		<result property="gender" column="gender" />
 	</resultMap>
+	<resultMap type="Admin" id="admin_map">
+		<id property="id" column="id" />
+		<result property="password" column="password" />
+		<result property="level" column="level" />
+	</resultMap>
 	<resultMap type="RbDetail" id="rb_map">
 		<id property="rb_id" column="id" />
 		<result property="rb_state" column="rb_state_id" />
@@ -113,6 +118,8 @@
 			<result property="name" column="d_name" />
 		</association>
 	</resultMap>
+	
+	
 	<!-- insert -->
 	<insert id="insertNewRb">
 		insert into rb_detail
@@ -120,8 +127,27 @@
 		values ('${param1}', 1, sysdate())
 	</insert>
 	<insert id="insertNewReferral" parameterType="Referral">
-		
+		insert into referral
+		(rb_id, date, pic)
+		values (#{rb_id}, #{date}, '${pic}')
 	</insert>
+	<insert id="insertNewGhf" parameterType="Ghf">
+		insert into ghf
+		(rb_id, department, date, cost, pic)
+		values (#{rb_id}, '${department}', #{date}, #{cost}, '${pic}')
+	</insert>
+	<insert id="insertNewYymx" parameterType="Yymx">
+		insert into yysm
+		(rb_id, date, cost, detailed_pic, pspt_pic)
+		values (#{rb_id}, #{date}, #{cost}, '${detailed_pic}', '${pspt_pic}')
+	</insert>
+	<insert id="insertNewWssm" parameterType="Wssm">
+		insert into wssm
+		(rb_id, note, stamp_pic, special_pic)
+		values (#{rb_id}, '${note}','${stamp_pic}', '${special_pic}')
+	</insert>
+	
+	
 	<!-- select -->
 	<select id="selectLastInsertId" resultType="int">
 		select LAST_INSERT_ID()
@@ -166,6 +192,11 @@
 			user.password = '${param2}' and 
 			user.user_type_id = user_type.id
 	</select>
+	<select id="getAdminInfo" resultMap="admin_map">
+		select admin.id, admin.level from admin
+		where id = '${param1}' and password = '${param2}'
+	</select>
+	
 	<!-- update -->
 	<update id="updateUserTel">
 		update user set telephone = '${param2}'
@@ -178,8 +209,32 @@
 	</update>
 	<update id="updateRbDetail" parameterType="RbDetail">
 		update rb_detail 
-		set admin_id='${admin.id}', rb_state_id=#{rb_state}, 
-			hospital='${hospital}', s_time=sysdate()
+		set rb_state_id=#{rb_state}, hospital='${hospital}', s_time=sysdate()
 		where id=#{rb_id}
 	</update>
+	<update id="updateReferral" parameterType="Referral">
+		update referral 
+		set date=#{date}, pic='${pic}'
+		where id = #{id}
+	</update>
+	<update id="updateGhf" parameterType="Ghf">
+		update ghf
+		set department = '${department}', date = #{date},
+			cost = #{cost}, pic = '${pic}'
+		where id = #{id}
+	</update>
+	<update id="updateYymx" parameterType="Yymx">
+		update yymx
+		set date = #{date}, cost = #{cost},
+			detailed_pic = '${detailed_pic}',
+			pspt_pic = '${pspt_pic}')
+		where id = #{id}
+	</update>
+	<update id="updateWssm" parameterType="Wssm">
+		update wssm
+		set note = '${note}', stamp_pic = '${stamp_pic}'
+			special_pic = '${special_pic}'
+		where id = #{id}
+	</update>
+
 </mapper>

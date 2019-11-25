@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import system.mapper.UserMapper;
+import system.po.Admin;
 import system.po.Ghf;
 import system.po.RbDetail;
 import system.po.Referral;
@@ -82,6 +83,7 @@ public class UserServiceImpl implements UserService {
 	public int updateRbDetail(RbDetail rb) throws Exception {
 		// TODO 自动生成的方法存根
 		int ret = 0;
+		int rb_id = rb.getRb_id();
 		if(mapper.updateRbDetail(rb) != 1)
 		{
 			return 0;
@@ -89,6 +91,7 @@ public class UserServiceImpl implements UserService {
 		else
 		{
 			Referral ref = rb.getReferral();
+			ref.setRb_id(rb_id);
 			if(ref.getId() == 0)
 			{
 				ret = mapper.insertNewReferral(ref);
@@ -104,6 +107,7 @@ public class UserServiceImpl implements UserService {
 			List<Ghf> ghfs = rb.getGhf();
 			for(Ghf ghf : ghfs)
 			{
+				ghf.setRb_id(rb_id);
 				if(ghf.getId() == 0)
 				{
 					ret = mapper.insertNewGhf(ghf);
@@ -121,6 +125,7 @@ public class UserServiceImpl implements UserService {
 			List<Yymx> yymxs = rb.getYymx();
 			for(Yymx yymx : yymxs)
 			{
+				yymx.setRb_id(rb_id);
 				if(yymx.getId() == 0)
 				{
 					ret = mapper.insertNewYymx(yymx);
@@ -136,6 +141,7 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 			Wssm wssm = rb.getWssm();
+			wssm.setRb_id(rb_id);
 			if(wssm.getId() == 0)
 			{
 				ret = mapper.insertNewWssm(wssm);
@@ -150,6 +156,12 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return 1;
+	}
+
+	@Override
+	public Admin getAdminInfo(String id, String password) throws Exception {
+		// TODO 自动生成的方法存根
+		return mapper.getAdminInfo(id, password);
 	}
 
 }

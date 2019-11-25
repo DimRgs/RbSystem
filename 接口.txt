@@ -7,6 +7,7 @@ url: /RbSystem/login.do
 	String:success("success": 成功； "failure": 失败),
 	Data:{
 		int:level(1:报销人员；2：审核人员；3：审核负责人；4：收单员；5：系统管理员),
+		//报销人员
 		User:{
 			String:name(用户姓名), 
 			String:id(工号), 
@@ -19,6 +20,11 @@ url: /RbSystem/login.do
 		Department：{
 			String:id(部门编号),
 			String:name(部门名称)
+		}
+		//管理人员
+		Admin:{
+			String: id,
+			int: level
 		}
 	}
 }
@@ -159,4 +165,15 @@ url: /RbSystem/user/postRbForm.do
 	}
 }
 
+报销历史记录
+
+url: /RbSystem/user/getMyRbRecord.do
+
+输入: int:curPage
+返回: Json{
+	String:success("success": 成功； "failure": 失败),
+	Data: {
+		
+	}
+}
 
