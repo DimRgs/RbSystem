@@ -67,7 +67,7 @@ public class UserHandler extends RootHandler {
 	
 	@RequestMapping("/getRbForm.do")
 	@ResponseBody
-	public Map<String, Object> getRbForm(String rb_id, Integer rb_state) throws Exception
+	public Map<String, Object> getRbForm(String rb_id) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = null;
@@ -77,7 +77,13 @@ public class UserHandler extends RootHandler {
 			setF(map);
 			return map;
 		}
-		else 
+		else if(rb_id == null || rb_id == "")
+		{
+			setS(map);
+			RbDetail rb = us.insertNewRb(user.getId());
+			dataMap = rb.getHashMap();
+		}
+		else
 		{
 			setS(map);
 			RbDetail rb = us.getRbById(rb_id);
@@ -102,9 +108,11 @@ public class UserHandler extends RootHandler {
 			setF(map);
 			return map;
 		}
-		else 
+		else
 		{
 			setS(map);
+			rb.setRb_state(active);
+			us.updateRbDetail(rb);
 		}
 		
 		map.put("Data", dataMap);

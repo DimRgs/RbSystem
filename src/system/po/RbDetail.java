@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 public class RbDetail implements Hashable {
-	private String rb_id;
+	private int rb_id;
 	private int rb_state;
 	private String hospital;
 	private Date s_time;
+	private Admin admin;
 	private User user;
 	private Referral referral;
 	private List<Ghf> ghf;
@@ -74,10 +75,10 @@ public class RbDetail implements Hashable {
 		}
 		return map;
 	}
-	public String getRb_id() {
+	public int getRb_id() {
 		return rb_id;
 	}
-	public void setRb_id(String rb_id) {
+	public void setRb_id(int rb_id) {
 		this.rb_id = rb_id;
 	}
 	public int getRb_state() {
@@ -85,6 +86,12 @@ public class RbDetail implements Hashable {
 	}
 	public void setRb_state(int rb_state) {
 		this.rb_state = rb_state;
+	}
+	public Admin getAdmin() {
+		return admin;
+	}
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
 	
 }

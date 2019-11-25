@@ -2,6 +2,7 @@ package system.util;
 
 import java.util.Map;
 
+
 public class SystemUtil {
 
 	public static void setS(Map<String, Object> map)
@@ -13,4 +14,5 @@ public class SystemUtil {
 	{
 		map.put("success", "failure");
 	}
+
 }

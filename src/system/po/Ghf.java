@@ -3,7 +3,8 @@ package system.po;
 import java.sql.Date;
 
 public class Ghf {
-	private String id;
+	private int id;
+	private int rb_id;
 	private String department;
 	private Date date;
 	private int cost;
@@ -11,10 +12,10 @@ public class Ghf {
 	private String note;
 	private String pic;
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getDepartment() {
@@ -52,5 +53,11 @@ public class Ghf {
 	}
 	public void setPic(String pic) {
 		this.pic = pic;
+	}
+	public int getRb_id() {
+		return rb_id;
+	}
+	public void setRb_id(int rb_id) {
+		this.rb_id = rb_id;
 	}
 }

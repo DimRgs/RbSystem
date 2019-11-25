@@ -16,9 +16,54 @@
 		<id property="rb_id" column="id" />
 		<result property="rb_state" column="rb_state_id" />
 		<result property="hospital" column="hospital" />
+		<association property="user" javaType="User">
+			<id property="id" column="user_id" />
+		</association>
+		<association property="admin" javaType="Admin">
+			<id property="id" column="admin_id" />
+		</association>
+	</resultMap>
+	<resultMap type="Referral" id="referral_map">
+		<id property="id" column="r_id" />
+		<result property="date" column="r_date" />
+		<result property="pic" column="r_pic" />
+	</resultMap>
+	<resultMap type="Ghf" id="ghf_map">
+		<id property="id" column="g_id" />
+		<result property="date" column="g_date" />
+		<result property="pic" column="g_pic" />
+		<result property="department" column="g_department" />
+		<result property="note" column="g_note" />
+		<result property="cost" column="g_cost" />
+		<result property="self_paid" column="g_self_paid" />
+	</resultMap>
+	<resultMap type="Wssm" id="wssm_map">
+		<id property="id" column="r_id" />
+		<result property="note" column="w_note" />
+		<result property="stamp_pic" column="stamp_pic" />
+		<result property="special_pic" column="special_pic" />
+	</resultMap>
+	<resultMap type="Yymx" id="yymx_map">
+		<id property="id" column="y_id" />
+		<result property="date" column="y_date" />
+		<result property="note" column="y_note" />
+		<result property="cost" column="y_cost" />
+		<result property="self_paid" column="y_self_paid" />
+		<result property="part_paid" column="g_part_paid" />
+		<result property="special_paid" column="g_special_paid" />
+		<result property="detailed_pic" column="detailed_pic" />
+		<result property="pspt_pic" column="pspt_pic" />
+	</resultMap>
+	<resultMap type="RbDetail" id="rb_detail_map">
+		<id property="rb_id" column="id" />
+		<result property="rb_state" column="rb_state_id" />
+		<result property="hospital" column="hospital" />
 		<result property="date" column="s_time" />
 		<association property="user" javaType="User">
 			<id property="id" column="user_id" />
+		</association>
+		<association property="admin" javaType="Admin">
+			<id property="id" column="admin_id" />
 		</association>
 		<association property="referral" javaType="Referral">
 			<id property="id" column="r_id" />
@@ -71,11 +116,17 @@
 	<!-- insert -->
 	<insert id="insertNewRb">
 		insert into rb_detail
-		(id, user_id, rb_state_id)
-		values ('${param1}', '${param2}', 1)
+		(user_id, rb_state_id, s_time)
+		values ('${param1}', 1, sysdate())
+	</insert>
+	<insert id="insertNewReferral" parameterType="Referral">
+		
 	</insert>
 	<!-- select -->
-	<select id="getRbById" resultMap="rb_map">
+	<select id="selectLastInsertId" resultType="int">
+		select LAST_INSERT_ID()
+	</select>
+	<select id="getRbById" resultMap="rb_detail_map">
 		select rb_detail.id, rb_detail.rb_state_id,
 			ghf.id as g_id, 
 			yymx.id as y_id, 
@@ -124,5 +175,11 @@
 		update user set password = '${param3}'
 		where id = '${param1}'
 		and password = '${param2}'
+	</update>
+	<update id="updateRbDetail" parameterType="RbDetail">
+		update rb_detail 
+		set admin_id='${admin.id}', rb_state_id=#{rb_state}, 
+			hospital='${hospital}', s_time=sysdate()
+		where id=#{rb_id}
 	</update>
 </mapper>

@@ -3,7 +3,8 @@ package system.po;
 import java.sql.Date;
 
 public class Yymx {
-	private String id;
+	private int id;
+	private int rb_id;
 	private Date date;
 	private int cost;
 	private int special_paid;
@@ -13,10 +14,10 @@ public class Yymx {
 	private String detailed_pic;
 	private String pspt_pic;
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public Date getDate() {
@@ -66,5 +67,11 @@ public class Yymx {
 	}
 	public void setPspt_pic(String pspt_pic) {
 		this.pspt_pic = pspt_pic;
+	}
+	public int getRb_id() {
+		return rb_id;
+	}
+	public void setRb_id(int rb_id) {
+		this.rb_id = rb_id;
 	}
 }

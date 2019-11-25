@@ -1,14 +1,21 @@
 package system.service.impl;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import system.mapper.UserMapper;
+import system.po.Ghf;
 import system.po.RbDetail;
+import system.po.Referral;
 import system.po.UserInfo;
+import system.po.Wssm;
+import system.po.Yymx;
 import system.service.UserService;
 
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -35,20 +42,9 @@ public class UserServiceImpl implements UserService {
 	public RbDetail getLastRb(String user_id) throws Exception {
 		// TODO 自动生成的方法存根
 		RbDetail rb = mapper.getLastRb(user_id);
-		if(rb == null || rb.getRb_id() == null)
-		{
-			String rb_id = "Rb" + user_id + System.nanoTime();
-			if(mapper.insertNewRb(rb_id, user_id) == 1)
-			{
-				rb = new RbDetail();
-				rb.setRb_id(rb_id);
-				rb.setRb_state(0);
-			}
-			else 
-				rb = null;
-		}
 		return rb;
 	}
+	
 
 	@Override
 	public int updateUserTel(String user_id, String telephone) throws Exception {
@@ -66,6 +62,94 @@ public class UserServiceImpl implements UserService {
 	public RbDetail getRbById(String rb_id) throws Exception {
 		// TODO 自动生成的方法存根
 		return mapper.getRbById(rb_id);
+	}
+
+	@Override
+	public RbDetail insertNewRb(String user_id) throws Exception {
+		// TODO 自动生成的方法存根
+		RbDetail rb = null;
+		if(mapper.insertNewRb(user_id) == 1)
+		{
+			rb = new RbDetail();
+			rb.setRb_id(mapper.selectLastInsertId());
+		}
+		else 
+			rb = null;
+		return rb;
+	}
+
+	@Override
+	public int updateRbDetail(RbDetail rb) throws Exception {
+		// TODO 自动生成的方法存根
+		int ret = 0;
+		if(mapper.updateRbDetail(rb) != 1)
+		{
+			return 0;
+		}
+		else
+		{
+			Referral ref = rb.getReferral();
+			if(ref.getId() == 0)
+			{
+				ret = mapper.insertNewReferral(ref);
+			}
+			else 
+			{
+				ret = mapper.updateReferral(ref);
+			}
+			if(ret != 1)
+			{
+				return 0;
+			}
+			List<Ghf> ghfs = rb.getGhf();
+			for(Ghf ghf : ghfs)
+			{
+				if(ghf.getId() == 0)
+				{
+					ret = mapper.insertNewGhf(ghf);
+				}
+				else 
+				{
+					ret = mapper.updateGhf(ghf);
+				}
+				
+				if(ret != 1)
+				{
+					return 0;
+				}
+			}
+			List<Yymx> yymxs = rb.getYymx();
+			for(Yymx yymx : yymxs)
+			{
+				if(yymx.getId() == 0)
+				{
+					ret = mapper.insertNewYymx(yymx);
+				}
+				else 
+				{
+					ret = mapper.updateYymx(yymx);
+				}
+				
+				if(ret != 1)
+				{
+					return 0;
+				}
+			}
+			Wssm wssm = rb.getWssm();
+			if(wssm.getId() == 0)
+			{
+				ret = mapper.insertNewWssm(wssm);
+			}
+			else 
+			{
+				ret = mapper.updateWssm(wssm);
+			}
+			if(ret != 1)
+			{
+				return 0;
+			}
+		}
+		return 1;
 	}
 
 }

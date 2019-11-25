@@ -110,7 +110,7 @@ url: /RbSystem/upload.do
 暂存报销单
 url: /RbSystem/user/postRbForm.do
 输入: Json{
-	active:(0:暂存; 1:提交),
+	active:(1:暂存; 2:提交),
 	rb:{
 		String:rb_id,
 		String:hospital,

@@ -3,14 +3,15 @@ package system.po;
 import java.sql.Date;
 
 public class Referral {
-	private String id;
+	private int id;
+	private int rb_id;
 	private Date date;
 	private String pic;
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public Date getDate() {
@@ -24,6 +25,12 @@ public class Referral {
 	}
 	public void setPic(String pic) {
 		this.pic = pic;
+	}
+	public int getRb_id() {
+		return rb_id;
+	}
+	public void setRb_id(int rb_id) {
+		this.rb_id = rb_id;
 	}
 	
 }
