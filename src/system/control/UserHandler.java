@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import system.po.RbDetail;
 import system.po.User;
+import system.vo.RbSearchForm;
+
 import static system.util.SystemUtil.*;		//导入静态方法
 
 @RequestMapping("/user")
@@ -124,6 +126,17 @@ public class UserHandler extends RootHandler {
 			dataMap.put("rb_state", rb.getRb_state());
 			dataMap.put("rb_id", rb.getRb_id());
 		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
+	@RequestMapping("/getMyRbRecord.do")
+	@ResponseBody
+	public Map<String, Object> getMyRbRecord(RbSearchForm rbsf) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		
 		map.put("Data", dataMap);
 		return map;

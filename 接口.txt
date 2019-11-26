@@ -170,7 +170,7 @@ url: /RbSystem/user/postRbForm.do
 
 url: /RbSystem/user/getMyRbRecord.do
 
-输入: int:curPage, int: rb_state, int: isWssm, Date:start_date, Date:end_date
+输入: rbsf:{int:curPage, int: rb_state, int: isWssm, Date:start_date, Date:end_date}
 返回: Json{
 	String:success("success": 成功； "failure": 失败),
 	Data: {
