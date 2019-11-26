@@ -149,6 +149,9 @@
 	
 	
 	<!-- select -->
+<!-- 	select * from rb_detail -->
+<!-- where id in  -->
+<!-- (select DISTINCT rb_id from wssm) -->
 	<select id="selectLastInsertId" resultType="int">
 		select LAST_INSERT_ID()
 	</select>
