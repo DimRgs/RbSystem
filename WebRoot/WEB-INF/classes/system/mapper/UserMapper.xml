@@ -166,7 +166,7 @@
 		join yymx on (yymx.rb_id = rb_detail.id)
 		join referral on (referral.rb_id = rb_detail.id)
 		join wssm on (wssm.rb_id = rb_detail.id)
-		where rb_detail.id = '${_parameter}'
+		where rb_detail.id = #{param1}
 	</select>
 	<select id="getLastRb" resultMap="rb_map">
 		select rb_detail.id, rb_detail.rb_state_id

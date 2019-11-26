@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public RbDetail getRbById(String rb_id) throws Exception {
+	public RbDetail getRbById(Integer rb_id) throws Exception {
 		// TODO 自动生成的方法存根
 		return mapper.getRbById(rb_id);
 	}

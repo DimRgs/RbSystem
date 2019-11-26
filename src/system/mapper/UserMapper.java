@@ -30,7 +30,7 @@ public interface UserMapper {
 	public UserInfo getUserInfo(String id, String password) throws Exception;
 	public Admin getAdminInfo(String id, String password) throws Exception;
 	public RbDetail getLastRb(String user_id) throws Exception;
-	public RbDetail getRbById(String rb_id) throws Exception;
+	public RbDetail getRbById(Integer rb_id) throws Exception;
 	public int selectLastInsertId() throws Exception;
 //	public int 
 }
