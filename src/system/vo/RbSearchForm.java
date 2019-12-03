@@ -3,17 +3,30 @@ package system.vo;
 import java.sql.Date;
 
 public class RbSearchForm {
-	private int user_name;
+	private int user_name;	
 	private String user_id;
 	private int rb_state;
-	private int admin_id;
+	private String admin_id;
 	private int[] user_type; 
 	private int isWssm;
 	private Date start_date;
 	private Date end_date;
 	private int curPage;
+	private int start;
+	private int length;
 	
-
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getLength() {
+		return length;
+	}
+	public void setLength(int length) {
+		this.length = length;
+	}
 	public int getUser_name() {
 		return user_name;
 	}
@@ -21,10 +34,10 @@ public class RbSearchForm {
 		this.user_name = user_name;
 	}
 
-	public int getAdmin_id() {
+	public String getAdmin_id() {
 		return admin_id;
 	}
-	public void setAdmin_id(int admin_id) {
+	public void setAdmin_id(String admin_id) {
 		this.admin_id = admin_id;
 	}
 	public Date getStart_date() {

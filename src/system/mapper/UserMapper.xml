@@ -96,8 +96,8 @@
 			<result property="note" column="y_note" />
 			<result property="cost" column="y_cost" />
 			<result property="self_paid" column="y_self_paid" />
-			<result property="part_paid" column="g_part_paid" />
-			<result property="special_paid" column="g_special_paid" />
+			<result property="part_paid" column="y_part_paid" />
+			<result property="special_paid" column="y_special_paid" />
 			<result property="detailed_pic" column="detailed_pic" />
 			<result property="pspt_pic" column="pspt_pic" />
 		</collection>
@@ -153,28 +153,58 @@
 <!-- where id in  -->
 <!-- (select DISTINCT rb_id from wssm) -->
 	<select id="getRbCount" parameterType="RbSearchForm">
-		select count(*) from rb_detail
+		select count(*) from rb_detail, user
 		<where>
-			rb_detail.user_id = 
+			user.id = rb_detail.user_id
 			<if test="user_name != null">
-				
+				and user.name like '%${user_name}%'
+			</if>
+			<if test="start_date != null">
+				and rb_detail.s_time &gt;= #{start_date}
+			</if>
+			<if test="end_date != null">
+				and rb_detail.s_time &lt;= #{end_date}
+			</if>
+			<if test="rb_state != 0">
+				and rb_detail.rb_state_id = #{rb_state}
+			</if>
+			<if test="admin_id != null">
+				and rb_detail.admin_id = #{admin_id}
+			</if>
+			<if test="user_id != null">
+				and rb_detail.user_id = #{user_id}
+			</if>
+			<if test="user_type != null">
+				and user_type_id in 
+				<foreach item="type" collection="user_type" open="(" separator="," close=")">
+					#{type}
+				</foreach>
 			</if>
 		</where>
+	</select>
+	<select id="getRbList" parameterType="RbSearchForm" resultMap="admin">
+		select rb_detail.id, rb_detail.rb_state_id,
+		
 	</select>
 	<select id="selectLastInsertId" resultType="int">
 		select LAST_INSERT_ID()
 	</select>
 	<select id="getRbById" resultMap="rb_detail_map">
-		select rb_detail.id, rb_detail.rb_state_id,
-			ghf.id as g_id, 
-			yymx.id as y_id, 
-			referral.id as r_id, 
-			wssm.id as w_id
-		from (rb_detail, rb_state)
-		join ghf on (ghf.rb_id = rb_detail.id)
-		join yymx on (yymx.rb_id = rb_detail.id)
-		join referral on (referral.rb_id = rb_detail.id)
-		join wssm on (wssm.rb_id = rb_detail.id)
+		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as admin_id,
+			ghf.id as g_id, ghf.department as g_department, ghf.date as g_date,
+			ghf.cost as g_cost, ghf.note as g_note, ghf.self_paid as g_self_paid,
+			ghf.pic as g_pic,
+			yymx.id as y_id, yymx.date as y_date, yymx.note as y_note, 
+			yymx.cost as y_cost, yymx.self_paid as y_self_paid, yymx.part_paid as y_part_paid,
+			yymx.special_paid as y_special_paid, yymx.detailed_pic as detailed_pic,
+			yymx.pspt_pic as pspt_pic,
+			referral.id as r_id, referral.date as r_date, referral.pic as r_pic,
+			wssm.id as w_id, wssm.note as w_note, wssm.stamp_pic as stamp_pic, wssm.special_pic as special_pic
+		from (rb_detail, rb_state, admin)
+			join ghf on (ghf.rb_id = rb_detail.id)
+			join yymx on (yymx.rb_id = rb_detail.id)
+			join referral on (referral.rb_id = rb_detail.id)
+			join wssm on (wssm.rb_id = rb_detail.id)
 		where rb_detail.id = #{param1}
 	</select>
 	<select id="getLastRb" resultMap="rb_map">
@@ -239,12 +269,12 @@
 		update yymx
 		set date = #{date}, cost = #{cost},
 			detailed_pic = '${detailed_pic}',
-			pspt_pic = '${pspt_pic}')
+			pspt_pic = '${pspt_pic}'
 		where id = #{id}
 	</update>
 	<update id="updateWssm" parameterType="system.po.Wssm">
 		update wssm
-		set note = '${note}', stamp_pic = '${stamp_pic}'
+		set note = '${note}', stamp_pic = '${stamp_pic}',
 			special_pic = '${special_pic}'
 		where id = #{id}
 	</update>

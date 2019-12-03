@@ -1,5 +1,7 @@
 package system.mapper;
 
+import java.util.List;
+
 import system.po.Admin;
 import system.po.Ghf;
 import system.po.RbDetail;
@@ -34,5 +36,6 @@ public interface UserMapper {
 	public RbDetail getRbById(Integer rb_id) throws Exception;
 	public int selectLastInsertId() throws Exception;
 	public int getRbCount(RbSearchForm rbsf) throws Exception;
+	public List<RbDetail> getRbList(RbSearchForm rbsf) throws Exception;
 //	public int 
 }

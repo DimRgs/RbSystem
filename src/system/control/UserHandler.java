@@ -123,10 +123,27 @@ public class UserHandler extends RootHandler {
 		}
 		else
 		{
-			setS(map);
+			
 			RbDetail rb = JSON.parseObject(rbStr, RbDetail.class);
-			rb.setRb_state(rb.getActive() + 1);
-			us.updateRbDetail(rb);
+			if(rb == null)
+			{
+				setF(map);
+				
+			}
+			else 
+			{
+				rb.setRb_state(rb.getActive());
+				if(us.updateRbDetail(rb) != 1)
+				{
+					setF(map);
+				}
+				else 
+				{
+					setS(map);
+					dataMap.put("rb_state", rb.getRb_state());
+					dataMap.put("rb_id", rb.getRb_id());
+				}
+			}
 		}
 		
 		map.put("Data", dataMap);
@@ -140,17 +157,17 @@ public class UserHandler extends RootHandler {
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		User user = (User)request.getSession().getAttribute("User");
-		rbsf.setUser_id(user.getId());
-		List<RbDetail> rblist = us.getRbList(rbsf);
-		if(rblist == null)
+		
+		if(user == null)
 		{
 			setF(map);
 		}
 		else 
 		{
+			rbsf.setUser_id(user.getId());
+			List<RbDetail> rblist = us.getRbList(rbsf);
 			setS(map);
 			dataMap.put("RbList", rblist);
-			JSON.parse("");
 		}
 		
 		map.put("Data", dataMap);
