@@ -188,7 +188,7 @@ url: /RbSystem/user/getMyRbRecord.do
 }
 
 用户确认报销单
-url: /RbSystem/user/postRbForm.do
+url: /RbSystem/user/confirmRbForm.do
 输入: Json{
 	active:(1:确定报销; 2:修改后提交),
 	String:rb_id
