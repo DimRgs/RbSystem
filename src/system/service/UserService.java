@@ -23,5 +23,5 @@ public interface UserService {
 	public RbDetail getLastRb(String user_id) throws Exception;
 	public RbDetail getRbById(Integer rb_id) throws Exception;
 	public List<RbDetail> getRbList(RbSearchForm rbsf) throws Exception;
-	
+	public int getRbCount(RbSearchForm rbsf) throws Exception;
 }

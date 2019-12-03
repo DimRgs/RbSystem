@@ -165,9 +165,21 @@ public class UserHandler extends RootHandler {
 		else 
 		{
 			rbsf.setUser_id(user.getId());
+			int total = us.getRbCount(rbsf);
+			int maxPage = getMaxPageNum(total);
+			int curPage = rbsf.getCurPage();
+			curPage = curPage < 1 ? 1 : curPage;
+			curPage = curPage > maxPage ? maxPage : curPage;
+			
+			rbsf.setCurPage(curPage);
+			rbsf.setStart(getSQLIndexByPageNum(curPage));
+			rbsf.setLength(EVERY_PAGE_ITEMS);
+			
 			List<RbDetail> rblist = us.getRbList(rbsf);
 			setS(map);
 			dataMap.put("RbList", rblist);
+			dataMap.put("totalPage", maxPage);
+			dataMap.put("totalNum", total);
 		}
 		
 		map.put("Data", dataMap);

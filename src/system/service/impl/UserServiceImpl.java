@@ -169,18 +169,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<RbDetail> getRbList(RbSearchForm rbsf) throws Exception {
 		// TODO 自动生成的方法存根
-		int total = mapper.getRbCount(rbsf);
-		int maxPage = getMaxPageNum(total);
-		
-		int curPage = rbsf.getCurPage();
-		curPage = curPage < 1 ? 1 : curPage;
-		curPage = curPage > maxPage ? maxPage : curPage;
-		rbsf.setStart(getSQLIndexByPageNum(curPage));
-		rbsf.setLength(EVERY_PAGE_ITEMS);
-		
-		
-		
-		return null;
+		return mapper.getRbList(rbsf);
+	}
+
+	@Override
+	public int getRbCount(RbSearchForm rbsf) throws Exception {
+		// TODO 自动生成的方法存根
+		return mapper.getRbCount(rbsf);
 	}
 
 }

@@ -23,6 +23,7 @@
 		<result property="hospital" column="hospital" />
 		<association property="user" javaType="User">
 			<id property="id" column="user_id" />
+			<result property="name" column="u_name" />
 		</association>
 		<association property="admin" javaType="Admin">
 			<id property="id" column="admin_id" />
@@ -66,6 +67,7 @@
 		<result property="date" column="s_time" />
 		<association property="user" javaType="User">
 			<id property="id" column="user_id" />
+			<result property="name" column="u_name" />
 		</association>
 		<association property="admin" javaType="Admin">
 			<id property="id" column="admin_id" />
@@ -183,8 +185,38 @@
 		</where>
 	</select>
 	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_detail_map">
-		select rb_detail.id, rb_detail.rb_state_id,
-		
+		select rb_detail.id, rb_detail.rb_state_id, user.name as u_name
+		from rb_detail, user, admin
+		<where>
+			user.id = rb_detail.user_id
+			and admin.id = rb_detail.admin_id
+			<if test="user_name != null">
+				and user.name like '%${user_name}%'
+			</if>
+			<if test="start_date != null">
+				and rb_detail.s_time &gt;= #{start_date}
+			</if>
+			<if test="end_date != null">
+				and rb_detail.s_time &lt;= #{end_date}
+			</if>
+			<if test="rb_state != 0">
+				and rb_detail.rb_state_id = #{rb_state}
+			</if>
+			<if test="admin_id != null">
+				and rb_detail.admin_id = #{admin_id}
+			</if>
+			<if test="user_id != null">
+				and rb_detail.user_id = #{user_id}
+			</if>
+			<if test="user_type != null">
+				and user_type_id in 
+				<foreach item="type" collection="user_type" open="(" separator="," close=")">
+					#{type}
+				</foreach>
+			</if>
+		</where>
+		order by s_time desc
+		limit #{start}, #{length}
 	</select>
 	<select id="selectLastInsertId" resultType="int">
 		select LAST_INSERT_ID()

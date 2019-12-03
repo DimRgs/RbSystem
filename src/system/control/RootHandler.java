@@ -157,4 +157,42 @@ public class RootHandler {
 		}
 		return map;
 	}
+	
+	@RequestMapping("/getRbDetail.do")
+	@ResponseBody
+	public Map<String, Object> getRbDetail(Integer rb_id) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = null;
+		User user = (User)request.getSession().getAttribute("User");
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		if(user == null && admin == null)
+		{
+			setF(map);
+			return map;
+		}
+		else if(rb_id == null || rb_id == 0)
+		{
+			setF(map);
+			return map;
+		}
+		else
+		{
+			
+			RbDetail rb = us.getRbById(rb_id);
+			if(rb == null)
+			{
+				setF(map);
+			}
+			else 
+			{
+				dataMap = rb.getHashMap();
+			}
+			setS(map);
+		}
+		//先判断当前rb_id的状态，如果是已完成则创建个新的rb
+		
+		map.put("Data", dataMap);
+		return map;
+	}
 }
