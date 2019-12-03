@@ -4,7 +4,6 @@ import static system.util.SystemUtil.setF;
 import static system.util.SystemUtil.setS;
 import static system.util.FileUploadUtil.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,7 +69,6 @@ public class RootHandler {
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		String path;
-		ArrayList<String> pathes = new ArrayList<String>();
 		if(file == null)
 		{
 			setF(map);
@@ -80,16 +78,15 @@ public class RootHandler {
 			setS(map);
 			if((path = uploadFiles(file, request.getSession().getServletContext().getRealPath(pic_root_path))) != null)
 			{
-				
-				pathes.add(path);
+				setS(map);
+				dataMap.put("path", path);
+				map.put("Data", dataMap);
 			}
 			else 
 			{
 				setF(map);
 			}
 		}
-		dataMap.put("path", pathes);
-		map.put("Data", dataMap);
 		return map;
 	}
 	

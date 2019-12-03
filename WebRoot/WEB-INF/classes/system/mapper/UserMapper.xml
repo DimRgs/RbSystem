@@ -152,6 +152,15 @@
 <!-- 	select * from rb_detail -->
 <!-- where id in  -->
 <!-- (select DISTINCT rb_id from wssm) -->
+	<select id="getRbCount" parameterType="RbSearchForm">
+		select count(*) from rb_detail
+		<where>
+			rb_detail.user_id = 
+			<if test="user_name != null">
+				
+			</if>
+		</where>
+	</select>
 	<select id="selectLastInsertId" resultType="int">
 		select LAST_INSERT_ID()
 	</select>
@@ -210,30 +219,30 @@
 		where id = '${param1}'
 		and password = '${param2}'
 	</update>
-	<update id="updateRbDetail" parameterType="RbDetail">
+	<update id="updateRbDetail" parameterType="system.po.RbDetail">
 		update rb_detail 
 		set rb_state_id=#{rb_state}, hospital='${hospital}', s_time=sysdate()
 		where id=#{rb_id}
 	</update>
-	<update id="updateReferral" parameterType="Referral">
+	<update id="updateReferral" parameterType="system.po.Referral">
 		update referral 
 		set date=#{date}, pic='${pic}'
 		where id = #{id}
 	</update>
-	<update id="updateGhf" parameterType="Ghf">
+	<update id="updateGhf" parameterType="system.po.Ghf">
 		update ghf
 		set department = '${department}', date = #{date},
 			cost = #{cost}, pic = '${pic}'
 		where id = #{id}
 	</update>
-	<update id="updateYymx" parameterType="Yymx">
+	<update id="updateYymx" parameterType="system.po.Yymx">
 		update yymx
 		set date = #{date}, cost = #{cost},
 			detailed_pic = '${detailed_pic}',
 			pspt_pic = '${pspt_pic}')
 		where id = #{id}
 	</update>
-	<update id="updateWssm" parameterType="Wssm">
+	<update id="updateWssm" parameterType="system.po.Wssm">
 		update wssm
 		set note = '${note}', stamp_pic = '${stamp_pic}'
 			special_pic = '${special_pic}'

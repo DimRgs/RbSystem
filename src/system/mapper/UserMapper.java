@@ -8,6 +8,7 @@ import system.po.User;
 import system.po.UserInfo;
 import system.po.Wssm;
 import system.po.Yymx;
+import system.vo.RbSearchForm;
 
 public interface UserMapper {
 	//insert
@@ -32,5 +33,6 @@ public interface UserMapper {
 	public RbDetail getLastRb(String user_id) throws Exception;
 	public RbDetail getRbById(Integer rb_id) throws Exception;
 	public int selectLastInsertId() throws Exception;
+	public int getRbCount(RbSearchForm rbsf) throws Exception;
 //	public int 
 }

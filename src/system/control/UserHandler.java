@@ -1,11 +1,14 @@
 package system.control;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
 
 import system.po.RbDetail;
 import system.po.User;
@@ -107,7 +110,7 @@ public class UserHandler extends RootHandler {
 	
 	@RequestMapping("/postRbForm.do")
 	@ResponseBody
-	public Map<String, Object> postRbForm(RbDetail rb, Integer active) throws Exception
+	public Map<String, Object> postRbForm(String rbStr) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
@@ -121,10 +124,9 @@ public class UserHandler extends RootHandler {
 		else
 		{
 			setS(map);
-			rb.setRb_state(active);
+			RbDetail rb = JSON.parseObject(rbStr, RbDetail.class);
+			rb.setRb_state(rb.getActive() + 1);
 			us.updateRbDetail(rb);
-			dataMap.put("rb_state", rb.getRb_state());
-			dataMap.put("rb_id", rb.getRb_id());
 		}
 		
 		map.put("Data", dataMap);
@@ -137,6 +139,19 @@ public class UserHandler extends RootHandler {
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		User user = (User)request.getSession().getAttribute("User");
+		rbsf.setUser_id(user.getId());
+		List<RbDetail> rblist = us.getRbList(rbsf);
+		if(rblist == null)
+		{
+			setF(map);
+		}
+		else 
+		{
+			setS(map);
+			dataMap.put("RbList", rblist);
+			JSON.parse("");
+		}
 		
 		map.put("Data", dataMap);
 		return map;

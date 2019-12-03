@@ -15,6 +15,7 @@ import system.po.UserInfo;
 import system.po.Wssm;
 import system.po.Yymx;
 import system.service.UserService;
+import system.vo.RbSearchForm;
 
 @Transactional
 @Service
@@ -84,6 +85,7 @@ public class UserServiceImpl implements UserService {
 		// TODO 自动生成的方法存根
 		int ret = 0;
 		int rb_id = rb.getRb_id();
+		System.out.println("********************"+rb.getHashMap().toString());
 		if(mapper.updateRbDetail(rb) != 1)
 		{
 			return 0;
@@ -104,8 +106,8 @@ public class UserServiceImpl implements UserService {
 			{
 				return 0;
 			}
-			List<Ghf> ghfs = rb.getGhf();
-			for(Ghf ghf : ghfs)
+
+			for(Ghf ghf : rb.getGhf())
 			{
 				ghf.setRb_id(rb_id);
 				if(ghf.getId() == 0)
@@ -122,8 +124,7 @@ public class UserServiceImpl implements UserService {
 					return 0;
 				}
 			}
-			List<Yymx> yymxs = rb.getYymx();
-			for(Yymx yymx : yymxs)
+			for(Yymx yymx : rb.getYymx())
 			{
 				yymx.setRb_id(rb_id);
 				if(yymx.getId() == 0)
@@ -162,6 +163,13 @@ public class UserServiceImpl implements UserService {
 	public Admin getAdminInfo(String id, String password) throws Exception {
 		// TODO 自动生成的方法存根
 		return mapper.getAdminInfo(id, password);
+	}
+
+	@Override
+	public List<RbDetail> getRbList(RbSearchForm rbsf) throws Exception {
+		// TODO 自动生成的方法存根
+		
+		return null;
 	}
 
 }

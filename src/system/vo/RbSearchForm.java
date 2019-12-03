@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class RbSearchForm {
 	private int user_name;
-	private int user_id;
+	private String user_id;
 	private int rb_state;
 	private int admin_id;
 	private int[] user_type; 
@@ -39,10 +39,10 @@ public class RbSearchForm {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
-	public int getUser_id() {
+	public String getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
+	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
 	public int getIsWssm() {

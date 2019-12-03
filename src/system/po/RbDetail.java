@@ -1,7 +1,7 @@
 package system.po;
 
 import java.lang.reflect.Field;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +17,7 @@ public class RbDetail implements Hashable {
 	private List<Ghf> ghf;
 	private List<Yymx> yymx;
 	private Wssm wssm;
+	private int active;
 	
 	public List<Ghf> getGhf() {
 		return ghf;
@@ -30,6 +31,14 @@ public class RbDetail implements Hashable {
 	public void setYymx(List<Yymx> yymx) {
 		this.yymx = yymx;
 	}
+	
+	public Date getS_time() {
+		return s_time;
+	}
+	public void setS_time(Date s_time) {
+		this.s_time = s_time;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -42,12 +51,7 @@ public class RbDetail implements Hashable {
 	public void setHospital(String hospital) {
 		this.hospital = hospital;
 	}
-	public Date getDate() {
-		return s_time;
-	}
-	public void setDate(Date date) {
-		this.s_time = date;
-	}
+
 	public Referral getReferral() {
 		return referral;
 	}
@@ -92,6 +96,12 @@ public class RbDetail implements Hashable {
 	}
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
+	}
+	public int getActive() {
+		return active;
+	}
+	public void setActive(int active) {
+		this.active = active;
 	}
 	
 }

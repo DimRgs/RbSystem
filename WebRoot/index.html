@@ -6,6 +6,7 @@
   	<script type="text/javascript" language="javascript">
   		$(document).ready(function()
   		{
+  			rb = {"active":0,"rb_state":6,"rb_id":"1","hospital":"Ñù","referral":{"id":"1","date":"2006-04-05","pic":"https://www.baidu.com/img/bd_logo1.png"},"ghf":[{"id":"1","department":"Éç","date":"1979-12-01","cost":151831,"self_paid":30791,"note":"uusovfusv","pic":"https://www.baidu.com/img/bd_logo1.png"},{"id":"2","department":"ÀÍ","date":"2007-12-06","cost":122731,"self_paid":42196,"note":"nvoj","pic":"https://www.baidu.com/img/bd_logo1.png"}],"yymx":[{"id":"1","date":"1974-04-10","cost":384178,"special_paid":378337,"part_paid":177086,"self_paid":13029,"note":"seomhv","detailed_pic":"https://www.baidu.com/img/bd_logo1.png","pspt_pic":"https://www.baidu.com/img/bd_logo1.png"},{"id":"2","date":"1972-09-29","cost":311992,"special_paid":207799,"part_paid":266640,"self_paid":38429,"note":"esfdg","detailed_pic":"https://www.baidu.com/img/bd_logo1.png","pspt_pic":"https://www.baidu.com/img/bd_logo1.png"}],"wssm":{"id":"1","note":"omjn","stamp_pic":"https://www.baidu.com/img/bd_logo1.png","special_pic":"https://www.baidu.com/img/bd_logo1.png"}};
   			$.ajax({
   				type:"POST",
   				url:"/RbSystem/login.do",
@@ -14,32 +15,20 @@
   				success: function(data){
 					$.ajax({
 		  				type:"POST",
-		  				url:"/RbSystem/homepage.do",
+		  				url:"/RbSystem/user/postRbForm.do",
 		  				dataType:"json",
+		  				data:{"rbStr": JSON.stringify(rb)},
 		  				success: function(data){
 							dataStr = JSON.stringify(data);
-			               	data = $.parseJSON(dataStr);
-			               	getrb(data)
+					        data = $.parseJSON(dataStr);
+					        alert(data.success);
 		  				}
 		  			});
   				}
   			});
   			
   		});
-  		function getrb(d)
-  		{
-  			$.ajax({
-  				type:"POST",
-  				url:"/RbSystem/user/getRbForm.do",
-  				dataType:"json",
-  				data:{"rb_id":d.Data.rb_id},
-  				success: function(data){
-					dataStr = JSON.stringify(data);
-			        data = $.parseJSON(dataStr);
-			        alert(data.Data.yymx[1].id);
-  				}
-  			});
-  		}
+
   	</script>
   </head>
   

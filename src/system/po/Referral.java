@@ -1,6 +1,6 @@
 package system.po;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Referral {
 	private int id;

@@ -1,8 +1,11 @@
 package system.service;
 
+import java.util.List;
+
 import system.po.Admin;
 import system.po.RbDetail;
 import system.po.UserInfo;
+import system.vo.RbSearchForm;
 
 public interface UserService {
 	
@@ -19,5 +22,6 @@ public interface UserService {
 	public Admin getAdminInfo(String id, String password) throws Exception;
 	public RbDetail getLastRb(String user_id) throws Exception;
 	public RbDetail getRbById(Integer rb_id) throws Exception;
+	public List<RbDetail> getRbList(RbSearchForm rbsf) throws Exception;
 	
 }
