@@ -3,7 +3,7 @@ package system.vo;
 import java.sql.Date;
 
 public class RbSearchForm {
-	private int user_name;	
+	private String user_name;	
 	private String user_id;
 	private int rb_state;
 	private String admin_id;
@@ -27,10 +27,10 @@ public class RbSearchForm {
 	public void setLength(int length) {
 		this.length = length;
 	}
-	public int getUser_name() {
+	public String getUser_name() {
 		return user_name;
 	}
-	public void setUser_name(int user_name) {
+	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
 

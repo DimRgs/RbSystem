@@ -149,12 +149,7 @@
 		values (#{rb_id}, '${note}','${stamp_pic}', '${special_pic}')
 	</insert>
 	
-	
-	<!-- select -->
-<!-- 	select * from rb_detail -->
-<!-- where id in  -->
-<!-- (select DISTINCT rb_id from wssm) -->
-	<select id="getRbCount" parameterType="RbSearchForm">
+	<select id="getRbCount" parameterType="RbSearchForm" resultType="int">
 		select count(*) from rb_detail, user
 		<where>
 			user.id = rb_detail.user_id
@@ -184,12 +179,11 @@
 			</if>
 		</where>
 	</select>
-	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_detail_map">
+	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_map">
 		select rb_detail.id, rb_detail.rb_state_id, user.name as u_name
-		from rb_detail, user, admin
+		from rb_detail, user
 		<where>
 			user.id = rb_detail.user_id
-			and admin.id = rb_detail.admin_id
 			<if test="user_name != null">
 				and user.name like '%${user_name}%'
 			</if>

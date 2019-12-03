@@ -16,7 +16,6 @@ import system.po.Wssm;
 import system.po.Yymx;
 import system.service.UserService;
 import system.vo.RbSearchForm;
-import static system.util.SystemUtil.*;
 
 @Transactional
 @Service
