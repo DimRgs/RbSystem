@@ -182,7 +182,7 @@
 			</if>
 		</where>
 	</select>
-	<select id="getRbList" parameterType="RbSearchForm" resultMap="admin">
+	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_detail_map">
 		select rb_detail.id, rb_detail.rb_state_id,
 		
 	</select>
