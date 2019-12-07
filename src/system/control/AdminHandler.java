@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+
 import system.po.Admin;
 import system.po.RbDetail;
-import system.vo.RbSearchForm;
+import system.vo.*;
 
 import static system.util.SystemUtil.*;
 
@@ -137,7 +139,19 @@ public class AdminHandler extends RootHandler {
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("Admin");
 
+		if(admin == null)
+		{
+			setF(map);
+		}
+		else 
+		{
+			RbAdminPostVO rbap = JSON.parseObject(rbStr, RbAdminPostVO.class);
+			
+		}
+		
 		map.put("Data", dataMap);
 		return map;
 	}

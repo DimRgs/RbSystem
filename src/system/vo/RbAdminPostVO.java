@@ -6,6 +6,7 @@ import system.po.*;
 
 public class RbAdminPostVO {
 	private int rb_id;
+	private int result;
 	private List<Ghf> ghf;
 	private List<Yymx> yymx;
 	public int getRb_id() {
@@ -25,6 +26,12 @@ public class RbAdminPostVO {
 	}
 	public void setYymx(List<Yymx> yymx) {
 		this.yymx = yymx;
+	}
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
 	}
 	
 	
