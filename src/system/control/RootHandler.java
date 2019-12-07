@@ -182,7 +182,6 @@ public class RootHandler {
 		}
 		else
 		{
-			
 			RbDetail rb = us.getRbById(rb_id);
 			if(rb == null)
 			{

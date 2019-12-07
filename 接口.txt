@@ -253,8 +253,8 @@ url: /RbSystem/user/confirmRbForm.do
 	}
 }
 
-查看报销单申请表列表
-url: /RbSystem/admin/getRbList.do 
+查看待审核报销单申请表列表
+url: /RbSystem/admin/getRbList1.do 
 输入：rbsf:{
 	int: curPage,
 	Date: start_date,
@@ -279,3 +279,47 @@ url: /RbSystem/admin/getRbList.do
 	}
 }
 
+查看已审核报销单申请表列表
+url: /RbSystem/admin/getRbList2.do 
+输入：rbsf:{
+	int: curPage,
+	Date: start_date,
+	Date: end_date,
+	int[]: user_type,
+	String: user_name,
+	int: rb_state,
+}
+返回：Json{
+	String:success("success": 成功； "failure": 失败),
+	Data: {
+		int: totalPage,
+		int: totalNum,
+		RbList[]:{
+			String:rb_id,
+			String:hospital,
+			Admin:{
+				String: id
+			}
+			Date:s_time
+		}
+	}
+}
+
+审核人员提交审核
+url: /RbSystem/admin/postRbCheck.do 
+输入: Json{
+	rb:{
+		String:rb_id,
+		ghf[]:{
+			int:self_paid(自付金额),
+			String:note(审核说明),
+		},
+		yymx[]:{
+			(这是用药明细列表，可能为空)
+			int:special_paid,
+			int:part_paid,
+			int:self_paid,
+			String:note,
+		},
+	}
+}
