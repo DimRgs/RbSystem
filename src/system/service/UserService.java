@@ -16,6 +16,7 @@ public interface UserService {
 	public int updateUserTel(String user_id, String telephone) throws Exception;
 	public int updateUserPsd(String user_id, String psd, String newPsd) throws Exception;
 	public int updateRbDetail(RbDetail rb) throws Exception;
+	public int updateRbToCheck(RbDetail rb, Admin admin) throws Exception;
 	
 	public int getDepartmentCount() throws Exception;
 	public UserInfo getUserInfo(String id, String password) throws Exception;

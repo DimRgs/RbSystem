@@ -34,7 +34,7 @@ public class AdminHandler extends RootHandler {
 		}
 		else 
 		{
-			rbsf.setRb_state(2);
+			rbsf.setRb_state(new int[]{2, 3});
 			int total = us.getRbCount(rbsf);
 			int maxPage = getMaxPageNum(total);
 			int curPage = rbsf.getCurPage();
@@ -50,6 +50,37 @@ public class AdminHandler extends RootHandler {
 			dataMap.put("RbList", rblist);
 			dataMap.put("totalPage", maxPage);
 			dataMap.put("totalNum", total);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
+	@RequestMapping("/startRbCheck.do")
+	@ResponseBody
+	public Map<String, Object> startRbCheck(Integer rb_id) throws Exception
+	{
+		//如果当前审核状态为审核中， 且审核人员不为当前管理人员，返回failure
+		//如果审核中且身份相同，可以审核
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("Admin");
+		if(admin == null || rb_id == null || rb_id < 1)
+		{
+			setF(map);
+		}
+		else 
+		{
+			RbDetail rb = us.getRbById(rb_id);
+			if(rb.getRb_state() == 3 && !rb.getAdmin().getId().equals(admin.getId()))
+			{
+				setF(map);
+			}
+			else 
+			{
+				rb.setRb_state(3);
+			}
 		}
 		
 		map.put("Data", dataMap);
@@ -72,7 +103,10 @@ public class AdminHandler extends RootHandler {
 		}
 		else 
 		{
-			rbsf.setRb_state(2);
+			if(rbsf.getRb_state() == null)
+			{
+				rbsf.setRb_state(new int[]{4, 5, 6, 7});
+			}
 			rbsf.setAdmin_id(admin.getId());
 			int total = us.getRbCount(rbsf);
 			int maxPage = getMaxPageNum(total);

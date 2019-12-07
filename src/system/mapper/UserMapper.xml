@@ -70,7 +70,7 @@
 			<result property="name" column="u_name" />
 		</association>
 		<association property="admin" javaType="Admin">
-			<id property="id" column="admin_id" />
+			<id property="id" column="a_id" />
 		</association>
 		<association property="referral" javaType="Referral">
 			<id property="id" column="r_id" />
@@ -194,8 +194,11 @@
 			<if test="end_date != null">
 				and rb_detail.s_time &lt;= #{end_date}
 			</if>
-			<if test="rb_state > 0">
-				and rb_detail.rb_state_id = #{rb_state}
+			<if test="rb_state != null">
+				and rb_detail.rb_state_id in
+				<foreach item="state" collection="rb_state" open="(" separator="," close=")">
+					#{state}
+				</foreach>
 			</if>
 			<if test="admin_id != null">
 				and rb_detail.admin_id = #{admin_id}
@@ -226,13 +229,14 @@
 			yymx.special_paid as y_special_paid, yymx.detailed_pic as detailed_pic,
 			yymx.pspt_pic as pspt_pic,
 			referral.id as r_id, referral.date as r_date, referral.pic as r_pic,
-			wssm.id as w_id, wssm.note as w_note, wssm.stamp_pic as stamp_pic, wssm.special_pic as special_pic
+			wssm.id as w_id, wssm.note as w_note, wssm.stamp_pic as stamp_pic, wssm.special_pic as special_pic,
+			admin.id as a_id
 		from (rb_detail, rb_state, admin)
 			join ghf on (ghf.rb_id = rb_detail.id)
 			join yymx on (yymx.rb_id = rb_detail.id)
 			join referral on (referral.rb_id = rb_detail.id)
 			join wssm on (wssm.rb_id = rb_detail.id)
-		where rb_detail.id = #{param1}
+		where rb_detail.id = #{param1} and rb_detail.admin_id = admin.id
 	</select>
 	<select id="getLastRb" resultMap="rb_map">
 		select rb_detail.id, rb_detail.rb_state_id

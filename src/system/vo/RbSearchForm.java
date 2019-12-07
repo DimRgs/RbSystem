@@ -5,7 +5,7 @@ import java.sql.Date;
 public class RbSearchForm {
 	private String user_name;	
 	private String user_id;
-	private int rb_state;
+	private int[] rb_state;
 	private String admin_id;
 	private int[] user_type; 
 	private int isWssm;
@@ -64,10 +64,10 @@ public class RbSearchForm {
 	public void setIsWssm(int isWssm) {
 		this.isWssm = isWssm;
 	}
-	public int getRb_state() {
+	public int[] getRb_state() {
 		return rb_state;
 	}
-	public void setRb_state(int rb_state) {
+	public void setRb_state(int[] rb_state) {
 		this.rb_state = rb_state;
 	}
 	public int[] getUser_type() {
