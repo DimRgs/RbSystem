@@ -285,7 +285,7 @@
 		update referral 
 		set date=#{date}, pic='${pic}'
 		where id = #{id}
-	</update>
+	</update>	
 	<update id="updateGhf" parameterType="system.po.Ghf">
 		update ghf
 		set department = '${department}', date = #{date},

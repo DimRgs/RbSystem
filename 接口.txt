@@ -261,7 +261,6 @@ url: /RbSystem/admin/getRbList1.do
 	Date: end_date,
 	int[]: user_type,
 	String: user_name,
-	int: rb_state,
 }
 返回：Json{
 	String:success("success": 成功； "failure": 失败),
