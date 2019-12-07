@@ -194,7 +194,7 @@
 			<if test="end_date != null">
 				and rb_detail.s_time &lt;= #{end_date}
 			</if>
-			<if test="rb_state != 0">
+			<if test="rb_state > 0">
 				and rb_detail.rb_state_id = #{rb_state}
 			</if>
 			<if test="admin_id != null">
