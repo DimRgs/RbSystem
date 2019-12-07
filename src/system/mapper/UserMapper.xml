@@ -162,8 +162,11 @@
 			<if test="end_date != null">
 				and rb_detail.s_time &lt;= #{end_date}
 			</if>
-			<if test="rb_state != 0">
-				and rb_detail.rb_state_id = #{rb_state}
+			<if test="rb_state != null">
+				and rb_detail.rb_state_id in
+				<foreach item="state" collection="rb_state" open="(" separator="," close=")">
+					#{state}
+				</foreach>
 			</if>
 			<if test="admin_id != null">
 				and rb_detail.admin_id = #{admin_id}
@@ -194,6 +197,12 @@
 			<if test="end_date != null">
 				and rb_detail.s_time &lt;= #{end_date}
 			</if>
+			<if test="user_type != null">
+				and user_type_id in 
+				<foreach item="type" collection="user_type" open="(" separator="," close=")">
+					#{type}
+				</foreach>
+			</if>
 			<if test="rb_state != null">
 				and rb_detail.rb_state_id in
 				<foreach item="state" collection="rb_state" open="(" separator="," close=")">
@@ -206,12 +215,7 @@
 			<if test="user_id != null">
 				and rb_detail.user_id = #{user_id}
 			</if>
-			<if test="user_type != null">
-				and user_type_id in 
-				<foreach item="type" collection="user_type" open="(" separator="," close=")">
-					#{type}
-				</foreach>
-			</if>
+			
 		</where>
 		order by s_time desc
 		limit #{start}, #{length}

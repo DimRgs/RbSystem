@@ -28,8 +28,8 @@ public class AdminHandler extends RootHandler {
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		
-		Admin admin = (Admin)request.getSession().getAttribute("Admin");
-		
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		System.out.println(rbsf);
 		if(admin == null)
 		{
 			setF(map);

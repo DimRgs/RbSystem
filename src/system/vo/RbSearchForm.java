@@ -64,12 +64,7 @@ public class RbSearchForm {
 	public void setIsWssm(int isWssm) {
 		this.isWssm = isWssm;
 	}
-	public int[] getRb_state() {
-		return rb_state;
-	}
-	public void setRb_state(int[] rb_state) {
-		this.rb_state = rb_state;
-	}
+
 	public int[] getUser_type() {
 		return user_type;
 	}
@@ -82,6 +77,11 @@ public class RbSearchForm {
 	public void setCurPage(int curPage) {
 		this.curPage = curPage;
 	}
-	
+	public int[] getRb_state() {
+		return rb_state;
+	}
+	public void setRb_state(int[] rb_state) {
+		this.rb_state = rb_state;
+	}
 	
 }
