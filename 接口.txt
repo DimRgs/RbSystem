@@ -375,4 +375,6 @@ url: /RbSystem/admin/postRbCheck.do
 		},
 	}
 }
-
+返回：Json:{
+	String:success
+}

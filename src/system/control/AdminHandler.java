@@ -138,7 +138,6 @@ public class AdminHandler extends RootHandler {
 	public Map<String, Object> postRbCheck(String rbStr) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
-		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		
 		Admin admin = (Admin)request.getSession().getAttribute("Admin");
 
@@ -149,10 +148,15 @@ public class AdminHandler extends RootHandler {
 		else 
 		{
 			RbAdminPostVO rbap = JSON.parseObject(rbStr, RbAdminPostVO.class);
-			
+			if(us.updateRbToPost(rbap) != 1)
+			{
+				setF(map);
+			}
+			else 
+			{
+				setS(map);
+			}
 		}
-		
-		map.put("Data", dataMap);
 		return map;
 	}
 }

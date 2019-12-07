@@ -15,6 +15,7 @@ import system.po.UserInfo;
 import system.po.Wssm;
 import system.po.Yymx;
 import system.service.UserService;
+import system.vo.RbAdminPostVO;
 import system.vo.RbSearchForm;
 
 @Transactional
@@ -183,6 +184,31 @@ public class UserServiceImpl implements UserService {
 		rb.setRb_state(3);
 		rb.setAdmin(admin);
 		return mapper.updateRbAdmin(rb);
+	}
+
+	@Override
+	public int updateRbToPost(RbAdminPostVO rbap) throws Exception {
+		// TODO 自动生成的方法存根
+		RbDetail rb = new RbDetail();
+		rb.setRb_id(rbap.getRb_id());
+		rb.setRb_state(rbap.getResult());
+		if(mapper.updateRbAdmin(rb) != 1)
+		{
+			return 0;
+		}
+		
+		for(Ghf g : rbap.getGhf())
+		{
+			if(mapper.updateGhf(g) != 1)
+				return 0;
+		}
+		
+		for(Yymx y : rbap.getYymx())
+		{
+			if(mapper.updateYymx(y) != 1)
+				return 0;
+		}
+		return 1;
 	}
 
 }

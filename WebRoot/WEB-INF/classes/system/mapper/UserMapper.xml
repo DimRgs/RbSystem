@@ -282,7 +282,10 @@
 	</update>
 	<update id="updateRbAdmin" parameterType="system.po.RbDetail">
 		update rb_detail 
-		set rb_state_id=#{rb_state}, admin_id=#{admin.id}
+		set rb_state_id=#{rb_state}
+		<if test="admin_id != null">
+			, admin_id=#{admin.id}
+		</if>
 		where id=#{rb_id}
 	</update>
 	<update id="updateRbDetail" parameterType="system.po.RbDetail">
@@ -297,15 +300,54 @@
 	</update>	
 	<update id="updateGhf" parameterType="system.po.Ghf">
 		update ghf
-		set department = '${department}', date = #{date},
-			cost = #{cost}, pic = '${pic}'
+		set g_time = sysdate()
+		<if test="department != null">
+			, department = '${department}'
+		</if>
+		<if test="date != null">
+			, date = #{date}
+		</if>
+		<if test="cost != 0">
+			, cost = #{cost}
+		</if>
+		<if test="pic != null">
+			, pic = '${pic}'
+		</if>
+		<if test="self_paid != 0">
+			, self_paid = #{self_paid}
+		</if>
+		<if test="note != null">
+			, note = '${note}'
+		</if>
 		where id = #{id}
 	</update>
 	<update id="updateYymx" parameterType="system.po.Yymx">
 		update yymx
-		set date = #{date}, cost = #{cost},
-			detailed_pic = '${detailed_pic}',
-			pspt_pic = '${pspt_pic}'
+		set y_time = sysdate(),
+		<if test="date != null">
+			, date = #{date}
+		</if>
+		<if test="cost != 0">
+			, cost = #{cost}
+		</if>
+		<if test="detailed_pic != null">
+			, detailed_pic = '${detailed_pic}'
+		</if>
+		<if test="pspt_pic != null">
+			, pspt_pic = '${pspt_pic}'
+		</if>
+		<if test="special_paid != 0">
+			, special_paid = special_paid
+		</if>
+		<if test="part_paid != 0">
+			, part_paid = part_paid
+		</if>
+		<if test="self_paid != 0">
+			, self_paid = self_paid
+		</if>
+		<if test="note != null">
+			, note = '${note}'
+		</if>
 		where id = #{id}
 	</update>
 	<update id="updateWssm" parameterType="system.po.Wssm">
