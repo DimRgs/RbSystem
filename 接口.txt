@@ -268,7 +268,7 @@ url: /RbSystem/admin/getRbList1.do
 		int: totalPage,
 		int: totalNum,
 		RbList[]:{
-			String:rb_id,
+			int:rb_id,
 			int:rb_state,
 			int:user_type,
 			String:hospital,
@@ -314,19 +314,19 @@ url: /RbSystem/admin/startRbCheck.do
 返回: Json{
 	String:success("success": 成功； "failure": 失败),
 	Data:{
-		String:rb_id,
+		int:rb_id,
 		int:rb_state(1:未提交；2:待审核; 3:审核中; 4:审核通过; 5:审核未通过; 6:待报销; 7:已完成)
 		String:hospital,(可能为空)
 		Datetime:s_time(上次编辑时间),
 		referral:{
 			(这是转诊单，可能为空)
-			String:id,
+			int:id,
 			Date:date,
 			String:pic
 		},
 		ghf[]:{
 			(这是挂号费列表，可能为空)
-			String:id,
+			int:id,
 			String:department(科室),
 			Date:date(日期),
 			int:cost(总金额),
@@ -336,7 +336,7 @@ url: /RbSystem/admin/startRbCheck.do
 		},
 		yymx[]:{
 			(这是用药明细列表，可能为空)
-			String:id,
+			int:id,
 			Date:date,
 			int:cost,
 			int:special_paid,
@@ -348,7 +348,7 @@ url: /RbSystem/admin/startRbCheck.do
 		},
 		wssm:{
 			(这是外伤说明，可能为空)
-			String:id,
+			int:id,
 			String:note,(这是报销人员自己添加的说明)
 			String:stamp_pic,
 			String:special_pic
@@ -359,8 +359,8 @@ url: /RbSystem/admin/startRbCheck.do
 审核人员提交审核
 url: /RbSystem/admin/postRbCheck.do 
 输入: Json{
-	rb:{
-		String:rb_id,
+	rbStr:{
+		int:rb_id,
 		ghf[]:{
 			int:self_paid(自付金额),
 			String:note(审核说明),

@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 		// TODO 自动生成的方法存根
 		int ret = 0;
 		int rb_id = rb.getRb_id();
-		System.out.println("********************"+rb.getHashMap().toString());
+//		System.out.println("********************"+rb.getHashMap().toString());
 		if(mapper.updateRbDetail(rb) != 1)
 		{
 			return 0;
@@ -175,6 +175,14 @@ public class UserServiceImpl implements UserService {
 	public int getRbCount(RbSearchForm rbsf) throws Exception {
 		// TODO 自动生成的方法存根
 		return mapper.getRbCount(rbsf);
+	}
+
+	@Override
+	public int updateRbToCheck(RbDetail rb, Admin admin) throws Exception {
+		// TODO 自动生成的方法存根
+		rb.setRb_state(3);
+		rb.setAdmin(admin);
+		return mapper.updateRbAdmin(rb);
 	}
 
 }

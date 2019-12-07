@@ -23,6 +23,7 @@ public interface UserMapper {
 	public int updateUserTel(String user_id, String telephone) throws Exception;
 	public int updateUserPsd(String user_id, String psd, String newPsd) throws Exception;
 	public int updateRbDetail(RbDetail rb) throws Exception;
+	public int updateRbAdmin(RbDetail rb) throws Exception;
 	public int updateReferral(Referral ref) throws Exception;
 	public int updateGhf(Ghf ghf) throws Exception;
 	public int updateYymx(Yymx yymx) throws Exception;

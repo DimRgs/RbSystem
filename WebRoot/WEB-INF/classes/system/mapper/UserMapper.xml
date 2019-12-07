@@ -280,6 +280,11 @@
 		where id = '${param1}'
 		and password = '${param2}'
 	</update>
+	<update id="updateRbAdmin" parameterType="system.po.RbDetail">
+		update rb_detail 
+		set rb_state_id=#{rb_state}, admin_id=#{admin.id}
+		where id=#{rb_id}
+	</update>
 	<update id="updateRbDetail" parameterType="system.po.RbDetail">
 		update rb_detail 
 		set rb_state_id=#{rb_state}, hospital='${hospital}', s_time=sysdate()

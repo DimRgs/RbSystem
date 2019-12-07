@@ -63,7 +63,7 @@ public class AdminHandler extends RootHandler {
 		//如果当前审核状态为审核中， 且审核人员不为当前管理人员，返回failure
 		//如果审核中且身份相同，可以审核
 		Map<String, Object> map = new HashMap<String, Object>(3);
-		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = null;
 		
 		Admin admin = (Admin)request.getSession().getAttribute("Admin");
 		if(admin == null || rb_id == null || rb_id < 1)
@@ -79,7 +79,9 @@ public class AdminHandler extends RootHandler {
 			}
 			else 
 			{
-				rb.setRb_state(3);
+				setS(map);
+				us.updateRbToCheck(rb, admin);
+				dataMap = rb.getHashMap();
 			}
 		}
 		
@@ -124,6 +126,17 @@ public class AdminHandler extends RootHandler {
 			dataMap.put("totalPage", maxPage);
 			dataMap.put("totalNum", total);
 		}
+
+		map.put("Data", dataMap);
+		return map;
+	}
+	
+	@RequestMapping("/postRbCheck.do")
+	@ResponseBody
+	public Map<String, Object> postRbCheck(String rbStr) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 
 		map.put("Data", dataMap);
 		return map;
