@@ -97,12 +97,12 @@ public class RootHandler {
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		User user = (User)request.getSession().getAttribute("User");
-		if(user == null)
+		Admin admin = (Admin) request.getSession().getAttribute("Admin");
+		if(user == null && admin == null)	
 		{
 			setF(map);
-			//需要判断是否是管理人员
 		}
-		else 
+		else if(user != null)
 		{
 			setS(map);
 
@@ -110,8 +110,8 @@ public class RootHandler {
 			RbDetail rb = us.getLastRb(user.getId());
 			if(rb == null)
 			{
-				dataMap.put("rb_state", null) ;
-				dataMap.put("rb_id", null);
+				dataMap.put("rb_state", -1) ;
+				dataMap.put("rb_id", -1);
 			}
 			else 
 			{
@@ -119,6 +119,10 @@ public class RootHandler {
 				dataMap.put("rb_id", rb.getRb_id());
 			}
 			map.put("Data", dataMap);
+		}
+		else 
+		{
+			
 		}
 		return map;
 	}
@@ -152,9 +156,9 @@ public class RootHandler {
 			dataMap.put("level", 1);
 			dataMap.put("User", userInfo.getUser());
 			dataMap.put("Department", userInfo.getDepartment());
-			map.put("Data", dataMap);
 			request.getSession().setAttribute("User", userInfo.getUser());
 		}
+		map.put("Data", dataMap);
 		return map;
 	}
 	

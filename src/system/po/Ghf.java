@@ -60,4 +60,9 @@ public class Ghf {
 	public void setRb_id(int rb_id) {
 		this.rb_id = rb_id;
 	}
+	
+	public static void main(String[] args)
+	{
+		System.out.println(new Date());
+	}
 }

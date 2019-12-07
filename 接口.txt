@@ -7,7 +7,7 @@ url: /RbSystem/login.do
 	String:success("success": 成功； "failure": 失败),
 	Data:{
 		int:level(1:报销人员；2：审核人员；3：审核负责人；4：收单员；5：系统管理员),
-		//报销人员
+		# 报销人员
 		User:{
 			String:name(用户姓名), 
 			String:id(工号), 
@@ -21,11 +21,13 @@ url: /RbSystem/login.do
 			String:id(部门编号),
 			String:name(部门名称)
 		}
-		//管理人员
+		# 报销人员 End
+		# 管理人员
 		Admin:{
 			String: id,
 			int: level
 		}
+		# 管理人员 End
 	}
 }
 
@@ -251,4 +253,29 @@ url: /RbSystem/user/confirmRbForm.do
 	}
 }
 
+查看报销单申请表列表
+url: /RbSystem/admin/getRbList.do 
+输入：rbsf:{
+	int: curPage,
+	Date: start_date,
+	Date: end_date,
+	int[]: user_type,
+	String: user_name,
+	int: rb_state,
+}
+返回：Json{
+	String:success("success": 成功； "failure": 失败),
+	Data: {
+		int: totalPage,
+		int: totalNum,
+		RbList[]:{
+			String:rb_id,
+			String:hospital,
+			Admin:{
+				String: id
+			}
+			Date:s_time
+		}
+	}
+}
 

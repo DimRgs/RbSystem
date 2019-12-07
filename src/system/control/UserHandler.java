@@ -72,7 +72,7 @@ public class UserHandler extends RootHandler {
 	
 	@RequestMapping("/getRbForm.do")
 	@ResponseBody
-	public Map<String, Object> getRbForm(Integer rb_id) throws Exception
+	public Map<String, Object> getRbForm(Integer rb_id, Integer rb_state) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = null;
@@ -82,15 +82,18 @@ public class UserHandler extends RootHandler {
 			setF(map);
 			return map;
 		}
-		else if(rb_id == null || rb_id == 0)
+		else if(rb_id == null || rb_state == null)
+		{
+			setF(map);
+		}
+		else if(rb_id == -1 || rb_state == 7)	//如果当前没有报销单申请表记录，新建一个
 		{
 			setS(map);
 			RbDetail rb = us.insertNewRb(user.getId());
 			dataMap = rb.getHashMap();
 		}
-		else
+		else 
 		{
-			
 			RbDetail rb = us.getRbById(rb_id);
 			if(rb == null)
 			{
@@ -102,7 +105,6 @@ public class UserHandler extends RootHandler {
 			}
 			setS(map);
 		}
-		//先判断当前rb_id的状态，如果是已完成则创建个新的rb
 		
 		map.put("Data", dataMap);
 		return map;
@@ -130,19 +132,31 @@ public class UserHandler extends RootHandler {
 				setF(map);
 				
 			}
-			else 
+			else if(rb.getActive() > 0)
 			{
 				rb.setRb_state(rb.getActive());
-				if(us.updateRbDetail(rb) != 1)
+				try
 				{
+					if(us.updateRbDetail(rb) != 1)
+					{
+						setF(map);
+					}
+					else 
+					{
+						setS(map);
+						dataMap.put("rb_state", rb.getRb_state());
+						dataMap.put("rb_id", rb.getRb_id());
+					}
+				}
+				catch(Exception e)
+				{
+					System.out.println(e);
 					setF(map);
 				}
-				else 
-				{
-					setS(map);
-					dataMap.put("rb_state", rb.getRb_state());
-					dataMap.put("rb_id", rb.getRb_id());
-				}
+			}
+			else 
+			{
+				setF(map);
 			}
 		}
 		

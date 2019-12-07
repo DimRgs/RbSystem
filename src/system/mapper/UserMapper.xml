@@ -179,8 +179,9 @@
 			</if>
 		</where>
 	</select>
+<!-- 	差审核人员字段 -->
 	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_map">
-		select rb_detail.id, rb_detail.rb_state_id, user.name as u_name
+		select rb_detail.id, rb_detail.rb_state_id, user.name as u_name, rb_detail.hospital
 		from rb_detail, user
 		<where>
 			user.id = rb_detail.user_id
