@@ -19,6 +19,7 @@ public interface UserMapper {
 	public int insertNewGhf(Ghf ghf) throws Exception;
 	public int insertNewYymx(Yymx yymx) throws Exception;
 	public int insertNewWssm(Wssm wssm) throws Exception;
+	public int insertRbOp(int rb_id, String admin_id, int operation) throws Exception;
 	//update
 	public int updateUserTel(String user_id, String telephone) throws Exception;
 	public int updateUserPsd(String user_id, String psd, String newPsd) throws Exception;

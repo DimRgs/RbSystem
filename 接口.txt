@@ -407,35 +407,35 @@ url: /RbSystem/user/recieve.do
 
 用户申诉(4,5 -> 8)
 url: /RbSystem/user/complaint.do 
-输入：int:rb_id 
+输入：int:rb_id, String:note1
 返回：Json{
 	String:success
 }
 
 审核人员请求撤销审核(8 -> 10)
 url: /RbSystem/admin/requestCancel.do 
-输入：int:rb_id 
+输入：int:rb_id, String:note2
 返回：Json{
 	String:success
 }
 
 审核人员驳回申诉请求(8 -> 9)
 url: /RbSystem/admin/rejectedComplaint.do 
-输入：int:rb_id 
+输入：int:rb_id, String:note2
 返回：Json{
 	String:success
 }
 
 审核负责人同意重新审核(10 -> 11)
 url: /RbSystem/admin/agreeUndo.do 
-输入：int:rb_id 
+输入：int:rb_id, String:note3
 返回：Json{
 	String:success
 }
 
 审核负责人驳回重新审核(10 -> 12)
 url: /RbSystem/admin/argueUndo.do 
-输入：int:rb_id 
+输入：int:rb_id, String:note3
 返回：Json{
 	String:success
 }

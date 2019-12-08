@@ -40,6 +40,33 @@ public class SystemUtil {
 		map.put("success", "failure");
 	}
 
-	
+	public static int stateToOperation(int state)
+	{
+		switch(state)
+		{
+		case 3:
+			return 1;
+		case 4:
+			return 2;
+		case 5:
+			return 3;
+		case 7:
+			return 4;
+		case 9:
+			return 6;
+		case 10:
+			return 5;
+		case 11:
+			return 7;
+		case 12:
+			return 8;
+		case 13:
+			return 9;
+		case 14:
+			return 10;
+		default:
+			return 0;
+		}
+	}
 	
 }

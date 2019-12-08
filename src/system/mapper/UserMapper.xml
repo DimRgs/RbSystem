@@ -28,7 +28,7 @@
 			<result property="name" column="u_name" />
 		</association>
 		<association property="admin" javaType="Admin">
-			<id property="id" column="admin_id" />
+			<id property="id" column="a_id" />
 		</association>
 	</resultMap>
 	<resultMap type="Undo" id="undo_map">
@@ -133,6 +133,10 @@
 	
 	
 	<!-- insert -->
+	<insert id="insertRbOp">
+		insert into rb_operation
+		values(#{param1}, sysdate(), #{param3}, '${param2}')
+	</insert>
 	<insert id="insertNewRb">
 		insert into rb_detail
 		(user_id, rb_state_id, s_time)
@@ -196,7 +200,8 @@
 	</select>
 <!-- 	差审核人员字段 -->
 	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_map">
-		select rb_detail.id, rb_detail.rb_state_id, user.name as u_name, rb_detail.hospital, is_undo
+		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as a_id,
+			user.name as u_name, rb_detail.hospital, is_undo
 		from rb_detail, user
 		<where>
 			user.id = rb_detail.user_id
@@ -236,7 +241,7 @@
 		select LAST_INSERT_ID()
 	</select>
 	<select id="getRbById" resultMap="rb_detail_map">
-		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as admin_id, is_undo,
+		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as a_id, is_undo,
 			ghf.id as g_id, ghf.department as g_department, ghf.date as g_date,
 			ghf.cost as g_cost, ghf.note as g_note, ghf.self_paid as g_self_paid,
 			ghf.pic as g_pic,
@@ -246,13 +251,13 @@
 			yymx.pspt_pic as pspt_pic,
 			referral.id as r_id, referral.date as r_date, referral.pic as r_pic,
 			wssm.id as w_id, wssm.note as w_note, wssm.stamp_pic as stamp_pic, wssm.special_pic as special_pic,
-			admin.id as a_id
-		from (rb_detail, rb_state, admin)
+			user.id as user_id, user.name as u_name
+		from (rb_detail, rb_state, user)
 			join ghf on (ghf.rb_id = rb_detail.id)
 			join yymx on (yymx.rb_id = rb_detail.id)
 			join referral on (referral.rb_id = rb_detail.id)
 			join wssm on (wssm.rb_id = rb_detail.id)
-		where rb_detail.id = #{param1} and rb_detail.admin_id = admin.id
+		where rb_detail.id = #{param1} and rb_detail.user_id = user.id
 	</select>
 	<select id="getLastRb" resultMap="rb_map">
 		select rb_detail.id, rb_detail.rb_state_id
@@ -299,7 +304,7 @@
 	<update id="updateRbAdmin" parameterType="system.po.RbDetail">
 		update rb_detail 
 		set rb_state_id=#{rb_state}
-		<if test="admin_id != null">
+		<if test="admin.id != null">
 			, admin_id=#{admin.id}
 		</if>
 		where id=#{rb_id}

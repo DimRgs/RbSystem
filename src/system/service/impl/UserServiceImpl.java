@@ -18,6 +18,8 @@ import system.service.UserService;
 import system.vo.RbAdminPostVO;
 import system.vo.RbSearchForm;
 
+import static system.util.SystemUtil.stateToOperation;
+
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {
@@ -183,6 +185,7 @@ public class UserServiceImpl implements UserService {
 		// TODO 自动生成的方法存根
 		rb.setRb_state(3);
 		rb.setAdmin(admin);
+		mapper.insertRbOp(rb.getRb_id(), admin.getId(), stateToOperation(rb.getRb_state()));
 		return mapper.updateRbAdmin(rb);
 	}
 
@@ -208,7 +211,9 @@ public class UserServiceImpl implements UserService {
 			if(mapper.updateYymx(y) != 1)
 				return 0;
 		}
-		return 1;
+		int op = stateToOperation(rb.getRb_state());
+		
+		return mapper.insertRbOp(rb.getRb_id(), rbap.getAdmin_id(), op);
 	}
 
 }

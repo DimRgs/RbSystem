@@ -67,7 +67,7 @@ public class AdminHandler extends RootHandler {
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = null;
 		
-		Admin admin = (Admin)request.getSession().getAttribute("Admin");
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
 		if(admin == null || rb_id == null || rb_id < 1)
 		{
 			setF(map);
@@ -103,7 +103,7 @@ public class AdminHandler extends RootHandler {
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 
-		Admin admin = (Admin)request.getSession().getAttribute("Admin");
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
 
 		if(admin == null)
 		{
@@ -143,7 +143,7 @@ public class AdminHandler extends RootHandler {
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		
-		Admin admin = (Admin)request.getSession().getAttribute("Admin");
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
 
 		if(admin == null)
 		{
@@ -152,6 +152,7 @@ public class AdminHandler extends RootHandler {
 		else 
 		{
 			RbAdminPostVO rbap = JSON.parseObject(rbStr, RbAdminPostVO.class);
+			rbap.setAdmin_id(admin.getId());
 			if(us.updateRbToPost(rbap) != 1)
 			{
 				setF(map);
