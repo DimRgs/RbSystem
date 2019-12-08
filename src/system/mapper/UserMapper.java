@@ -30,6 +30,7 @@ public interface UserMapper {
 	public int updateYymx(Yymx yymx) throws Exception;
 	public int updateWssm(Wssm wssm) throws Exception;
 	public int updateRbState(int rb_id, int rb_state) throws Exception;
+	public int updateRbCost(RbDetail rb) throws Exception;
 	//select
 	public int getDepartmentCount() throws Exception;
 	public User getUserById(String id, String password) throws Exception;

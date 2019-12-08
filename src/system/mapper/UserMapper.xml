@@ -309,6 +309,11 @@
 		</if>
 		where id=#{rb_id}
 	</update>
+	<update id="updateRbCost" parameterType="system.po.RbDetail">
+		update rb_detail 
+		set total_cost = #{total_cost}, total_self_paid = #{total_self_paid}
+		where id = #{rb_id}
+	</update>
 	<update id="updateRbDetail" parameterType="system.po.RbDetail">
 		update rb_detail 
 		set rb_state_id=#{rb_state}, hospital='${hospital}', s_time=sysdate()

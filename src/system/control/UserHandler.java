@@ -205,6 +205,7 @@ public class UserHandler extends RootHandler {
 	public Map<String, Object> confirmRbForm(Integer rb_id, Integer active) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		User user = (User)request.getSession().getAttribute("User");
 		
 		if(user == null)
@@ -217,6 +218,8 @@ public class UserHandler extends RootHandler {
 			if(us.updateRbState(rb_id, state, null) == 1)
 			{
 				setS(map);
+				dataMap.put("rb_state", state);
+				map.put("Data", dataMap);
 			}
 			else 
 			{

@@ -225,7 +225,36 @@ public class UserServiceImpl implements UserService {
 			mapper.insertRbOp(rb_id, admin_id, op);
 		}
 		
+		if(rb_state == 6)
+		{
+			calculateTotalCost(rb_id);
+		}
+		
 		return mapper.updateRbState(rb_id, rb_state);
+	}
+	
+	private int calculateTotalCost(int rb_id) throws Exception
+	{
+		RbDetail rb = this.getRbById(rb_id);
+		int totalCost = 0;
+		int totalSelfPaid = 0;
+		for(Ghf g : rb.getGhf())
+		{
+			totalCost += g.getCost();
+			totalSelfPaid += g.getSelf_paid();
+		}
+		for(Yymx y : rb.getYymx())
+		{
+			totalCost += y.getCost();
+			totalSelfPaid += y.getPart_paid();
+			totalSelfPaid += y.getSpecial_paid();
+			totalSelfPaid += y.getSelf_paid();
+		}
+		
+		rb.setTotal_cost(totalCost);
+		rb.setTotal_self_paid(totalSelfPaid);
+		
+		return mapper.updateRbCost(rb);
 	}
 
 }

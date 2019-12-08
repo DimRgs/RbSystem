@@ -19,7 +19,21 @@ public class RbDetail implements Hashable {
 	private List<Yymx> yymx;
 	private Wssm wssm;
 	private int active;
+	private int total_cost;
+	private int total_self_paid;
 	
+	public int getTotal_cost() {
+		return total_cost;
+	}
+	public void setTotal_cost(int total_cost) {
+		this.total_cost = total_cost;
+	}
+	public int getTotal_self_paid() {
+		return total_self_paid;
+	}
+	public void setTotal_self_paid(int total_self_paid) {
+		this.total_self_paid = total_self_paid;
+	}
 	public List<Ghf> getGhf() {
 		return ghf;
 	}
