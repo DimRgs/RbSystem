@@ -1,18 +1,19 @@
-打印报销单
-url:
+获取报销单表格数据及二维码
+url: /RbSystem/user/getQR.do
 输入: int:rb_id
 返回: Json{
 	String:success,
 	Data:{
-		String:RBID,
-		String:QRCode
+		int:rb_id,
+		String:QRCode,
 		String:u_id(报销人员编号),
 		String:u_name(报销人员姓名),
 		int:u_type(报销人员类别),
 		String:u_department(报销人员部门),
 		timestamp:c_time,
 		String:hospital,
-		int:total_rb(总报销金额),
+		int:total_cost(总申报金额),
+		int:total_self_paid(总自费金额),
 		ghf:{
 			total_cost(总金额),
 			self_pro(自付比例),

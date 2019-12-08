@@ -229,4 +229,34 @@ public class UserHandler extends RootHandler {
 
 		return map;
 	}
+	
+	@RequestMapping("/getQR.do")
+	@ResponseBody
+	public Map<String, Object> getQR(Integer rb_id) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		User user = (User)request.getSession().getAttribute("User");
+		
+		if(user == null)
+		{
+			setF(map);
+		}
+		else 
+		{
+			
+			RbDetail rb = us.getRbById(rb_id);
+			if(rb.getRb_state() < 6 || rb.getRb_state() > 7)
+			{
+				setF(map);
+			}
+			else 
+			{
+				setS(map);
+			}
+		}
+
+		return map;
+	}
 }
