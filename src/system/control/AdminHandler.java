@@ -71,6 +71,8 @@ public class AdminHandler extends RootHandler {
 		if(admin == null || rb_id == null || rb_id < 1)
 		{
 			setF(map);
+			dataMap = new HashMap<String, Object>(3);
+			dataMap.put("reason", "Admin is null.");
 		}
 		else 
 		{
@@ -78,6 +80,8 @@ public class AdminHandler extends RootHandler {
 			if(rb.getRb_state() == 3 && !rb.getAdmin().getId().equals(admin.getId()))
 			{
 				setF(map);
+				dataMap = new HashMap<String, Object>(3);
+				dataMap.put("reason", "Other is checking.");
 			}
 			else 
 			{

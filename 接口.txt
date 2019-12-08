@@ -38,8 +38,26 @@ url: /RbSystem/homepage.do
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
 	Data:{
+		# 报销人员 
 		int:rb_state(0:没有报销单申请记录; 1:未提交；2:待审核; 3:审核中; 4:审核通过; 5:审核未通过; 6:待报销; 7:已完成)
 		String:rb_id(用于新增报销单申请表页面加载时输入，这样后台不用重新查找报销单id)
+		# 报销人员 End
+		
+		# 审核人员 
+		int: totalPage,
+		int: totalNum,
+		rbList[]:{
+			int:rb_id,
+			int:rb_state,
+			undo:{
+				int:id,
+				String:note1,
+				String:note2,
+				String:note3,
+			}
+			timestamp:o_time(上次操作时间),
+		}
+		# 审核人员 End
 	}
 }
 
@@ -239,7 +257,7 @@ url: /RbSystem/getRbDetail.do
 	}
 }
 
-用户确认报销单
+用户确认报销单(4,5,13 -> 6)
 url: /RbSystem/user/confirmRbForm.do
 输入: Json{
 	active:(1:确定报销; 2:修改后提交),
@@ -308,7 +326,7 @@ url: /RbSystem/admin/getRbList2.do
 	}
 }
 
-审核人员开始审核
+审核人员开始审核(2 -> 3)
 url: /RbSystem/admin/startRbCheck.do 
 输入: int:rb_id 
 返回: Json{
@@ -356,12 +374,12 @@ url: /RbSystem/admin/startRbCheck.do
 	}
 }
 
-审核人员提交审核
+审核人员提交审核(3 -> 4,5 or 11 -> 13)
 url: /RbSystem/admin/postRbCheck.do 
 输入: Json{
 	rbStr:{
 		int:rb_id,
-		int:result(4通过， 5未通过),
+		int:result(3:审核中暂存, 4:通过, 5:未通过, 11:重新审核中),
 		ghf[]:{
 			int:self_paid(自付金额),
 			String:note(审核说明),
@@ -376,5 +394,48 @@ url: /RbSystem/admin/postRbCheck.do
 	}
 }
 返回：Json:{
+	String:success
+}
+
+收单员收单
+url: /RbSystem/user/recieve.do 
+输入: int:rb_id 
+返回：Json{
+	String:success
+}
+
+
+用户申诉(4,5 -> 8)
+url: /RbSystem/user/complaint.do 
+输入：int:rb_id 
+返回：Json{
+	String:success
+}
+
+审核人员请求撤销审核(8 -> 10)
+url: /RbSystem/admin/requestCancel.do 
+输入：int:rb_id 
+返回：Json{
+	String:success
+}
+
+审核人员驳回申诉请求(8 -> 9)
+url: /RbSystem/admin/rejectedComplaint.do 
+输入：int:rb_id 
+返回：Json{
+	String:success
+}
+
+审核负责人同意重新审核(10 -> 11)
+url: /RbSystem/admin/agreeUndo.do 
+输入：int:rb_id 
+返回：Json{
+	String:success
+}
+
+审核负责人驳回重新审核(10 -> 12)
+url: /RbSystem/admin/argueUndo.do 
+输入：int:rb_id 
+返回：Json{
 	String:success
 }

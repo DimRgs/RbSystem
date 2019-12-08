@@ -21,6 +21,8 @@
 		<id property="rb_id" column="id" />
 		<result property="rb_state" column="rb_state_id" />
 		<result property="hospital" column="hospital" />
+		<result property="isUndo" column="is_undo" />
+		<result property="date" column="s_time" />
 		<association property="user" javaType="User">
 			<id property="id" column="user_id" />
 			<result property="name" column="u_name" />
@@ -28,6 +30,13 @@
 		<association property="admin" javaType="Admin">
 			<id property="id" column="admin_id" />
 		</association>
+	</resultMap>
+	<resultMap type="Undo" id="undo_map">
+		<id property="id" column="r_id" />
+		<result property="rb_id" column="rb_id" />
+		<result property="note1" column="note1" />
+		<result property="note2" column="note2" />
+		<result property="note3" column="note3" />
 	</resultMap>
 	<resultMap type="Referral" id="referral_map">
 		<id property="id" column="r_id" />
@@ -64,6 +73,7 @@
 		<id property="rb_id" column="id" />
 		<result property="rb_state" column="rb_state_id" />
 		<result property="hospital" column="hospital" />
+		<result property="isUndo" column="is_undo" />
 		<result property="date" column="s_time" />
 		<association property="user" javaType="User">
 			<id property="id" column="user_id" />
@@ -149,6 +159,8 @@
 		values (#{rb_id}, '${note}','${stamp_pic}', '${special_pic}')
 	</insert>
 	
+<!-- 	select -->
+
 	<select id="getRbCount" parameterType="RbSearchForm" resultType="int">
 		select count(*) from rb_detail, user
 		<where>
@@ -184,7 +196,7 @@
 	</select>
 <!-- 	差审核人员字段 -->
 	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_map">
-		select rb_detail.id, rb_detail.rb_state_id, user.name as u_name, rb_detail.hospital
+		select rb_detail.id, rb_detail.rb_state_id, user.name as u_name, rb_detail.hospital, is_undo
 		from rb_detail, user
 		<where>
 			user.id = rb_detail.user_id
@@ -224,7 +236,7 @@
 		select LAST_INSERT_ID()
 	</select>
 	<select id="getRbById" resultMap="rb_detail_map">
-		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as admin_id,
+		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as admin_id, is_undo,
 			ghf.id as g_id, ghf.department as g_department, ghf.date as g_date,
 			ghf.cost as g_cost, ghf.note as g_note, ghf.self_paid as g_self_paid,
 			ghf.pic as g_pic,

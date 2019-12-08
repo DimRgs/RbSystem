@@ -10,6 +10,7 @@ public class RbDetail implements Hashable {
 	private int rb_id;
 	private int rb_state;
 	private String hospital;
+	private int isUndo;
 	private Date s_time;
 	private Admin admin;
 	private User user;
@@ -64,7 +65,7 @@ public class RbDetail implements Hashable {
 	public void setWssm(Wssm wssm) {
 		this.wssm = wssm;
 	}
-	
+
 	@Override
 	public Map<String, Object> getHashMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -102,6 +103,12 @@ public class RbDetail implements Hashable {
 	}
 	public void setActive(int active) {
 		this.active = active;
+	}
+	public int getIsUndo() {
+		return isUndo;
+	}
+	public void setIsUndo(int isUndo) {
+		this.isUndo = isUndo;
 	}
 	
 }
