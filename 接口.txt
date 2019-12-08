@@ -398,7 +398,7 @@ url: /RbSystem/admin/postRbCheck.do
 }
 
 收单员收单
-url: /RbSystem/user/recieve.do 
+url: /RbSystem/admin/recieve.do 
 输入: int:rb_id 
 返回：Json{
 	String:success
