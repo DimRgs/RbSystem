@@ -216,4 +216,16 @@ public class UserServiceImpl implements UserService {
 		return mapper.insertRbOp(rb.getRb_id(), rbap.getAdmin_id(), op);
 	}
 
+	@Override
+	public int updateRbState(int rb_id, int rb_state, String admin_id) throws Exception {
+		// TODO 自动生成的方法存根
+		int op = stateToOperation(rb_state);
+		if(op != 0 && admin_id != null)
+		{
+			mapper.insertRbOp(rb_id, admin_id, op);
+		}
+		
+		return mapper.updateRbState(rb_id, rb_state);
+	}
+
 }

@@ -68,7 +68,7 @@ public class AdminHandler extends RootHandler {
 		Map<String, Object> dataMap = null;
 		
 		Admin admin = (Admin)request.getSession().getAttribute("admin");
-		if(admin == null || rb_id == null || rb_id < 1)
+		if(admin == null || admin.getLevel() != 2 || rb_id == null || rb_id < 1)
 		{
 			setF(map);
 			dataMap = new HashMap<String, Object>(3);
@@ -145,7 +145,7 @@ public class AdminHandler extends RootHandler {
 		
 		Admin admin = (Admin)request.getSession().getAttribute("admin");
 
-		if(admin == null)
+		if(admin == null || admin.getLevel() != 2)
 		{
 			setF(map);
 		}
@@ -161,6 +161,29 @@ public class AdminHandler extends RootHandler {
 			{
 				setS(map);
 			}
+		}
+		return map;
+	}
+	
+	@RequestMapping("/recieve.do")
+	@ResponseBody
+	public Map<String, Object> recieve(Integer rb_id) throws Exception
+	{
+		//收单员收单成功
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		
+		if(admin == null || admin.getLevel() != 4)
+		{
+			setF(map);
+		}
+		else if(us.updateRbState(rb_id, 7, admin.getId()) == 1)
+		{
+			setS(map);
+		}
+		else 
+		{
+			setF(map);
 		}
 		return map;
 	}

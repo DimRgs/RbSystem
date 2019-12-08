@@ -199,4 +199,31 @@ public class UserHandler extends RootHandler {
 		map.put("Data", dataMap);
 		return map;
 	}
+	
+	@RequestMapping("/confirmRbForm.do")
+	@ResponseBody
+	public Map<String, Object> confirmRbForm(Integer rb_id, Integer active) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		User user = (User)request.getSession().getAttribute("User");
+		
+		if(user == null)
+		{
+			setF(map);
+		}
+		else 
+		{
+			int state = active == 1 ? 6 : 1;
+			if(us.updateRbState(rb_id, state, null) == 1)
+			{
+				setS(map);
+			}
+			else 
+			{
+				setF(map);
+			}
+		}
+
+		return map;
+	}
 }

@@ -20,6 +20,8 @@ public interface UserService {
 	public int updateRbToCheck(RbDetail rb, Admin admin) throws Exception;
 	public int updateRbToPost(RbAdminPostVO rbap) throws Exception;
 	
+	public int updateRbState(int rb_id, int rb_state, String admin_id) throws Exception;
+	
 	public int getDepartmentCount() throws Exception;
 	public UserInfo getUserInfo(String id, String password) throws Exception;
 	public Admin getAdminInfo(String id, String password) throws Exception;

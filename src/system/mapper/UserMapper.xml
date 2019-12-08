@@ -377,5 +377,9 @@
 			special_pic = '${special_pic}'
 		where id = #{id}
 	</update>
-
+	<update id="updateRbState">
+		update rb_detail
+		set rb_state_id = #{param2}
+		where id = #{param1}
+	</update>
 </mapper>

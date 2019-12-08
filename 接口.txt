@@ -257,17 +257,16 @@ url: /RbSystem/getRbDetail.do
 	}
 }
 
-用户确认报销单(4,5,13 -> 6)
+用户确认报销单(4,5,14 -> 6)
 url: /RbSystem/user/confirmRbForm.do
 输入: Json{
 	active:(1:确定报销; 2:修改后提交),
-	String:rb_id
+	int:rb_id
 }
 返回 Json{
 	String:success("success": 成功； "failure": 失败),
 	Data:{
 		int:rb_state(0:没有报销单申请记录; 1:未提交；2:待审核; 3:审核中; 4:审核通过; 5:审核未通过; 6:待报销; 7:已完成)
-		String:rb_id(用于报销单申请页面加载时输入，这样后台不用重新查找报销单id)
 	}
 }
 
@@ -439,3 +438,4 @@ url: /RbSystem/admin/argueUndo.do
 返回：Json{
 	String:success
 }
+
