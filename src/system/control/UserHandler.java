@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
+import system.po.Ghf;
 import system.po.RbDetail;
 import system.po.User;
+import system.po.UserInfo;
+import system.po.Yymx;
 import system.vo.RbSearchForm;
 
 import static system.util.SystemUtil.*;		//导入静态方法
+import static system.util.Des.*;
 
 @RequestMapping("/user")
 @Controller
@@ -254,9 +258,51 @@ public class UserHandler extends RootHandler {
 			else 
 			{
 				setS(map);
+				UserInfo ui = us.getUserInfoById(user.getId());
+				dataMap.put("rb_id", rb_id);
+				dataMap.put("QRCode", encrypt(rb_id.toString()));
+				dataMap.put("u_id", ui.getUser().getId());
+				dataMap.put("u_name", ui.getUser().getName());
+				dataMap.put("u_type", ui.getUser().getType());
+				dataMap.put("u_department", ui.getDepartment().getName());
+				dataMap.put("c_time", rb.getS_time());
+				dataMap.put("hospital", rb.getHospital());
+				dataMap.put("total_cost", rb.getTotal_cost());
+				dataMap.put("total_self_paid", rb.getTotal_self_paid());
+
+				Map<String, Object> ghf = new HashMap<String, Object>(3);
+				Map<String, Object> yymx = new HashMap<String, Object>(3);
+				int cost = 0;
+				int self_paid = 0;
+				
+				for(Ghf g : rb.getGhf())
+				{
+					cost += g.getCost();
+					self_paid += g.getSelf_paid();
+				}
+				ghf.put("total_cost", cost);
+				ghf.put("self_paid", self_paid);
+				ghf.put("self_pro", (float)self_paid/cost);
+				ghf.put("count", rb.getGhf().size());
+				dataMap.put("ghf", ghf);
+				
+				cost = 0;
+				self_paid = 0;
+				
+				for(Yymx y : rb.getYymx())
+				{
+					cost += y.getCost();
+					self_paid += y.getSelf_paid();
+				}
+				yymx.put("total_cost", cost);
+				yymx.put("self_paid", self_paid);
+				yymx.put("self_pro", (float)self_paid/cost);
+				yymx.put("count", rb.getYymx().size());
+				dataMap.put("yymx", yymx);
+				map.put("Data", dataMap);
 			}
 		}
-
+		
 		return map;
 	}
 }

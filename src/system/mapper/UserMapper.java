@@ -35,6 +35,7 @@ public interface UserMapper {
 	public int getDepartmentCount() throws Exception;
 	public User getUserById(String id, String password) throws Exception;
 	public UserInfo getUserInfo(String id, String password) throws Exception;
+	public UserInfo getUerInfoById(String id) throws Exception;
 	public Admin getAdminInfo(String id, String password) throws Exception;
 	public RbDetail getLastRb(String user_id) throws Exception;
 	public RbDetail getRbById(Integer rb_id) throws Exception;

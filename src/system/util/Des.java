@@ -21,25 +21,14 @@ public class Des {
     private final static String ALGORITHM = "Des";  
     
     public static void main(String[] args) throws Exception {  
-        String md5Password = "4";  
-        String str = Des.decrypt(md5Password);  
+        Integer ff = 5;  
+        String str = Des.encrypt(ff.toString());  
         System.out.println("str1: " + str);  
-        str = Des.encrypt(str);  
+        str = Des.decrypt(str);  
         System.out.println("str2: " + str);
     }  
       
-    /** 
-     * 对数据进行DES加密. 
-     * @param data 待进行DES加密的数据 
-     * @return 返回经过DES加密后的数据 
-     * @throws Exception 
-     * @author <a href="mailto:xiexingxing1121@126.com" mce_href="mailto:xiexingxing1121@126.com">AmigoXie</a> 
-     * Creation date: 2007-7-31 - 下午12:06:24 
-     */  
-    public final static String encrypt(String data) throws Exception {  
-        return new String(decrypt(hex2byte(data.getBytes()),  
-                PASSWORD_CRYPT_KEY.getBytes()));  
-    }  
+    
     /** 
      * 对用DES加密过的数据进行解密. 
      * @param data DES加密数据 
@@ -48,7 +37,20 @@ public class Des {
      * @author <a href="mailto:xiexingxing1121@126.com" mce_href="mailto:xiexingxing1121@126.com">AmigoXie</a> 
      * Creation date: 2007-7-31 - 下午12:07:54 
      */  
-    public final static String decrypt(String data) throws Exception  {  
+    public final static String decrypt(String data) throws Exception {  
+        return new String(decrypt(hex2byte(data.getBytes()),  
+                PASSWORD_CRYPT_KEY.getBytes()));  
+    }  
+    
+    /** 
+     * 对数据进行DES加密. 
+     * @param data 待进行DES加密的数据 
+     * @return 返回经过DES加密后的数据 
+     * @throws Exception 
+     * @author <a href="mailto:xiexingxing1121@126.com" mce_href="mailto:xiexingxing1121@126.com">AmigoXie</a> 
+     * Creation date: 2007-7-31 - 下午12:06:24 
+     */  
+    public final static String encrypt(String data) throws Exception  {  
         return byte2hex(encrypt(data.getBytes(), PASSWORD_CRYPT_KEY  
                 .getBytes()));  
     }

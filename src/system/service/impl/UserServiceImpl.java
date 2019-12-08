@@ -257,4 +257,10 @@ public class UserServiceImpl implements UserService {
 		return mapper.updateRbCost(rb);
 	}
 
+	@Override
+	public UserInfo getUserInfoById(String id) throws Exception {
+		// TODO 自动生成的方法存根
+		return mapper.getUerInfoById(id);
+	}
+
 }

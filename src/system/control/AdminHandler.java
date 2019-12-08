@@ -12,9 +12,11 @@ import com.alibaba.fastjson.JSON;
 
 import system.po.Admin;
 import system.po.RbDetail;
+import system.po.User;
 import system.vo.*;
 
 import static system.util.SystemUtil.*;
+import system.util.Des;
 
 @RequestMapping("/admin")
 @Controller
@@ -185,6 +187,43 @@ public class AdminHandler extends RootHandler {
 		{
 			setF(map);
 		}
+		return map;
+	}
+	
+	@RequestMapping("/getRecieve.do")
+	@ResponseBody
+	public Map<String, Object> getRbDetail(String QRCode) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = null;
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		Integer ida = Integer.valueOf(Des.decrypt(QRCode));
+		if(admin == null)
+		{
+			setF(map);
+			return map;
+		}
+		else if(ida == null)
+		{
+			setF(map);
+			return map;
+		}
+		else
+		{
+			RbDetail rb = us.getRbById(ida.intValue());
+			if(rb == null)
+			{
+				setF(map);
+			}
+			else 
+			{
+				dataMap = rb.getHashMap();
+			}
+			setS(map);
+		}
+		//先判断当前rb_id的状态，如果是已完成则创建个新的rb
+		
+		map.put("Data", dataMap);
 		return map;
 	}
 }

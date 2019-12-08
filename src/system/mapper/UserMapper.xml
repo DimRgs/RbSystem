@@ -273,6 +273,18 @@
 		select * from department 
 		where id = '${param1}' and password = '${param2}' 
 	</select>
+	<select id="getUerInfoById" resultMap="userInfo_map">
+		select 
+			department.id as d_id, 
+			department.name as d_name, 
+			user.* ,user_type.*
+		from 
+			user, department, user_type
+		where 
+			user.department_id = department.id and
+			user.id = '${_parameter}' and 
+			user.user_type_id = user_type.id
+	</select>
 	<select id="getUserInfo" resultMap="userInfo_map">
 		select 
 			department.id as d_id, 
