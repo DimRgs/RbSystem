@@ -22,7 +22,7 @@
 		<result property="rb_state" column="rb_state_id" />
 		<result property="hospital" column="hospital" />
 		<result property="isUndo" column="is_undo" />
-		<result property="date" column="s_time" />
+		<result property="s_time" column="s_time" />
 		<association property="user" javaType="User">
 			<id property="id" column="user_id" />
 			<result property="name" column="u_name" />
@@ -74,7 +74,7 @@
 		<result property="rb_state" column="rb_state_id" />
 		<result property="hospital" column="hospital" />
 		<result property="isUndo" column="is_undo" />
-		<result property="date" column="s_time" />
+		<result property="s_time" column="s_time" />
 		<association property="user" javaType="User">
 			<id property="id" column="user_id" />
 			<result property="name" column="u_name" />
@@ -194,10 +194,10 @@
 				</foreach>
 			</if>
 			<if test="admin_id != null">
-				and rb_detail.admin_id = #{admin_id}
+				and rb_detail.admin_id = '${admin_id}'
 			</if>
 			<if test="user_id != null">
-				and rb_detail.user_id = #{user_id}
+				and rb_detail.user_id = '${user_id}'
 			</if>
 			<if test="user_type != null">
 				and user_type_id in 
@@ -236,10 +236,10 @@
 				</foreach>
 			</if>
 			<if test="admin_id != null">
-				and rb_detail.admin_id = #{admin_id}
+				and rb_detail.admin_id = '${admin_id}'
 			</if>
 			<if test="user_id != null">
-				and rb_detail.user_id = #{user_id}
+				and rb_detail.user_id = '${user_id}'
 			</if>
 			
 		</where>
@@ -250,7 +250,8 @@
 		select LAST_INSERT_ID()
 	</select>
 	<select id="getRbById" resultMap="rb_detail_map">
-		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as a_id, is_undo, rb_detail.hospital as hospital,
+		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as a_id, is_undo, 
+			rb_detail.hospital as hospital, rb_detail.s_time,
 			ghf.id as g_id, ghf.department as g_department, ghf.date as g_date,
 			ghf.cost as g_cost, ghf.note as g_note, ghf.self_paid as g_self_paid,
 			ghf.pic as g_pic,
@@ -262,10 +263,10 @@
 			wssm.id as w_id, wssm.note as w_note, wssm.stamp_pic as stamp_pic, wssm.special_pic as special_pic,
 			user.id as user_id, user.name as u_name
 		from (rb_detail, rb_state, user)
-			join ghf on (ghf.rb_id = rb_detail.id)
-			join yymx on (yymx.rb_id = rb_detail.id)
-			join referral on (referral.rb_id = rb_detail.id)
-			join wssm on (wssm.rb_id = rb_detail.id)
+			left join ghf on (ghf.rb_id = rb_detail.id)
+			left join yymx on (yymx.rb_id = rb_detail.id)
+			left join referral on (referral.rb_id = rb_detail.id)
+			left join wssm on (wssm.rb_id = rb_detail.id)
 		where rb_detail.id = #{param1} and rb_detail.user_id = user.id
 	</select>
 	<select id="getLastRb" resultMap="rb_map">

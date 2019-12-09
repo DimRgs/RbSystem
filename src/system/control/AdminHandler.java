@@ -249,7 +249,7 @@ public class AdminHandler extends RootHandler {
 				dataMap = new HashMap<String, Object>(3);
 				dataMap.put("reason", "Other is checking.");
 			}
-			else 
+			else if(rb.getRb_state() == 2)
 			{
 				setS(map);
 				us.updateRbToCheck(rb, admin);
