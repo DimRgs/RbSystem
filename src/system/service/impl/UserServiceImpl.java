@@ -76,8 +76,7 @@ public class UserServiceImpl implements UserService {
 		RbDetail rb = null;
 		if(mapper.insertNewRb(user_id) == 1)
 		{
-			rb = new RbDetail();
-			rb.setRb_id(mapper.selectLastInsertId());
+			rb = this.getRbById(mapper.selectLastInsertId());
 		}
 		else 
 			rb = null;
@@ -106,10 +105,6 @@ public class UserServiceImpl implements UserService {
 			{
 				ret = mapper.updateReferral(ref);
 			}
-			if(ret != 1)
-			{
-				return 0;
-			}
 
 			for(Ghf ghf : rb.getGhf())
 			{
@@ -121,11 +116,6 @@ public class UserServiceImpl implements UserService {
 				else 
 				{
 					ret = mapper.updateGhf(ghf);
-				}
-				
-				if(ret != 1)
-				{
-					return 0;
 				}
 			}
 			for(Yymx yymx : rb.getYymx())
@@ -140,10 +130,6 @@ public class UserServiceImpl implements UserService {
 					ret = mapper.updateYymx(yymx);
 				}
 				
-				if(ret != 1)
-				{
-					return 0;
-				}
 			}
 			Wssm wssm = rb.getWssm();
 			wssm.setRb_id(rb_id);
@@ -154,10 +140,6 @@ public class UserServiceImpl implements UserService {
 			else 
 			{
 				ret = mapper.updateWssm(wssm);
-			}
-			if(ret != 1)
-			{
-				return 0;
 			}
 		}
 		return 1;
@@ -194,6 +176,7 @@ public class UserServiceImpl implements UserService {
 	public int updateRbToPost(RbAdminPostVO rbap) throws Exception {
 		// TODO 自动生成的方法存根
 		RbDetail rb = new RbDetail();
+		rb.setAdmin(new Admin());
 		rb.setRb_id(rbap.getRb_id());
 		rb.setRb_state(rbap.getResult());
 		if(mapper.updateRbAdmin(rb) != 1)

@@ -18,10 +18,10 @@ public class Des {
     private static final String PASSWORD_CRYPT_KEY = "kEHrDooxWHCWtfeSxvDvgqZq";  
     //private static final String PASSWORD_CRYPT_KEY = "abcvdsdf";  
     /** 加密算法,可用 DES,DESede,Blowfish. */  
-    private final static String ALGORITHM = "Des";  
+    private final static String ALGORITHM = "Des";
     
     public static void main(String[] args) throws Exception {  
-        Integer ff = 5;  
+        Integer ff = 1;  
         String str = Des.encrypt(ff.toString());  
         System.out.println("str1: " + str);  
         str = Des.decrypt(str);  

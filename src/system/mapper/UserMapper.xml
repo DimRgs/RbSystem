@@ -147,7 +147,7 @@
 	<insert id="insertNewRb">
 		insert into rb_detail
 		(user_id, rb_state_id, s_time)
-		values ('${param1}', 1, sysdate())
+		values ('${_parameter}', 1, sysdate())
 	</insert>
 	<insert id="insertNewReferral" parameterType="Referral">
 		insert into referral
@@ -250,7 +250,7 @@
 		select LAST_INSERT_ID()
 	</select>
 	<select id="getRbById" resultMap="rb_detail_map">
-		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as a_id, is_undo,
+		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as a_id, is_undo, rb_detail.hospital as hospital,
 			ghf.id as g_id, ghf.department as g_department, ghf.date as g_date,
 			ghf.cost as g_cost, ghf.note as g_note, ghf.self_paid as g_self_paid,
 			ghf.pic as g_pic,
@@ -394,16 +394,16 @@
 	</update>
 	<update id="updateYymx" parameterType="system.po.Yymx">
 		update yymx
-		set y_time = sysdate(),
+		set y_time = sysdate()
 		<if test="date != null">
-			, date = #{date}
-		</if>
+			, date = #{date} 
+		</if> 
 		<if test="cost != 0">
 			, cost = #{cost}
-		</if>
+		</if> 
 		<if test="detailed_pic != null">
 			, detailed_pic = '${detailed_pic}'
-		</if>
+		</if> 
 		<if test="pspt_pic != null">
 			, pspt_pic = '${pspt_pic}'
 		</if>
