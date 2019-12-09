@@ -408,7 +408,7 @@ url: /RbSystem/admin/recieve.do
 url: /RbSystem/user/complaint.do 
 输入：int:rb_id, String:note1
 返回：Json{
-	String:success
+	String:success,
 }
 
 审核人员请求撤销审核(8 -> 10)

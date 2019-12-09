@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 
 import system.po.Admin;
 import system.po.RbDetail;
+import system.po.Undo;
 import system.po.User;
 import system.vo.*;
 
@@ -22,6 +23,170 @@ import system.util.Des;
 @Controller
 public class AdminHandler extends RootHandler {
 	
+	@RequestMapping("/demo.do")
+	@ResponseBody
+	public Map<String, Object> demo(RbSearchForm rbsf) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
+	@RequestMapping("/agreeUndo.do")
+	@ResponseBody
+	public Map<String, Object> agreeUndo(int rb_id, String note3) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		
+		if(admin == null)
+		{
+			setF(map);
+		}
+		else 
+		{
+			setS(map);
+			us.updateRbState(rb_id, 11, admin.getId());
+			Undo undo = new Undo();
+			undo.setRb_id(rb_id);
+			undo.setNote3(note3);
+			us.updateUndo(undo);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
+	@RequestMapping("/argueUndo.do")
+	@ResponseBody
+	public Map<String, Object> argueUndo(int rb_id, String note3) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		
+		if(admin == null)
+		{
+			setF(map);
+		}
+		else 
+		{
+			setS(map);
+			us.updateRbState(rb_id, 12, admin.getId());
+			Undo undo = new Undo();
+			undo.setRb_id(rb_id);
+			undo.setNote3(note3);
+			us.updateUndo(undo);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
+	@RequestMapping("/rejectedComplaint.do")
+	@ResponseBody
+	public Map<String, Object> rejectedComplaint(int rb_id, String note2) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		
+		if(admin == null)
+		{
+			setF(map);
+		}
+		else 
+		{
+			setS(map);
+			us.updateRbState(rb_id, 9, admin.getId());
+			Undo undo = new Undo();
+			undo.setRb_id(rb_id);
+			undo.setNote2(note2);
+			us.updateUndo(undo);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
+	@RequestMapping("/requestCancel.do")
+	@ResponseBody
+	public Map<String, Object> requestCancel(int rb_id, String note2) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		
+		if(admin == null)
+		{
+			setF(map);
+		}
+		else 
+		{
+			setS(map);
+			us.updateRbState(rb_id, 10, admin.getId());
+			Undo undo = new Undo();
+			undo.setRb_id(rb_id);
+			undo.setNote2(note2);
+			us.updateUndo(undo);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
+	@RequestMapping("/updateAdmin.do")
+	@ResponseBody
+	public Map<String, Object> updateAdmin(Admin a) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		
+		if(admin == null || (admin.getLevel() != 3 && admin.getLevel() != 5))
+		{
+			setF(map);
+		}
+		else 
+		{
+			setS(map);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
+	@RequestMapping("/getEList.do")
+	@ResponseBody
+	public Map<String, Object> getEList(RbSearchForm rbsf) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		
+		if(admin == null || (admin.getLevel() != 3 && admin.getLevel() != 5))
+		{
+			setF(map);
+		}
+		else 
+		{
+			dataMap.put("EList", us.getAdminList());
+			setS(map);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
 	@RequestMapping("/getRbList1.do")
 	@ResponseBody
 	public Map<String, Object> getRbList1(RbSearchForm rbsf) throws Exception
@@ -31,7 +196,6 @@ public class AdminHandler extends RootHandler {
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		
 		Admin admin = (Admin)request.getSession().getAttribute("admin");
-		System.out.println(rbsf);
 		if(admin == null)
 		{
 			setF(map);
@@ -218,8 +382,8 @@ public class AdminHandler extends RootHandler {
 			else 
 			{
 				dataMap = rb.getHashMap();
+				setS(map);
 			}
-			setS(map);
 		}
 		//先判断当前rb_id的状态，如果是已完成则创建个新的rb
 		

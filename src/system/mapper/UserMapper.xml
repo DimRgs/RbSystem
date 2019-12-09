@@ -133,6 +133,13 @@
 	
 	
 	<!-- insert -->
+	
+	<insert id="insertUndo">
+		insert into undo 
+		(rb_id, note1, c_time)
+		values(#{param1}, '${param2}', sysdate())
+	</insert>
+	
 	<insert id="insertRbOp">
 		insert into rb_operation
 		values(#{param1}, sysdate(), #{param3}, '${param2}')
@@ -164,7 +171,9 @@
 	</insert>
 	
 <!-- 	select -->
-
+	<select id="getAdminList" resultMap="admin_map">
+		select * from admin
+	</select>
 	<select id="getRbCount" parameterType="RbSearchForm" resultType="int">
 		select count(*) from rb_detail, user
 		<where>
@@ -302,8 +311,32 @@
 		select admin.id, admin.level from admin
 		where id = '${param1}' and password = '${param2}'
 	</select>
+	<select id="getUndo" resultMap="undo_map">
+		select * from undo where rb_id = #{param1}
+	</select>
 	
 	<!-- update -->
+	
+	<update id="updateUndo" parameterType="system.po.Undo">
+		update undo
+		set c_time = sysdate()
+			<if test="note1 != null">
+				, note1 = '${note1}'
+			</if>
+			<if test="note2 != null">
+				, note2 = '${note2}'
+			</if>
+			<if test="note3 != null">
+				, note3 = '${note3}'
+			</if>
+		where rb_id = #{rb_id}
+	</update>
+	
+	<update id="updateAdmin" parameterType="system.po.Admin">
+		update admin 
+		set password = '${password}'
+		where id = '${id}'
+	</update>
 	<update id="updateUserTel">
 		update user set telephone = '${param2}'
 		where id ='${param1}'

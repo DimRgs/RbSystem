@@ -11,6 +11,7 @@ import system.po.Admin;
 import system.po.Ghf;
 import system.po.RbDetail;
 import system.po.Referral;
+import system.po.Undo;
 import system.po.UserInfo;
 import system.po.Wssm;
 import system.po.Yymx;
@@ -261,6 +262,32 @@ public class UserServiceImpl implements UserService {
 	public UserInfo getUserInfoById(String id) throws Exception {
 		// TODO 自动生成的方法存根
 		return mapper.getUerInfoById(id);
+	}
+
+	@Override
+	public List<Admin> getAdminList() throws Exception {
+		// TODO 自动生成的方法存根
+		return mapper.getAdminList();
+	}
+
+
+	@Override
+	public Undo getUndo(int rb_id) throws Exception {
+		// TODO 自动生成的方法存根
+		return mapper.getUndo(rb_id);
+	}
+
+	@Override
+	public Undo insertUndo(int rb_id, String note1) throws Exception {
+		// TODO 自动生成的方法存根
+		mapper.insertUndo(rb_id, note1);
+		return mapper.getUndo(rb_id);
+	}
+
+	@Override
+	public int updateUndo(Undo undo) throws Exception {
+		// TODO 自动生成的方法存根
+		return mapper.updateUndo(undo);
 	}
 
 }

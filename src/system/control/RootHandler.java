@@ -122,7 +122,7 @@ public class RootHandler {
 		}
 		else 
 		{
-			
+			setS(map);
 		}
 		return map;
 	}

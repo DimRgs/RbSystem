@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 
 import system.po.Ghf;
 import system.po.RbDetail;
+import system.po.Undo;
 import system.po.User;
 import system.po.UserInfo;
 import system.po.Yymx;
@@ -24,6 +25,24 @@ import static system.util.Des.*;
 @Controller
 public class UserHandler extends RootHandler {
 
+	@RequestMapping("/complaint.do")
+	@ResponseBody
+	public Map<String, Object> complaint(Integer rb_id, String note1) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		User user = (User)request.getSession().getAttribute("User");
+		if(user == null)
+		{
+			setF(map);
+		}
+		else 
+		{
+			us.updateRbState(rb_id, 8, null);
+			setS(map);
+		}
+		return map;
+	}
+	
 	@RequestMapping("/changTel.do")
 	@ResponseBody
 	public Map<String, Object> changTel(String id, String telephone) throws Exception

@@ -87,8 +87,6 @@ url: /RbSystem/admin/getEList.do
 返回: Json{
 	String:success,
 	Data:{
-		int:totalNum,
-		int:totalPage,
 		EList[]:{
 			String:id,
 			String:password,
@@ -101,8 +99,7 @@ url: /RbSystem/admin/getEList.do
 url: /RbSystem/admin/updateAdmin.do
 输入：admin{
 	String:id,
-	String:opwd,
-	String:npwd,
+	String:password,
 }
 返回: Json{
 	String: success
@@ -112,7 +109,7 @@ url: /RbSystem/admin/updateAdmin.do
 url: /RbSystem/admin/addAdmin.do
 输入：admin{
 	String:id,
-	String:pwd,
+	String:password,
 }
 返回: Json{
 	String: success
