@@ -190,6 +190,29 @@ public class AdminHandler extends RootHandler {
 		return map;
 	}
 	
+	@RequestMapping("/getAllRbList.do")
+	@ResponseBody
+	public Map<String, Object> getAllRbList(RbSearchForm rbsf) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		
+		if(admin == null || (admin.getLevel() != 3 && admin.getLevel() != 5))
+		{
+			setF(map);
+		}
+		else 
+		{
+			dataMap.put("EList", us.getAdminList());
+			setS(map);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
 	@RequestMapping("/getEList.do")
 	@ResponseBody
 	public Map<String, Object> getEList(RbSearchForm rbsf) throws Exception
