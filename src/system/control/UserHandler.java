@@ -12,9 +12,11 @@ import com.alibaba.fastjson.JSON;
 
 import system.po.Ghf;
 import system.po.RbDetail;
+import system.po.Referral;
 import system.po.Undo;
 import system.po.User;
 import system.po.UserInfo;
+import system.po.Wssm;
 import system.po.Yymx;
 import system.vo.RbSearchForm;
 
@@ -124,6 +126,22 @@ public class UserHandler extends RootHandler {
 			}
 			else 
 			{
+				if(rb.getReferral() == null)
+				{
+					rb.setReferral(new Referral());
+				}
+				if(rb.getWssm() == null)
+				{
+					rb.setWssm(new Wssm());
+				}
+				if(rb.getGhf().size() == 0)
+				{
+					rb.getGhf().add(new Ghf());
+				}
+				if(rb.getYymx().size() == 0)
+				{
+					rb.getYymx().add(new Yymx());
+				}
 				dataMap = rb.getHashMap();
 			}
 			setS(map);

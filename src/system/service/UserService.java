@@ -21,9 +21,11 @@ public interface UserService {
 	public int updateRbDetail(RbDetail rb) throws Exception;
 	public int updateRbToCheck(RbDetail rb, Admin admin) throws Exception;
 	public int updateRbToPost(RbAdminPostVO rbap) throws Exception;
+	public int insertAdmin(Admin a) throws Exception;
 	
 	public int updateRbState(int rb_id, int rb_state, String admin_id) throws Exception;
 	public int updateUndo(Undo undo) throws Exception;
+	public int updateAdmin(Admin a) throws Exception;
 //	public int updateRbState(int rb_id, int rb_state) throws Exception;
 	
 	public int getDepartmentCount() throws Exception;

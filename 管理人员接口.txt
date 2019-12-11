@@ -116,5 +116,28 @@ url: /RbSystem/admin/addAdmin.do
 }
 
 4.报销单申请表列表
-
+url: /RbSystem/admin/getAllRbList.do 
+输入：rbsf:{
+	int: curPage,
+	Date: start_date,
+	Date: end_date,
+	int[]: user_type,
+	String: user_name,
+}
+返回：Json{
+	String:success("success": 成功； "failure": 失败),
+	Data: {
+		int: totalPage,
+		int: totalNum,
+		RbList[]:{
+			int:rb_id,
+			int:rb_state,
+			int:user_type(用户类型),
+			String:user_name(用户姓名)
+			int:admin_id(审核人员id),
+			String:hospital,
+			Date:s_time
+		}
+	}
+}
 

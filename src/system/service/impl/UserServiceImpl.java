@@ -273,4 +273,16 @@ public class UserServiceImpl implements UserService {
 		return mapper.updateUndo(undo);
 	}
 
+	@Override
+	public int updateAdmin(Admin a) throws Exception {
+		// TODO 自动生成的方法存根
+		return mapper.updateAdmin(a);
+	}
+
+	@Override
+	public int insertAdmin(Admin a) throws Exception {
+		// TODO 自动生成的方法存根
+		return mapper.insertAdmin(a);
+	}
+
 }

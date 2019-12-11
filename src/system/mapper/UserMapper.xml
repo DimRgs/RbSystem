@@ -160,7 +160,7 @@
 		values (#{rb_id}, '${department}', #{date}, #{cost}, '${pic}')
 	</insert>
 	<insert id="insertNewYymx" parameterType="Yymx">
-		insert into yysm
+		insert into yymx
 		(rb_id, date, cost, detailed_pic, pspt_pic)
 		values (#{rb_id}, #{date}, #{cost}, '${detailed_pic}', '${pspt_pic}')
 	</insert>
@@ -168,6 +168,11 @@
 		insert into wssm
 		(rb_id, note, stamp_pic, special_pic)
 		values (#{rb_id}, '${note}','${stamp_pic}', '${special_pic}')
+	</insert>
+	<insert id="insertAdmin" parameterType="Admin">
+		insert into admin
+		(id, password, level)
+		values('${id}', '${password}', #{level})
 	</insert>
 	
 <!-- 	select -->
@@ -249,7 +254,7 @@
 	<select id="selectLastInsertId" resultType="int">
 		select LAST_INSERT_ID()
 	</select>
-	<select id="getRbById" resultMap="rb_detail_map">
+	<select id="getRbById" resultMap="rb_detail_map" parameterType="Integer">
 		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as a_id, is_undo, 
 			rb_detail.hospital as hospital, rb_detail.s_time,
 			ghf.id as g_id, ghf.department as g_department, ghf.date as g_date,

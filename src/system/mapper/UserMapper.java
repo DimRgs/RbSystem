@@ -22,6 +22,7 @@ public interface UserMapper {
 	public int insertNewWssm(Wssm wssm) throws Exception;
 	public int insertRbOp(int rb_id, String admin_id, int operation) throws Exception;
 	public int insertUndo(int rb_id, String note1) throws Exception;
+	public int insertAdmin(Admin a) throws Exception;
 	//update
 	public int updateUserTel(String user_id, String telephone) throws Exception;
 	public int updateUserPsd(String user_id, String psd, String newPsd) throws Exception;

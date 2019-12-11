@@ -142,6 +142,30 @@ public class AdminHandler extends RootHandler {
 		return map;
 	}
 	
+	@RequestMapping("/addAdmin.do")
+	@ResponseBody
+	public Map<String, Object> addAdmin(Admin a) throws Exception
+	{
+		Map<String, Object> map = new HashMap<String, Object>(3);
+		Map<String, Object> dataMap = new HashMap<String, Object>(3);
+		
+		Admin admin = (Admin)request.getSession().getAttribute("admin");
+		
+		if(admin == null || (admin.getLevel() != 3 && admin.getLevel() != 5))
+		{
+			setF(map);
+		}
+		else 
+		{
+			setS(map);
+			a.setLevel(2);
+			us.insertAdmin(admin);
+		}
+		
+		map.put("Data", dataMap);
+		return map;
+	}
+	
 	@RequestMapping("/updateAdmin.do")
 	@ResponseBody
 	public Map<String, Object> updateAdmin(Admin a) throws Exception
@@ -158,6 +182,7 @@ public class AdminHandler extends RootHandler {
 		else 
 		{
 			setS(map);
+			us.updateAdmin(admin);
 		}
 		
 		map.put("Data", dataMap);
