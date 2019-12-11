@@ -198,15 +198,27 @@ public class AdminHandler extends RootHandler {
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
 		
 		Admin admin = (Admin)request.getSession().getAttribute("admin");
-		
-		if(admin == null || (admin.getLevel() != 3 && admin.getLevel() != 5))
+		if(admin == null)
 		{
 			setF(map);
 		}
 		else 
 		{
-			dataMap.put("EList", us.getAdminList());
+			int total = us.getRbCount(rbsf);
+			int maxPage = getMaxPageNum(total);
+			int curPage = rbsf.getCurPage();
+			curPage = curPage < 1 ? 1 : curPage;
+			curPage = curPage > maxPage ? maxPage : curPage;
+			
+			rbsf.setCurPage(curPage);
+			rbsf.setStart(getSQLIndexByPageNum(curPage));
+			rbsf.setLength(EVERY_PAGE_ITEMS);
+			
+			List<RbInfo> rblist = us.getRbList(rbsf);
 			setS(map);
+			dataMap.put("RbList", rblist);
+			dataMap.put("totalPage", maxPage);
+			dataMap.put("totalNum", total);
 		}
 		
 		map.put("Data", dataMap);
