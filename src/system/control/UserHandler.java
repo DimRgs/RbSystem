@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
+import system.po.Admin;
 import system.po.Ghf;
 import system.po.RbDetail;
+import system.po.RbInfo;
 import system.po.Referral;
 import system.po.Undo;
 import system.po.User;
@@ -230,7 +232,13 @@ public class UserHandler extends RootHandler {
 			rbsf.setStart(getSQLIndexByPageNum(curPage));
 			rbsf.setLength(EVERY_PAGE_ITEMS);
 			
-			List<RbDetail> rblist = us.getRbList(rbsf);
+			List<RbInfo> rblist = us.getRbList(rbsf);
+			for(RbInfo r : rblist)
+			{
+				Admin a = new Admin();
+				a.setId(r.getAdmin_id());
+				r.setAdmin(a);
+			}
 			setS(map);
 			dataMap.put("RbList", rblist);
 			dataMap.put("totalPage", maxPage);

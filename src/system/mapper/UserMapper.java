@@ -5,6 +5,7 @@ import java.util.List;
 import system.po.Admin;
 import system.po.Ghf;
 import system.po.RbDetail;
+import system.po.RbInfo;
 import system.po.Referral;
 import system.po.Undo;
 import system.po.User;
@@ -46,7 +47,7 @@ public interface UserMapper {
 	public RbDetail getRbById(Integer rb_id) throws Exception;
 	public int selectLastInsertId() throws Exception;
 	public int getRbCount(RbSearchForm rbsf) throws Exception;
-	public List<RbDetail> getRbList(RbSearchForm rbsf) throws Exception;
+	public List<RbInfo> getRbList(RbSearchForm rbsf) throws Exception;
 	public List<Admin> getAdminList() throws Exception;
 	public Undo getUndo(int rb_id) throws Exception;
 //	public int 

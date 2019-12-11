@@ -10,6 +10,7 @@ import system.mapper.UserMapper;
 import system.po.Admin;
 import system.po.Ghf;
 import system.po.RbDetail;
+import system.po.RbInfo;
 import system.po.Referral;
 import system.po.Undo;
 import system.po.UserInfo;
@@ -152,7 +153,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<RbDetail> getRbList(RbSearchForm rbsf) throws Exception {
+	public List<RbInfo> getRbList(RbSearchForm rbsf) throws Exception {
 		// TODO 自动生成的方法存根
 		return mapper.getRbList(rbsf);
 	}

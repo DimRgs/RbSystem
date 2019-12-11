@@ -4,6 +4,7 @@ import java.util.List;
 
 import system.po.Admin;
 import system.po.RbDetail;
+import system.po.RbInfo;
 import system.po.Undo;
 import system.po.UserInfo;
 import system.vo.RbAdminPostVO;
@@ -34,7 +35,7 @@ public interface UserService {
 	public Admin getAdminInfo(String id, String password) throws Exception;
 	public RbDetail getLastRb(String user_id) throws Exception;
 	public RbDetail getRbById(Integer rb_id) throws Exception;
-	public List<RbDetail> getRbList(RbSearchForm rbsf) throws Exception;
+	public List<RbInfo> getRbList(RbSearchForm rbsf) throws Exception;
 	public int getRbCount(RbSearchForm rbsf) throws Exception;
 	public List<Admin> getAdminList() throws Exception;
 	public Undo getUndo(int rb_id) throws Exception;

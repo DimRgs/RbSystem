@@ -289,7 +289,7 @@ url: /RbSystem/admin/getRbList1.do
 			int:rb_state,
 			int:user_type(用户类型),
 			String:user_name(用户姓名)
-			int:admin_id(审核人员id),
+			String:admin_id(审核人员id),
 			String:hospital,
 			Date:s_time
 		}
@@ -317,7 +317,7 @@ url: /RbSystem/admin/getRbList2.do
 			int:rb_state,
 			int:user_type(用户类型),
 			String:user_name(用户姓名)
-			int:admin_id(审核人员id),
+			String:admin_id(审核人员id),
 			Date:s_time
 		}
 	}

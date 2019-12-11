@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 
 import system.po.Admin;
 import system.po.RbDetail;
+import system.po.RbInfo;
 import system.po.Undo;
 import system.po.User;
 import system.vo.*;
@@ -238,7 +239,7 @@ public class AdminHandler extends RootHandler {
 			rbsf.setStart(getSQLIndexByPageNum(curPage));
 			rbsf.setLength(EVERY_PAGE_ITEMS);
 			
-			List<RbDetail> rblist = us.getRbList(rbsf);
+			List<RbInfo> rblist = us.getRbList(rbsf);
 			setS(map);
 			dataMap.put("RbList", rblist);
 			dataMap.put("totalPage", maxPage);
@@ -317,7 +318,7 @@ public class AdminHandler extends RootHandler {
 			rbsf.setStart(getSQLIndexByPageNum(curPage));
 			rbsf.setLength(EVERY_PAGE_ITEMS);
 
-			List<RbDetail> rblist = us.getRbList(rbsf);
+			List<RbInfo> rblist = us.getRbList(rbsf);
 			setS(map);
 			dataMap.put("RbList", rblist);
 			dataMap.put("totalPage", maxPage);

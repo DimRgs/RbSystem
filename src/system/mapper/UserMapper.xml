@@ -31,6 +31,16 @@
 			<id property="id" column="a_id" />
 		</association>
 	</resultMap>
+	<resultMap type="RbInfo" id="rb_info_map">
+		<id property="rb_id" column="id" />
+		<result property="rb_state" column="rb_state_id" />
+		<result property="hospital" column="hospital" />
+		<result property="user_type" column="user_type" />
+		<result property="user_name" column="user_name" />
+		<result property="admin_id" column="admin_id" />
+		<result property="isUndo" column="is_undo" />
+		<result property="s_time" column="s_time" />
+	</resultMap>
 	<resultMap type="Undo" id="undo_map">
 		<id property="id" column="r_id" />
 		<result property="rb_id" column="rb_id" />
@@ -180,9 +190,11 @@
 		select * from admin
 	</select>
 	<select id="getRbCount" parameterType="RbSearchForm" resultType="int">
-		select count(*) from rb_detail, user
+		select count(*) 
+		from (rb_detail)
+			left join (user left join user_type on (user.user_type_id = user_type.id)) on (rb_detail.user_id = user.id)
+			left join admin on (rb_detail.admin_id = admin.id)
 		<where>
-			user.id = rb_detail.user_id
 			<if test="user_name != null">
 				and user.name like '%${user_name}%'
 			</if>
@@ -212,13 +224,14 @@
 			</if>
 		</where>
 	</select>
-<!-- 	差审核人员字段 -->
-	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_map">
-		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as a_id,
-			user.name as u_name, rb_detail.hospital, is_undo
-		from rb_detail, user
+	
+	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_info">
+		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as admin_id,
+			user.name as user_name, rb_detail.hospital, is_undo, s_time, user_type.type as user_type
+		from (rb_detail)
+			left join (user left join user_type on (user.user_type_id = user_type.id)) on (rb_detail.user_id = user.id)
+			left join admin on (rb_detail.admin_id = admin.id)
 		<where>
-			user.id = rb_detail.user_id
 			<if test="user_name != null">
 				and user.name like '%${user_name}%'
 			</if>
@@ -246,7 +259,6 @@
 			<if test="user_id != null">
 				and rb_detail.user_id = '${user_id}'
 			</if>
-			
 		</where>
 		order by s_time desc
 		limit #{start}, #{length}
