@@ -5,7 +5,7 @@ import java.util.Date;
 public class RbInfo {
 	private int rb_id;
 	private int rb_state;
-	private int user_type;
+	private String user_type;
 	private String user_name;
 	private String admin_id;
 	private Admin admin;
@@ -25,10 +25,10 @@ public class RbInfo {
 	public void setRb_state(int rb_state) {
 		this.rb_state = rb_state;
 	}
-	public int getUser_type() {
+	public String getUser_type() {
 		return user_type;
 	}
-	public void setUser_type(int user_type) {
+	public void setUser_type(String user_type) {
 		this.user_type = user_type;
 	}
 	public String getUser_name() {

@@ -225,7 +225,7 @@
 		</where>
 	</select>
 	
-	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_info">
+	<select id="getRbList" parameterType="RbSearchForm" resultMap="rb_info_map">
 		select rb_detail.id, rb_detail.rb_state_id, rb_detail.admin_id as admin_id,
 			user.name as user_name, rb_detail.hospital, is_undo, s_time, user_type.type as user_type
 		from (rb_detail)
