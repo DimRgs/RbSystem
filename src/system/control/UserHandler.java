@@ -209,7 +209,7 @@ public class UserHandler extends RootHandler {
 	
 	@RequestMapping("/getMyRbRecord.do")
 	@ResponseBody
-	public Map<String, Object> getMyRbRecord(RbSearchForm rbsf) throws Exception
+	public Map<String, Object> getMyRbRecord(String rbsf) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
@@ -221,18 +221,21 @@ public class UserHandler extends RootHandler {
 		}
 		else 
 		{
-			rbsf.setUser_id(user.getId());
-			int total = us.getRbCount(rbsf);
+			System.out.println("record list: " + rbsf);
+			RbSearchForm rbs = JSON.parseObject(rbsf, RbSearchForm.class);
+			System.out.println("record list:" + rbs.getHashMap().toString());
+			rbs.setUser_id(user.getId());
+			int total = us.getRbCount(rbs);
 			int maxPage = getMaxPageNum(total);
-			int curPage = rbsf.getCurPage();
+			int curPage = rbs.getCurPage();
 			curPage = curPage < 1 ? 1 : curPage;
 			curPage = curPage > maxPage ? maxPage : curPage;
 			
-			rbsf.setCurPage(curPage);
-			rbsf.setStart(getSQLIndexByPageNum(curPage));
-			rbsf.setLength(EVERY_PAGE_ITEMS);
+			rbs.setCurPage(curPage);
+			rbs.setStart(getSQLIndexByPageNum(curPage));
+			rbs.setLength(EVERY_PAGE_ITEMS);
 			
-			List<RbInfo> rblist = us.getRbList(rbsf);
+			List<RbInfo> rblist = us.getRbList(rbs);
 			for(RbInfo r : rblist)
 			{
 				Admin a = new Admin();

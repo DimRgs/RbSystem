@@ -141,3 +141,42 @@ url: /RbSystem/admin/getAllRbList.do
 	}
 }
 
+# 系统管理员接口
+
+1.人员管理
+(1)获取人员列表		做分页，检索条件中的部门列表每次调用都返回
+url: /RbSystem/admin/getAllUser.do 
+输入: usf:{
+	int:curPage,
+	String:name,
+	String:id,
+	int:gender(0：全部，1：男，2：女),
+	int:department_id,
+	int[]:user_type(1:学生 2：在职职工 3：离休人员 4：退休人员),
+	int[]:user_state(1:生效 2：失效)
+	Date:start_date,
+	Date:end_date
+}
+返回：Json{
+	String:success("success": 成功； "failure": 失败),
+	Data: {
+		int: totalPage,
+		int: totalNum,
+		userInfoList[]:{
+			String:name(用户姓名), 
+			String:id(工号), 
+			int:gender(1：男；2：女)，
+			String:type,
+			String:idCard(身份证号),
+			String:register_time(注册时间),
+			String:telphone(手机号码),
+		}
+	}
+}
+
+增加人员
+
+
+部门管理
+
+报销单申请表管理

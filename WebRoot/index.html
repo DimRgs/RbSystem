@@ -14,9 +14,9 @@
   				success: function(data){
 					$.ajax({
 		  				type:"POST",
-		  				url:"/RbSystem/admin/startRbCheck.do",
+		  				url:"/RbSystem/admin/getRbList2.do",
 		  				dataType:"json",
-		  				data:{rb_id:1},
+		  				data:{"rbsf":JSON.stringify({"curPage":1,"user_name":" §∂‡∏∫…Ÿ","user_type":["1","2"],"start_date":1574870400000,"end_date":1575216000000})},
 		  				success: function(data){
 							dataStr = JSON.stringify(data);
 					        data = $.parseJSON(dataStr);

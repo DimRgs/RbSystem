@@ -160,7 +160,7 @@ public class AdminHandler extends RootHandler {
 		{
 			setS(map);
 			a.setLevel(2);
-			us.insertAdmin(admin);
+			us.insertAdmin(a);
 		}
 		
 		map.put("Data", dataMap);
@@ -183,7 +183,7 @@ public class AdminHandler extends RootHandler {
 		else 
 		{
 			setS(map);
-			us.updateAdmin(admin);
+			us.updateAdmin(a);
 		}
 		
 		map.put("Data", dataMap);
@@ -192,7 +192,7 @@ public class AdminHandler extends RootHandler {
 	
 	@RequestMapping("/getAllRbList.do")
 	@ResponseBody
-	public Map<String, Object> getAllRbList(RbSearchForm rbsf) throws Exception
+	public Map<String, Object> getAllRbList(String rbsf) throws Exception
 	{
 		Map<String, Object> map = new HashMap<String, Object>(3);
 		Map<String, Object> dataMap = new HashMap<String, Object>(3);
@@ -204,17 +204,29 @@ public class AdminHandler extends RootHandler {
 		}
 		else 
 		{
-			int total = us.getRbCount(rbsf);
+
+			RbSearchForm rbs = JSON.parseObject(rbsf, RbSearchForm.class);
+			System.out.println("all list: " + rbs.getHashMap().toString());
+			if(rbs.getUser_type() != null && rbs.getUser_type().length == 0)
+			{
+				rbs.setUser_type(null);
+			}
+			if(rbs.getRb_state() != null && rbs.getRb_state().length == 0)
+			{
+				rbs.setRb_state(null);
+			}
+			int total = us.getRbCount(rbs);
 			int maxPage = getMaxPageNum(total);
-			int curPage = rbsf.getCurPage();
+			int curPage = rbs.getCurPage();
 			curPage = curPage < 1 ? 1 : curPage;
 			curPage = curPage > maxPage ? maxPage : curPage;
 			
-			rbsf.setCurPage(curPage);
-			rbsf.setStart(getSQLIndexByPageNum(curPage));
-			rbsf.setLength(EVERY_PAGE_ITEMS);
+			rbs.setCurPage(curPage);
+			rbs.setStart(getSQLIndexByPageNum(curPage));
+			rbs.setLength(EVERY_PAGE_ITEMS);
 			
-			List<RbInfo> rblist = us.getRbList(rbsf);
+			List<RbInfo> rblist = us.getRbList(rbs);
+			
 			setS(map);
 			dataMap.put("RbList", rblist);
 			dataMap.put("totalPage", maxPage);
@@ -250,7 +262,7 @@ public class AdminHandler extends RootHandler {
 	
 	@RequestMapping("/getRbList1.do")
 	@ResponseBody
-	public Map<String, Object> getRbList1(RbSearchForm rbsf) throws Exception
+	public Map<String, Object> getRbList1(String rbsf) throws Exception
 	{
 		//查看待审核报销单申请表列表
 		Map<String, Object> map = new HashMap<String, Object>(3);
@@ -263,18 +275,29 @@ public class AdminHandler extends RootHandler {
 		}
 		else 
 		{
-			rbsf.setRb_state(new int[]{2, 3});
-			int total = us.getRbCount(rbsf);
+			System.out.println("list1: " + rbsf);
+			RbSearchForm rbs = JSON.parseObject(rbsf, RbSearchForm.class);
+			if(rbs.getUser_type() != null && rbs.getUser_type().length == 0)
+			{
+				rbs.setUser_type(null);
+			}
+			if(rbs.getRb_state() != null && rbs.getRb_state().length == 0)
+			{
+				rbs.setRb_state(null);
+			}
+			System.out.println("list1: " + rbs.getHashMap().toString());
+			rbs.setRb_state(new int[]{2, 3});
+			int total = us.getRbCount(rbs);
 			int maxPage = getMaxPageNum(total);
-			int curPage = rbsf.getCurPage();
+			int curPage = rbs.getCurPage();
 			curPage = curPage < 1 ? 1 : curPage;
 			curPage = curPage > maxPage ? maxPage : curPage;
 			
-			rbsf.setCurPage(curPage);
-			rbsf.setStart(getSQLIndexByPageNum(curPage));
-			rbsf.setLength(EVERY_PAGE_ITEMS);
+			rbs.setCurPage(curPage);
+			rbs.setStart(getSQLIndexByPageNum(curPage));
+			rbs.setLength(EVERY_PAGE_ITEMS);
 			
-			List<RbInfo> rblist = us.getRbList(rbsf);
+			List<RbInfo> rblist = us.getRbList(rbs);
 			setS(map);
 			dataMap.put("RbList", rblist);
 			dataMap.put("totalPage", maxPage);
@@ -324,7 +347,7 @@ public class AdminHandler extends RootHandler {
 	
 	@RequestMapping("/getRbList2.do")
 	@ResponseBody
-	public Map<String, Object> getRbList2(RbSearchForm rbsf) throws Exception
+	public Map<String, Object> getRbList2(String rbsf) throws Exception
 	{
 		//查看已审核报销单申请表列表
 		Map<String, Object> map = new HashMap<String, Object>(3);
@@ -338,22 +361,33 @@ public class AdminHandler extends RootHandler {
 		}
 		else 
 		{
-			if(rbsf.getRb_state() == null)
+			System.out.println("list2: " + rbsf);
+			RbSearchForm rbs = JSON.parseObject(rbsf, RbSearchForm.class);
+			if(rbs.getUser_type() != null && rbs.getUser_type().length == 0)
 			{
-				rbsf.setRb_state(new int[]{4, 5, 6, 7});
+				rbs.setUser_type(null);
 			}
-			rbsf.setAdmin_id(admin.getId());
-			int total = us.getRbCount(rbsf);
+			if(rbs.getRb_state() != null && rbs.getRb_state().length == 0)
+			{
+				rbs.setRb_state(null);
+			}
+			System.out.println("list2: " + rbs.getHashMap().toString());
+			if(rbs.getRb_state() == null)
+			{
+				rbs.setRb_state(new int[]{4, 5, 6, 7});
+			}
+			rbs.setAdmin_id(admin.getId());
+			int total = us.getRbCount(rbs);
 			int maxPage = getMaxPageNum(total);
-			int curPage = rbsf.getCurPage();
+			int curPage = rbs.getCurPage();
 			curPage = curPage < 1 ? 1 : curPage;
 			curPage = curPage > maxPage ? maxPage : curPage;
 
-			rbsf.setCurPage(curPage);
-			rbsf.setStart(getSQLIndexByPageNum(curPage));
-			rbsf.setLength(EVERY_PAGE_ITEMS);
+			rbs.setCurPage(curPage);
+			rbs.setStart(getSQLIndexByPageNum(curPage));
+			rbs.setLength(EVERY_PAGE_ITEMS);
 
-			List<RbInfo> rblist = us.getRbList(rbsf);
+			List<RbInfo> rblist = us.getRbList(rbs);
 			setS(map);
 			dataMap.put("RbList", rblist);
 			dataMap.put("totalPage", maxPage);

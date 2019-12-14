@@ -188,6 +188,7 @@
 <!-- 	select -->
 	<select id="getAdminList" resultMap="admin_map">
 		select * from admin
+		where level = 2
 	</select>
 	<select id="getRbCount" parameterType="RbSearchForm" resultType="int">
 		select count(*) 

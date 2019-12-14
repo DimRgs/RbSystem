@@ -1,8 +1,13 @@
 package system.vo;
 
+import java.lang.reflect.Field;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-public class RbSearchForm {
+import system.po.Hashable;
+
+public class RbSearchForm implements Hashable {
 	private String user_name;	
 	private String user_id;
 	private int[] rb_state;
@@ -82,6 +87,21 @@ public class RbSearchForm {
 	}
 	public void setRb_state(int[] rb_state) {
 		this.rb_state = rb_state;
+	}
+	@Override
+	public Map<String, Object> getHashMap() {
+		// TODO 自动生成的方法存根
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			Field[] declaredFields = this.getClass().getDeclaredFields();
+			for (Field field : declaredFields) {
+				field.setAccessible(true);
+				map.put(field.getName(), field.get(this));
+			}
+		} catch (Exception e) {
+			
+		}
+		return map;
 	}
 	
 }
