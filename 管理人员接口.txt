@@ -144,7 +144,7 @@ url: /RbSystem/admin/getAllRbList.do
 # 系统管理员接口
 
 1.人员管理
-(1)获取人员列表		做分页，检索条件中的部门列表每次调用都返回
+(1)获取用户列表		做分页，检索条件中的部门列表每次调用都返回
 url: /RbSystem/admin/getAllUser.do 
 输入: usf:{
 	int:curPage,
@@ -171,8 +171,30 @@ url: /RbSystem/admin/getAllUser.do
 			String:register_time(注册时间),
 			String:telphone(手机号码),
 		}
+		departmentList[]:{
+			int:id,
+			String:name
+		}
 	}
 }
+(2)修改用户信息 如果只修改某一条，可以让其他值为空，但oldId一定要有
+url: /RbSystem/admin/updateUser.do 
+输入：User:{
+	String:oldId,
+	String:newId,
+	String:name,
+	String:id_card,
+	String:telephone,
+	int:gender,
+	int:department_id,
+	int:user_type_id,
+	int:state,
+}
+返回：Json{
+	String:success("success": 成功； "failure": 失败),
+}
+
+(3)增加用户
 
 增加人员
 

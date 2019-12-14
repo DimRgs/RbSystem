@@ -6,7 +6,7 @@ public class UserSearchForm {
 	private String id;
 	private int gender;
 	private int department_id;
-	private int user_type;
+	private int[] user_type;
 	private int start_date;
 	private int end_date;
 	

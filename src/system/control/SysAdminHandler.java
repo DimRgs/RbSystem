@@ -22,4 +22,6 @@ public class SysAdminHandler extends RootHandler {
 		map.put("Data", dataMap);
 		return map;
 	}
+	
+	
 }
